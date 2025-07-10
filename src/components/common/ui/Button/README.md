@@ -16,19 +16,19 @@ import Button from '@/components/common/ui/Button/Button';
 
 ## Пропси
 
-| Проп        | Тип                                     | За замовчуванням | Опис                                   |
-| ----------- | --------------------------------------- | ---------------- | -------------------------------------- |
-| `variant`   | `'primary' \| 'secondary' \| 'outline'` | `'primary'`      | Варіант стилю кнопки                   |
-| `size`      | `'small' \| 'medium' \| 'large'`        | `'medium'`       | Розмір кнопки                          |
-| `disabled`  | `boolean`                               | `false`          | Чи вимкнена кнопка                     |
-| `fullWidth` | `boolean`                               | `false`          | Чи займає кнопка всю ширину контейнера |
-| `onClick`   | `function`                              | -                | Обробник події кліку                   |
-| `children`  | `React.ReactNode`                       | -                | Вміст кнопки (текст/іконки)            |
-| `className` | `string`                                | -                | Додаткові CSS класи                    |
+| Проп        | Тип                              | За замовчуванням | Опис                                   |
+| ----------- | -------------------------------- | ---------------- | -------------------------------------- |
+| `variant`   | `'primary' \| 'white'`           | `'primary'`      | Варіант стилю кнопки                   |
+| `size`      | `'small' \| 'medium' \| 'large'` | `'medium'`       | Розмір кнопки                          |
+| `disabled`  | `boolean`                        | `false`          | Чи вимкнена кнопка                     |
+| `fullWidth` | `boolean`                        | `false`          | Чи займає кнопка всю ширину контейнера |
+| `onClick`   | `function`                       | -                | Обробник події кліку                   |
+| `children`  | `React.ReactNode`                | -                | Вміст кнопки (текст/іконки)            |
+| `className` | `string`                         | -                | Додаткові CSS класи                    |
 
-## Варіанти (Variants)
+## Варіанти кнопок
 
-### Primary
+### Primary (Чорна)
 
 Основна чорна кнопка для головних дій.
 
@@ -36,20 +36,22 @@ import Button from '@/components/common/ui/Button/Button';
 <Button variant='primary'>SIGN IN</Button>
 ```
 
-### Secondary
+### White (Біла)
 
-Сіра кнопка для вторинних дій.
+Біла кнопка з чорною межею для альтернативних дій.
 
 ```jsx
-<Button variant='secondary'>CANCEL</Button>
+<Button variant='white'>ADD RECIPE</Button>
 ```
 
-### Outline
+### Disabled (Сіра)
 
-Прозора кнопка з межею для альтернативних дій.
+Будь-яка кнопка автоматично стає сірою при `disabled={true}`.
 
 ```jsx
-<Button variant='outline'>ADD RECIPE</Button>
+<Button variant='primary' disabled>
+    PUBLISH
+</Button>
 ```
 
 ## Розміри (Sizes)
@@ -96,25 +98,21 @@ function LoginForm() {
 }
 ```
 
-### Різні варіанти кнопок
+### Усі варіанти кнопок
 
 ```jsx
-function AuthButtons() {
+function ButtonExamples() {
     return (
         <div style={{ display: 'flex', gap: '16px' }}>
-            {/* Основна дія */}
-            <Button variant='primary' size='medium'>
-                SIGN IN
-            </Button>
+            {/* Чорна кнопка */}
+            <Button variant='primary'>SIGN IN</Button>
 
-            {/* Вторинна дія */}
-            <Button variant='secondary' size='medium'>
-                CANCEL
-            </Button>
+            {/* Біла кнопка */}
+            <Button variant='white'>ADD RECIPE</Button>
 
-            {/* Альтернативна дія */}
-            <Button variant='outline' size='large'>
-                ADD RECIPE
+            {/* Сіра кнопка (disabled) */}
+            <Button variant='primary' disabled>
+                PUBLISH
             </Button>
         </div>
     );
@@ -140,7 +138,7 @@ function AuthButtons() {
 ### З додатковими класами
 
 ```jsx
-<Button variant='outline' className='my-custom-class' onClick={() => alert('Clicked!')}>
+<Button variant='white' className='my-custom-class' onClick={() => alert('Clicked!')}>
     CUSTOM STYLED BUTTON
 </Button>
 ```
@@ -155,9 +153,9 @@ function AuthButtons() {
 
 ```css
 :root {
-    --button-primary-bg: #1a1a1a;
-    --button-secondary-bg: #a8a8a8;
-    --button-outline-border: #1a1a1a;
+    --color-dark: #1a1a1a; /* Колір чорних кнопок */
+    --color-white: #ffffff; /* Колір білих кнопок */
+    --color-light: #bfbebe; /* Колір сірих кнопок (disabled) */
 }
 ```
 

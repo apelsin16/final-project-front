@@ -1,0 +1,159 @@
+/* Базовые стили для PathInfo */
+.pathInfo {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.breadcrumbList {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    /* Стили из Figma */
+    font-family: 'Mulish', sans-serif;
+    font-weight: 700; /* Bold */
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: -0.02em; /* -2% */
+    text-transform: uppercase;
+    color: #050505;
+}
+
+.breadcrumbItem {
+    display: flex;
+    align-items: center;
+}
+
+/* HOME ссылка */
+.homeLink {
+    color: #050505;
+    text-decoration: none;
+    transition: color 0.2s ease, opacity 0.2s ease;
+    cursor: pointer;
+}
+
+.homeLink:hover {
+    color: #333333;
+    opacity: 0.8;
+}
+
+.homeLink:focus {
+    outline: 2px solid #050505;
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+.homeLink:active {
+    color: #000000;
+}
+
+/* HOME текст без ссылки */
+.homeText {
+    color: #050505;
+}
+
+/* Разделитель */
+.separator {
+    color: #050505;
+    user-select: none;
+    margin: 0 4px;
+}
+
+/* Текущая страница */
+.currentPage {
+    color: #050505;
+    font-weight: 700; /* Bold как и HOME */
+}
+
+/* Адаптивные стили */
+@media (max-width: 767px) {
+    .breadcrumbList {
+        /* Мобильные стили остаются такими же */
+        font-size: 12px;
+        line-height: 18px;
+        gap: 6px;
+    }
+
+    .separator {
+        margin: 0 2px;
+    }
+}
+
+@media (min-width: 768px) {
+    .breadcrumbList {
+        /* Планшеты и десктопы */
+        font-size: 12px;
+        line-height: 18px;
+        gap: 8px;
+    }
+
+    .separator {
+        margin: 0 4px;
+    }
+}
+
+/* Улучшенная доступность */
+.pathInfo {
+    /* Сглаживание шрифта */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* Состояния фокуса для всех интерактивных элементов */
+.link:focus-visible {
+    outline: 2px solid #050505;
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+/* Анимация появления */
+.pathInfo {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Состояние загрузки */
+.pathInfo.loading {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+/* Дополнительные варианты цветов (если понадобятся) */
+.pathInfo.light {
+    color: #ffffff;
+}
+
+.pathInfo.light .breadcrumbList,
+.pathInfo.light .homeLink,
+.pathInfo.light .homeText,
+.pathInfo.light .separator,
+.pathInfo.light .currentPage {
+    color: #ffffff;
+}
+
+.pathInfo.light .homeLink:hover {
+    color: #cccccc;
+}
+
+.pathInfo.light .homeLink:focus,
+.pathInfo.light .link:focus-visible {
+    outline-color: #ffffff;
+}
+
+/* Стили для принтера */
+@media print {
+    .pathInfo {
+        color: #000000 !important;
+    }
+
+    .homeLink {
+        text-decoration: underline;
+        color: #000000 !important;
+    }
+}

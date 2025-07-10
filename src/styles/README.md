@@ -1,161 +1,135 @@
-# Style Constants - Константи стилів
+# CSS Переменные Проекта Foodies
 
-Файл з константами стилів для проекту Foodies. Тут знаходяться всі основні значення дизайн-системи.
+Простий гайд по використанню CSS змінних для початківців.
 
-## 📁 Файли
+## Що це таке?
 
--   `constants.js` - основні константи дизайн-системи
+CSS змінні (Custom Properties) - це спосіб зберігати значення, які можна використовувати по всьому проекту. Це робить код більш організованим і легким для змін.
 
-## 🎨 Як використовувати
+## Як використовувати?
 
-### В CSS модулях
+Щоб використати змінну, пишіть `var(--назва-змінної)`:
 
 ```css
-/* Замість хардкоженних значень */
-.button {
-    background-color: #050505; /* ❌ Погано */
-    padding: 12px 32px; /* ❌ Погано */
-    border-radius: 50px; /* ❌ Погано */
-}
-
-/* Використовуй змінні з constants.js в коментарях */
-.button {
-    background-color: #050505; /* COLORS.PRIMARY */
-    padding: 12px 32px; /* BUTTON_SIZES.MEDIUM.PADDING */
-    border-radius: 50px; /* BORDER_RADIUS.PILL */
+/* Приклад */
+.my-button {
+    color: var(--color-black); /* Замість color: #050505; */
+    font-size: var(--font-size-medium); /* Замість font-size: 16px; */
+    padding: var(--spacing-md); /* Замість padding: 16px; */
 }
 ```
 
-### В JavaScript/JSX
+## Доступні змінні
 
-```jsx
-import { COLORS, SPACING, FONT_SIZES } from '@/styles/constants';
+### 🎨 Кольори
 
-// Інлайн стилі
-const styles = {
-    backgroundColor: COLORS.PRIMARY,
-    padding: SPACING.MD,
-    fontSize: FONT_SIZES.MEDIUM,
-};
+-   `--color-black` - основний чорний (#050505)
+-   `--color-dark` - темно-сірий (#1A1A1A)
+-   `--color-light` - світло-сірий (#BFBEBE)
+-   `--color-white` - білий (#FFFFFF)
 
-// В компоненті
-<div style={styles}>Content</div>;
+### 🔤 Шрифти
+
+-   `--font-family-main` - основний шрифт (Mulish + fallback)
+-   `--font-weight-medium` - середня вага (500)
+-   `--font-weight-bold` - жирний (700)
+-   `--font-weight-extra-bold` - дуже жирний (800)
+
+### 📝 Розміри шрифтів
+
+-   `--font-size-small` - мелкий текст (14px)
+-   `--font-size-medium` - звичайний текст (16px)
+-   `--font-size-large` - крупний текст (18px)
+-   `--font-size-title` - заголовки (24px)
+-   `--font-size-hero` - головні заголовки (48px)
+
+### 📏 Відступи
+
+-   `--spacing-xs` - дуже маленькі (8px)
+-   `--spacing-sm` - маленькі (12px)
+-   `--spacing-md` - звичайні (16px)
+-   `--spacing-lg` - великі (24px)
+-   `--spacing-xl` - дуже великі (32px)
+
+### 🔄 Скруглення
+
+-   `--border-radius-small` - маленькі скруглення (8px)
+-   `--border-radius-button` - скруглення кнопок (50px)
+
+### 🌚 Тіні
+
+-   `--shadow-light` - легка тінь
+-   `--shadow-medium` - помітна тінь
+
+## Приклади використання
+
+### Створення кнопки
+
+```css
+.my-button {
+    background-color: var(--color-black);
+    color: var(--color-white);
+    font-family: var(--font-family-main);
+    font-weight: var(--font-weight-bold);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-button);
+    font-size: var(--font-size-medium);
+}
 ```
 
-## 🎯 Доступні константи
+### Створення карточки
 
-### COLORS - Кольори
-
-```js
-COLORS.BLACK; // #050505 - основний чорний
-COLORS.DARK_GRAY; // #1A1A1A - темно-сірий
-COLORS.LIGHT_GRAY; // #BFBEBE - світло-сірий
-COLORS.WHITE; // #FFFFFF - білий
-
-// Аліаси
-COLORS.PRIMARY; // #050505 - основний колір
-COLORS.SECONDARY; // #1A1A1A - вторинний колір
-COLORS.MUTED; // #BFBEBE - приглушений колір
-COLORS.BACKGROUND; // #FFFFFF - колір фону
+```css
+.recipe-card {
+    background-color: var(--color-white);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-small);
+    box-shadow: var(--shadow-light);
+}
 ```
 
-### FONT_SIZES - Розміри шрифтів
+### Створення заголовка
 
-```js
-FONT_SIZES.SMALL; // 14px
-FONT_SIZES.MEDIUM; // 16px
-FONT_SIZES.LARGE; // 18px
-FONT_SIZES.XL; // 24px
-FONT_SIZES.XXL; // 32px
-FONT_SIZES.TITLE; // 48px
+```css
+.page-title {
+    color: var(--color-black);
+    font-family: var(--font-family-main);
+    font-size: var(--font-size-hero);
+    font-weight: var(--font-weight-extra-bold);
+    margin-bottom: var(--spacing-xl);
+}
 ```
 
-### SPACING - Відступи
+## Важливо! ⚠️
 
-```js
-SPACING.XS; // 4px
-SPACING.SM; // 8px
-SPACING.MD; // 16px
-SPACING.LG; // 24px
-SPACING.XL; // 32px
-SPACING.XXL; // 48px
-SPACING.XXXL; // 64px
-```
+1. **Завжди використовуй змінні замість хардкоду:**
 
-### BORDER_RADIUS - Закруглення
+    ```css
+    /* ❌ Погано */
+    color: #050505;
 
-```js
-BORDER_RADIUS.SMALL; // 8px
-BORDER_RADIUS.MEDIUM; // 12px
-BORDER_RADIUS.LARGE; // 16px
-BORDER_RADIUS.PILL; // 50px - для кнопок
-BORDER_RADIUS.CIRCLE; // 50% - для аватарів
-```
+    /* ✅ Добре */
+    color: var(--color-black);
+    ```
 
-### BUTTON_SIZES - Розміри кнопок
+2. **Якщо потрібного кольору/розміру немає:**
 
-```js
-BUTTON_SIZES.SMALL.PADDING; // 8px 20px
-BUTTON_SIZES.SMALL.HEIGHT; // 36px
-BUTTON_SIZES.SMALL.FONT_SIZE; // 14px
+    - Спочатку подивись, чи можна використати існуючий
+    - Якщо ні - додай нову змінну в `variables.css`
+    - Повідом команді про зміни
 
-BUTTON_SIZES.MEDIUM.PADDING; // 12px 32px
-BUTTON_SIZES.MEDIUM.HEIGHT; // 48px
-BUTTON_SIZES.MEDIUM.FONT_SIZE; // 16px
+3. **Де знаходяться файли:**
+    - `src/styles/variables.css` - тут всі змінні
+    - `src/index.css` - підключення змінних
 
-BUTTON_SIZES.LARGE.PADDING; // 16px 40px
-BUTTON_SIZES.LARGE.HEIGHT; // 56px
-BUTTON_SIZES.LARGE.FONT_SIZE; // 18px
-```
+## Переваги використання
 
-## 📱 Breakpoints - Адаптив
+✅ Легко змінювати кольори по всьому проекту  
+✅ Консистентний дизайн  
+✅ Менше помилок  
+✅ Код легше читати  
+✅ Швидка розробка
 
-```js
-BREAKPOINTS.MOBILE; // 768px
-BREAKPOINTS.TABLET; // 1024px
-BREAKPOINTS.DESKTOP; // 1440px
-```
+## Потрібна допомога?
 
-## ✅ Правила використання
-
-1. **Завжди використовуй константи** замість хардкоженних значень
-2. **Коментуй в CSS** яку константу використовуєш
-3. **Не змінюй константи** без узгодження з командою
-4. **Додавай нові константи** якщо потрібні повторювані значення
-
-## 🔄 Як додати нову константу
-
-1. Відкрий `constants.js`
-2. Додай нове значення в відповідну секцію
-3. Оновлюй цю документацію
-4. Повідом команду про зміни
-
-## 🎨 Приклади компонентів
-
-### Кнопка з константами
-
-```jsx
-import { COLORS, BORDER_RADIUS, BUTTON_SIZES } from '@/styles/constants';
-
-const buttonStyle = {
-    backgroundColor: COLORS.PRIMARY,
-    color: COLORS.WHITE,
-    borderRadius: BORDER_RADIUS.PILL,
-    padding: BUTTON_SIZES.MEDIUM.PADDING,
-    fontSize: BUTTON_SIZES.MEDIUM.FONT_SIZE,
-};
-```
-
-### Карточка з константами
-
-```jsx
-import { COLORS, SPACING, BORDER_RADIUS, SHADOWS } from '@/styles/constants';
-
-const cardStyle = {
-    backgroundColor: COLORS.WHITE,
-    padding: SPACING.LG,
-    borderRadius: BORDER_RADIUS.MEDIUM,
-    boxShadow: SHADOWS.LIGHT,
-    marginBottom: SPACING.MD,
-};
-```
+Якщо щось незрозуміло - питай в чаті команди або дивись цей файл як довідник.

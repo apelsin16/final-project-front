@@ -1,0 +1,108 @@
+/* Foodies Project - CSS Variables */
+/* Прості змінні для початкуючих розробників */
+
+:root {
+    /* === КОЛЬОРИ === */
+    /* Основні кольори з Figma */
+    --color-black: #050505; /* Основний чорний */
+    --color-dark: #1a1a1a; /* Темно-сірий */
+    --color-light: #bfbebe; /* Світло-сірий */
+    --color-white: #ffffff; /* Білий */
+
+    /* === ШРИФТИ === */
+    /* Шрифти */
+    --font-family-main: 'Mulish', system-ui, -apple-system, sans-serif;
+    --font-weight-medium: 500; /* Середня вага */
+    --font-weight-bold: 700; /* Жирний */
+    --font-weight-extra-bold: 800; /* Дуже жирний */
+
+    /* === РОЗМІРИ ШРИФТІВ === */
+    /* Розміри шрифтів */
+    --font-size-small: 12px; /* Дрібний текст */
+    --font-size-medium-m: 14px; /* Звичайний текст мобілка */
+    --font-size-medium: 16px; /* Звичайний текст */
+    --font-size-large: 18px; /* Великий текст */
+    --font-size-title: 24px; /* Заголовки */
+    --font-size-title-m: 28px; /* Заголовки мобілка */
+    --font-size-title-large: 40px; /* Великі заголовки */
+    --font-size-hero: 90px; /* Головні заголовки */
+
+    /* === ВІДСТУПИ === */
+    /* Відступи */
+    --spacing-xs: 8px; /* Маленькі відступи */
+    --spacing-sm: 14px; /* Середні відступи */
+    --spacing-md: 16px; /* Звичайні відступи */
+    --spacing-lg: 24px; /* Великі відступи */
+    --spacing-xl: 32px; /* Дуже великі відступи */
+    --spacing-xxl: 40px; /* Дуже великі відступи */
+
+    /* === СКРУГЛЕННЯ === */
+    /* Скруглення */
+    --border-radius-small: 8px; /* Маленькі скруглення */
+    --border-radius-button: 30px; /* Скруглення кнопок */
+
+    /* === ТІНІ === */
+    /* Тіні */
+    --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.15);
+
+    /* === ТОЧКИ ПЕРЕЛОМУ === */
+    /* Breakpoints для адаптивної верстки */
+    --breakpoint-mobile-min: 320px; /* Мінімальна ширина мобільних */
+    --breakpoint-mobile: 375px; /* Мобільні пристрої */
+    --breakpoint-tablet: 768px; /* Планшети */
+    --breakpoint-desktop: 1440px; /* Десктоп */
+}
+
+/* === МЕДІА-ЗАПИТИ === */
+/* Семантичні медіа-запити для адаптивної верстки */
+/* ВАЖЛИВО: CSS змінні не працюють в @media, тому використовуємо точні значення */
+
+/* Мобільні пристрої: гумова від var(--breakpoint-mobile-min) */
+@media screen and (min-width: 320px) {
+    /* Базова гумова верстка для маленьких екранів */
+}
+
+/* Мобільні пристрої: адаптивна з var(--breakpoint-mobile) */
+@media screen and (min-width: 375px) {
+    /* Адаптивна верстка для мобільних */
+}
+
+/* Планшети: від var(--breakpoint-tablet) */
+@media screen and (min-width: 768px) {
+    /* Планшетна верстка */
+}
+
+/* Десктоп: від var(--breakpoint-desktop) */
+@media screen and (min-width: 1440px) {
+    /* Десктопна верстка */
+}
+
+/* Як використовувати змінні:
+   color: var(--color-black);
+   font-size: var(--font-size-medium);
+   padding: var(--spacing-md);
+   border-radius: var(--border-radius-button);
+   width: var(--breakpoint-mobile);
+*/
+
+/* Приклад використання медіа-запитів:
+   .component {
+       // Базові стилі для 320px+
+       width: 100%;
+   }
+   
+   @media screen and (min-width: 768px) {
+       .component {
+           // Стилі для планшетів
+           width: 50%;
+       }
+   }
+   
+   @media screen and (min-width: 1440px) {
+       .component {
+           // Стилі для десктопу
+           width: 33.333%;
+       }
+   }
+*/

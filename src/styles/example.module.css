@@ -1,0 +1,134 @@
+/* Приклад використання CSS змінних - example.module.css */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--spacing-xl);
+    background-color: var(--color-white);
+}
+
+.title {
+    color: var(--color-black);
+    font-size: var(--font-size-hero);
+    font-weight: var(--font-weight-extra-bold);
+    margin-bottom: var(--spacing-lg);
+    text-align: center;
+}
+
+.description {
+    color: var(--color-dark);
+    font-size: var(--font-size-medium);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-xl);
+    text-align: center;
+}
+
+.buttonGroup {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+/* Приклади кнопок з використанням змінних */
+.primaryButton {
+    background-color: var(--color-dark);
+    color: var(--color-white);
+    border: 2px solid var(--color-dark);
+    border-radius: var(--border-radius-button);
+    padding: var(--spacing-sm) var(--spacing-xl);
+    font-size: var(--font-size-medium);
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.primaryButton:hover {
+    background-color: var(--color-black);
+    border-color: var(--color-black);
+}
+
+.whiteButton {
+    background-color: var(--color-white);
+    color: var(--color-dark);
+    border: 2px solid var(--color-dark);
+    border-radius: var(--border-radius-button);
+    padding: var(--spacing-sm) var(--spacing-xl);
+    font-size: var(--font-size-medium);
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.whiteButton:hover {
+    background-color: var(--color-dark);
+    color: var(--color-white);
+}
+
+.disabledButton {
+    background-color: var(--color-light);
+    color: var(--color-white);
+    border: 2px solid var(--color-light);
+    border-radius: var(--border-radius-button);
+    padding: var(--spacing-sm) var(--spacing-xl);
+    font-size: var(--font-size-medium);
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: not-allowed;
+}
+
+/* Приклад картки рецепту */
+.recipeCard {
+    background-color: var(--color-white);
+    border-radius: var(--border-radius-small);
+    box-shadow: var(--shadow-medium);
+    padding: var(--spacing-lg);
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.recipeImage {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: var(--border-radius-small);
+    margin-bottom: var(--spacing-md);
+}
+
+.recipeTitle {
+    color: var(--color-black);
+    font-size: var(--font-size-title);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--spacing-sm);
+}
+
+.recipeDescription {
+    color: var(--color-dark);
+    font-size: var(--font-size-medium);
+    line-height: 1.5;
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+    .container {
+        padding: var(--spacing-md);
+    }
+
+    .title {
+        font-size: var(--font-size-title);
+    }
+
+    .buttonGroup {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .primaryButton,
+    .whiteButton,
+    .disabledButton {
+        width: 100%;
+        max-width: 300px;
+    }
+}

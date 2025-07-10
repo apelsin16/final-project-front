@@ -1,0 +1,111 @@
+.iconButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 50%;
+    color: var(--color-dark);
+}
+
+.iconButton svg {
+    stroke: currentColor;
+    fill: none;
+    transition: stroke 0.2s ease;
+}
+
+/* Для filled сердца */
+.filled {
+    background: var(--color-dark) !important;
+    color: white;
+}
+
+.filled:hover {
+    background: rgba(0, 0, 0, 0.8) !important;
+}
+
+.iconButton:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: scale(1.05);
+}
+
+.iconButton:active {
+    transform: scale(0.95);
+}
+
+.iconButton:focus {
+    outline: 2px solid var(--color-dark);
+    outline-offset: 2px;
+}
+
+/* Розміри */
+.small {
+    width: 36px;
+    height: 36px;
+    padding: 12px;
+}
+
+.small svg {
+    width: 20px;
+    height: 20px;
+}
+
+.medium {
+    width: 48px;
+    height: 48px;
+    padding: 10px;
+}
+
+.medium svg {
+    width: 20px;
+    height: 20px;
+}
+
+.large {
+    width: 42px;
+    height: 42px;
+    padding: 12px;
+}
+
+.large svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Варіанти */
+.default {
+    background: transparent;
+}
+
+.filled {
+    background: var(--color-dark);
+    color: white;
+}
+
+.filled:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.outlined {
+    border: 2px solid var(--color-dark);
+    background: transparent;
+}
+
+.outlined:hover {
+    background: var(--color-dark);
+    color: white;
+}
+
+/* Вимкнений стан */
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.disabled:hover {
+    transform: none;
+    background-color: transparent;
+}

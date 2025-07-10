@@ -1,0 +1,99 @@
+/* Базовые стили для MainTitle */
+.mainTitle {
+    font-family: 'Mulish', sans-serif;
+    font-weight: 800; /* ExtraBold */
+    text-transform: uppercase;
+    letter-spacing: -0.02em; /* -2% */
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+    display: block;
+
+    /* Мобильные стили (по умолчанию) */
+    font-size: 48px;
+    line-height: 48px;
+    max-width: 320px;
+}
+
+/* Цвета */
+.white {
+    color: #ffffff;
+}
+
+.dark {
+    color: var(--color-dark, #1a1a1a);
+}
+
+/* Центрирование */
+.centered {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Планшетные стили */
+@media (min-width: 768px) {
+    .mainTitle {
+        /* Стили из Figma для планшета */
+        font-size: 70px;
+        line-height: 70px;
+        max-width: 678px;
+        /* height: 140px; - не ограничиваем высоту, пусть будет динамической */
+    }
+}
+
+/* Десктопные стили */
+@media (min-width: 1024px) {
+    .mainTitle {
+        /* Стили из Figma для десктопа */
+        font-size: 90px;
+        line-height: 90px;
+        max-width: 875px;
+        /* height: 180px; - не ограничиваем высоту, пусть будет динамической */
+    }
+}
+
+/* Дополнительные стили для больших экранов */
+@media (min-width: 1440px) {
+    .mainTitle {
+        font-size: 100px;
+        line-height: 100px;
+        max-width: 950px;
+    }
+}
+
+/* Стили для очень маленьких экранов */
+@media (max-width: 480px) {
+    .mainTitle {
+        font-size: 40px;
+        line-height: 40px;
+        max-width: 280px;
+    }
+}
+
+/* Улучшенная читаемость */
+.mainTitle {
+    /* Сглаживание шрифта для лучшего отображения крупного текста */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Оптимизация рендеринга текста */
+    text-rendering: optimizeLegibility;
+
+    /* Предотвращение переноса слов в заголовке */
+    word-break: keep-all;
+    hyphens: none;
+}
+
+/* Анимация появления (опционально) */
+.mainTitle {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Состояние загрузки */
+.mainTitle.loading {
+    opacity: 0;
+    transform: translateY(20px);
+}

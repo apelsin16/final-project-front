@@ -15,16 +15,16 @@ const ButtonExample = () => {
 
             {/* Варіанти кнопок */}
             <section style={{ marginBottom: '40px' }}>
-                <h2>Варіанти (Variants)</h2>
+                <h2>Варіанти кнопок</h2>
                 <div style={{ display: 'flex', gap: '16px', marginBottom: '16px' }}>
-                    <Button variant='primary' onClick={() => handleClick('primary', 'medium')}>
-                        PRIMARY
+                    <Button variant='primary' onClick={() => handleClick('primary', 'large')}>
+                        ЧОРНА
                     </Button>
-                    <Button variant='secondary' onClick={() => handleClick('secondary', 'medium')}>
-                        SECONDARY
+                    <Button variant='white' onClick={() => handleClick('white', 'large')}>
+                        БІЛА
                     </Button>
-                    <Button variant='outline' onClick={() => handleClick('outline', 'medium')}>
-                        OUTLINE
+                    <Button variant='primary' disabled>
+                        СІРА (DISABLED)
                     </Button>
                 </div>
             </section>
@@ -35,9 +35,6 @@ const ButtonExample = () => {
                 <div style={{ display: 'flex', gap: '16px', alignItems: 'center', marginBottom: '16px' }}>
                     <Button variant='primary' size='small'>
                         SMALL
-                    </Button>
-                    <Button variant='primary' size='medium'>
-                        MEDIUM
                     </Button>
                     <Button variant='primary' size='large'>
                         LARGE
@@ -71,78 +68,15 @@ const ButtonExample = () => {
                 <h2>Приклади з UI кіту</h2>
 
                 <div style={{ marginBottom: '24px' }}>
-                    <h3>Sign In варіанти</h3>
-                    <div style={{ display: 'flex', gap: '16px', marginBottom: '16px' }}>
-                        <Button variant='secondary' size='medium'>
-                            SIGN IN
+                    <h3>Приклади з дизайну</h3>
+                    <div style={{ display: 'flex', gap: '16px', marginBottom: '16px', flexWrap: 'wrap' }}>
+                        <Button variant='primary'>SIGN IN</Button>
+                        <Button variant='white'>SIGN IN</Button>
+                        <Button variant='primary'>PUBLISH</Button>
+                        <Button variant='white'>ADD RECIPE</Button>
+                        <Button variant='primary' disabled>
+                            PUBLISH (DISABLED)
                         </Button>
-                        <Button variant='primary' size='medium'>
-                            SIGN IN
-                        </Button>
-                    </div>
-                </div>
-
-                <div style={{ marginBottom: '24px' }}>
-                    <h3>Publish варіанти</h3>
-                    <div style={{ display: 'flex', gap: '16px', marginBottom: '16px' }}>
-                        <Button variant='primary' size='medium'>
-                            PUBLISH
-                        </Button>
-                        <Button variant='primary' size='large'>
-                            PUBLISH
-                        </Button>
-                    </div>
-                </div>
-
-                <div style={{ marginBottom: '24px' }}>
-                    <h3>Add Recipe варіанти</h3>
-                    <div style={{ display: 'flex', gap: '16px', marginBottom: '16px' }}>
-                        <Button variant='outline' size='large'>
-                            ADD RECIPE
-                        </Button>
-                        <Button variant='primary' size='large'>
-                            ADD RECIPE
-                        </Button>
-                    </div>
-                </div>
-
-                <div style={{ marginBottom: '24px' }}>
-                    <h3>Sign Up / Sign In комбо</h3>
-                    <div style={{ display: 'flex', gap: '16px', marginBottom: '16px' }}>
-                        <div>
-                            <h4>Sign Up</h4>
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    gap: '8px',
-                                    width: '200px',
-                                }}>
-                                <Button variant='primary' size='medium'>
-                                    SIGN UP
-                                </Button>
-                                <Button variant='primary' size='medium'>
-                                    SIGN UP
-                                </Button>
-                            </div>
-                        </div>
-                        <div>
-                            <h4>Sign In</h4>
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    gap: '8px',
-                                    width: '200px',
-                                }}>
-                                <Button variant='primary' size='medium'>
-                                    SIGN IN
-                                </Button>
-                                <Button variant='primary' size='medium'>
-                                    SIGN IN
-                                </Button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </section>

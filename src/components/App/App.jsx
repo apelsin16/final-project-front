@@ -6,8 +6,17 @@ import RecipePage from '../RecipePage/RecipePage';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import AddRecipePage from '../AddRecipePage/AddRecipePage';
 import UserPage from '../UserPage/UserPage';
-import ConstantsExample from '../../styles/constants.example';
 import ButtonExample from '../common/ui/Button/Button.example';
+import ExampleComponent from '../../styles/example-usage';
+import Typography from '../../styles/Typography';
+import { Button } from '../common/ui';
+import IconButtonExample from '../common/ui/IconButton/IconButton.example';
+import InputExample from '../common/ui/Input/Input.example';
+import SelectExample from '../common/ui/Select/Select.example';
+import MainTitleExample from '../common/ui/MainTitle/MainTitle.example';
+import PathInfoExample from '../common/ui/PathInfo/PathInfo.example';
+import SubtitleExample from '../common/ui/Subtitle/Subtitle.example';
+import ModalExample from '../common/ui/Modal/Modal.example';
 
 function App() {
     return (
@@ -18,7 +27,21 @@ function App() {
                     index
                     element={
                         <>
-                            <ConstantsExample />
+                            <Button variant='primary' size='large' disabled>
+                                Primary Button
+                            </Button>
+                            <Button variant='white' size='large'>
+                                White Button
+                            </Button>
+                            <IconButtonExample />
+                            <InputExample />
+                            <SelectExample />
+                            <MainTitleExample />
+                            <PathInfoExample />
+                            <SubtitleExample />
+                            <ModalExample />
+                            <Typography />
+                            <ExampleComponent />
                             <ButtonExample />
                             <HomePage />
                         </>

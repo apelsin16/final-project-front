@@ -1,0 +1,136 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.label {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--color-dark);
+    line-height: 1.2;
+}
+
+.required {
+    color: #e74c3c;
+    margin-left: 2px;
+}
+
+.inputWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--color-dark);
+    background-color: white;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+/* Размеры */
+.small {
+    height: 48px;
+    padding: 12px 16px;
+    font-size: 14px;
+}
+
+.large {
+    height: 56px;
+    padding: 16px 18px;
+    font-size: 16px;
+}
+
+.input::placeholder {
+    color: #9ca3af;
+}
+
+.input:focus {
+    border-color: var(--color-dark);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.input:hover:not(:disabled) {
+    border-color: #9ca3af;
+}
+
+/* Для поля с иконкой */
+.withIcon {
+    padding-right: 52px;
+}
+
+.small.withIcon {
+    padding-right: 48px;
+}
+
+.large.withIcon {
+    padding-right: 54px;
+}
+
+/* Кнопка показать/скрыть пароль */
+.toggleButton {
+    position: absolute;
+    right: 8px;
+    background: transparent !important;
+    border: none !important;
+    color: #6b7280;
+    border-radius: 0 !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.toggleButton:hover {
+    color: var(--color-dark);
+    background: transparent !important;
+    transform: none !important;
+}
+
+.toggleButton:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+/* Состояния ошибки */
+.hasError .input,
+.error {
+    border-color: #e74c3c;
+}
+
+.hasError .input:focus,
+.error:focus {
+    border-color: #e74c3c;
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+}
+
+.errorMessage {
+    font-size: 14px;
+    color: #e74c3c;
+    margin-top: 4px;
+}
+
+/* Выключенное состояние */
+.disabled {
+    background-color: #f9fafb;
+    color: #6b7280;
+    cursor: not-allowed;
+}
+
+.disabled::placeholder {
+    color: #d1d5db;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .input {
+        font-size: 16px; /* Предотвращает zoom на iOS */
+    }
+}

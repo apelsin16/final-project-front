@@ -1,10 +1,10 @@
-/* Base button styles */
+/* Базові стилі кнопки */
 .button {
     border: none;
-    border-radius: 50px;
-    font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
-    font-weight: 600;
-    font-size: 16px;
+    border-radius: var(--border-radius-button);
+    font-family: var(--font-family-main);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-medium);
     letter-spacing: 0.05em;
     text-transform: uppercase;
     cursor: pointer;
@@ -21,77 +21,60 @@
     box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.2);
 }
 
-/* Variants */
+/* Варіанти */
+/* Чорна кнопка (основна) */
 .primary {
-    background-color: #050505;
-    color: #ffffff;
-    border: 2px solid #050505;
+    background-color: var(--color-dark);
+    color: var(--color-white);
+    border: 2px solid var(--color-dark);
 }
 
 .primary:hover:not(.disabled) {
-    background-color: #1a1a1a;
-    border-color: #1a1a1a;
+    background-color: var(--color-black);
+    border-color: var(--color-black);
 }
 
-.primary:active:not(.disabled) {
-    background-color: #333333;
-    border-color: #333333;
+/* Біла кнопка */
+.white {
+    background-color: var(--color-white);
+    color: var(--color-dark);
+    border: 2px solid var(--color-dark);
 }
 
-.secondary {
-    background-color: #bfbebe;
-    color: #050505;
-    border: 2px solid #bfbebe;
+.white:hover:not(.disabled) {
+    background-color: var(--color-dark);
+    color: var(--color-white);
 }
 
-.secondary:hover:not(.disabled) {
-    background-color: #a0a0a0;
-    border-color: #a0a0a0;
-}
-
-.secondary:active:not(.disabled) {
-    background-color: #808080;
-    border-color: #808080;
-}
-
-.outline {
-    background-color: transparent;
-    color: #050505;
-    border: 2px solid #050505;
-}
-
-.outline:hover:not(.disabled) {
-    background-color: #050505;
-    color: #ffffff;
-}
-
-.outline:active:not(.disabled) {
-    background-color: #1a1a1a;
-    border-color: #1a1a1a;
-}
-
-/* Sizes */
+/* Розміри */
 .small {
-    padding: 8px 20px;
-    font-size: 14px;
-    min-height: 36px;
-}
-
-.medium {
-    padding: 12px 32px;
-    font-size: 16px;
+    padding-top: var(--spacing-xs);
+    padding-bottom: var(--spacing-xs);
+    padding-left: var(--spacing-xl);
+    padding-right: var(--spacing-xl);
+    font-size: var(--font-size-medium-m);
+    font-weight: var(--font-weight-bold);
+    line-height: 1.42;
     min-height: 48px;
 }
 
 .large {
-    padding: 16px 40px;
-    font-size: 18px;
+    padding-top: var(--spacing-md);
+    padding-bottom: var(--spacing-md);
+    padding-left: var(--spacing-xxl);
+    padding-right: var(--spacing-xxl);
+    font-size: var(--font-size-medium);
+    font-weight: var(--font-weight-bold);
+    line-height: 1.33;
     min-height: 56px;
 }
 
-/* States */
+/* Стани */
+/* Сіра кнопка (вимкнена) */
 .disabled {
-    opacity: 0.6;
+    background-color: var(--color-light) !important;
+    color: var(--color-white) !important;
+    border-color: var(--color-light) !important;
     cursor: not-allowed;
     pointer-events: none;
 }
@@ -100,27 +83,27 @@
     width: 100%;
 }
 
-/* Responsive adjustments */
+/* Адаптивні налаштування */
 @media (max-width: 768px) {
     .button {
-        font-size: 14px;
+        font-size: var(--font-size-small);
     }
 
     .small {
-        padding: 6px 16px;
+        padding: 6px var(--spacing-md);
         font-size: 12px;
         min-height: 32px;
     }
 
     .medium {
-        padding: 10px 24px;
-        font-size: 14px;
+        padding: 10px var(--spacing-lg);
+        font-size: var(--font-size-small);
         min-height: 40px;
     }
 
     .large {
-        padding: 12px 28px;
-        font-size: 16px;
+        padding: var(--spacing-sm) 28px;
+        font-size: var(--font-size-medium);
         min-height: 48px;
     }
 }
