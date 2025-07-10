@@ -1,0 +1,126 @@
+/* Base button styles */
+.button {
+    border: none;
+    border-radius: 50px;
+    font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    text-decoration: none;
+    outline: none;
+}
+
+.button:focus-visible {
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Variants */
+.primary {
+    background-color: #050505;
+    color: #ffffff;
+    border: 2px solid #050505;
+}
+
+.primary:hover:not(.disabled) {
+    background-color: #1a1a1a;
+    border-color: #1a1a1a;
+}
+
+.primary:active:not(.disabled) {
+    background-color: #333333;
+    border-color: #333333;
+}
+
+.secondary {
+    background-color: #bfbebe;
+    color: #050505;
+    border: 2px solid #bfbebe;
+}
+
+.secondary:hover:not(.disabled) {
+    background-color: #a0a0a0;
+    border-color: #a0a0a0;
+}
+
+.secondary:active:not(.disabled) {
+    background-color: #808080;
+    border-color: #808080;
+}
+
+.outline {
+    background-color: transparent;
+    color: #050505;
+    border: 2px solid #050505;
+}
+
+.outline:hover:not(.disabled) {
+    background-color: #050505;
+    color: #ffffff;
+}
+
+.outline:active:not(.disabled) {
+    background-color: #1a1a1a;
+    border-color: #1a1a1a;
+}
+
+/* Sizes */
+.small {
+    padding: 8px 20px;
+    font-size: 14px;
+    min-height: 36px;
+}
+
+.medium {
+    padding: 12px 32px;
+    font-size: 16px;
+    min-height: 48px;
+}
+
+.large {
+    padding: 16px 40px;
+    font-size: 18px;
+    min-height: 56px;
+}
+
+/* States */
+.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.fullWidth {
+    width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .button {
+        font-size: 14px;
+    }
+
+    .small {
+        padding: 6px 16px;
+        font-size: 12px;
+        min-height: 32px;
+    }
+
+    .medium {
+        padding: 10px 24px;
+        font-size: 14px;
+        min-height: 40px;
+    }
+
+    .large {
+        padding: 12px 28px;
+        font-size: 16px;
+        min-height: 48px;
+    }
+}
