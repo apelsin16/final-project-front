@@ -5,14 +5,14 @@ import IconButton from '../IconButton/IconButton';
 import clsx from 'clsx';
 
 /**
- * Универсальный компонент модального окна
- * Отображает контент в модальном окне с кнопкой закрытия
+ * Універсальний компонент модального вікна
+ * Відображає контент у модальному вікні з кнопкою закриття
  *
  * @param {Object} props
- * @param {boolean} props.isOpen - Открыто ли модальное окно
- * @param {function} props.onClose - Функция закрытия модального окна
- * @param {ReactNode} props.children - Контент модального окна
- * @param {string} props.className - Дополнительные CSS классы для контейнера
+ * @param {boolean} props.isOpen - Чи відкрите модальне вікно
+ * @param {function} props.onClose - Функція закриття модального вікна
+ * @param {ReactNode} props.children - Контент модального вікна
+ * @param {string} props.className - Додаткові CSS класи для контейнера
  *
  * @example
  * <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
@@ -24,7 +24,7 @@ const Modal = ({ isOpen, onClose, children, className }) => {
     const modalRef = useRef(null);
     const backdropRef = useRef(null);
 
-    // Закрытие по клавише Escape
+    // Закриття за клавішею Escape
     useEffect(() => {
         const handleKeyDown = event => {
             if (event.key === 'Escape') {
@@ -34,7 +34,7 @@ const Modal = ({ isOpen, onClose, children, className }) => {
 
         if (isOpen) {
             document.addEventListener('keydown', handleKeyDown);
-            // Блокируем скролл страницы когда модальное окно открыто
+            // Блокуємо скрол сторінки коли модальне вікно відкрите
             document.body.style.overflow = 'hidden';
         }
 
@@ -44,14 +44,14 @@ const Modal = ({ isOpen, onClose, children, className }) => {
         };
     }, [isOpen, onClose]);
 
-    // Закрытие по клику на backdrop
+    // Закриття за кліком на backdrop
     const handleBackdropClick = event => {
         if (event.target === backdropRef.current) {
             onClose();
         }
     };
 
-    // Если модальное окно закрыто, не рендерим ничего
+    // Якщо модальне вікно закрите, не рендеримо нічого
     if (!isOpen) {
         return null;
     }
@@ -61,12 +61,27 @@ const Modal = ({ isOpen, onClose, children, className }) => {
     return createPortal(
         <div className={styles.backdrop} ref={backdropRef} onClick={handleBackdropClick}>
             <div className={modalClasses} ref={modalRef}>
-                {/* Кнопка закрытия */}
-                <div className={styles.closeButton}>
-                    <IconButton icon='close' onClick={onClose} aria-label='Close modal' />
-                </div>
+                {/* Кнопка закриття */}
+                <button
+                    className={styles.closeButton}
+                    onClick={onClose}
+                    aria-label='Close modal'
+                    type='button'>
+                    <svg
+                        width='24'
+                        height='24'
+                        viewBox='0 0 24 24'
+                        fill='none'
+                        stroke='currentColor'
+                        strokeWidth='2'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'>
+                        <line x1='18' y1='6' x2='6' y2='18' />
+                        <line x1='6' y1='6' x2='18' y2='18' />
+                    </svg>
+                </button>
 
-                {/* Контент модального окна */}
+                {/* Контент модального вікна */}
                 <div className={styles.content}>{children}</div>
             </div>
         </div>,

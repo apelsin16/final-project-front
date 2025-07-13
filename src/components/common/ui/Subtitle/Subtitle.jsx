@@ -2,47 +2,33 @@ import styles from './Subtitle.module.css';
 import clsx from 'clsx';
 
 /**
- * Универсальный компонент подзаголовка для использования на разных страницах
- * Меньше чем MainTitle, но больше обычного текста
+ * Універсальний компонент підзаголовка для використання на різних сторінках
+ * Менше ніж MainTitle, але більше звичайного тексту
  *
  * @param {Object} props
- * @param {string} props.children - Текст подзаголовка
- * @param {string} props.className - Дополнительные CSS классы
+ * @param {string} props.children - Текст підзаголовка
+ * @param {string} props.className - Додаткові CSS класи
  * @param {'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'} props.as - HTML тег для семантики
- * @param {string} props.color - Цвет текста ('dark' | 'light')
- * @param {boolean} props.centered - Центрировать текст (по умолчанию false)
- * @param {'small' | 'medium' | 'large'} props.size - Размер подзаголовка
+ * @param {string} props.color - Колір тексту ('dark' | 'light')
+ * @param {'small' | 'medium' | 'large'} props.size - Розмір підзаголовка
+ * @param {'left' | 'center'} props.align - Вирівнювання тексту (по замовчуванню 'left')
  *
  * @example
- * // Заголовок страницы
- * <Subtitle as="h1">Add Recipe</Subtitle>
- *
- * @example
- * // Заголовок секции
- * <Subtitle as="h2" centered>Profile</Subtitle>
- *
- * @example
- * // Маленький подзаголовок
- * <Subtitle as="h3" size="small">Categories</Subtitle>
+ * <Subtitle as="h2" align="center">Centered Title</Subtitle>
  */
 const Subtitle = ({
     children,
     className,
     as: Component = 'h2',
     color = 'dark',
-    centered = false,
     size = 'medium',
+    align = 'left',
     ...props
 }) => {
-    const subtitleClasses = clsx(
-        styles.subtitle,
-        styles[color],
-        styles[size],
-        {
-            [styles.centered]: centered,
-        },
-        className
-    );
+    const subtitleClasses = clsx(styles.subtitle, styles[color], styles[size], className, {
+        [styles.centered]: align === 'center',
+        [styles.left]: align === 'left',
+    });
 
     return (
         <Component className={subtitleClasses} {...props}>

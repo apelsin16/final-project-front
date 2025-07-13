@@ -78,6 +78,46 @@ const IconButtonExample = () => {
                     ariaLabel='Delete recipe disabled'
                 />
             </div>
+
+            <div>
+                <h4>Social Networks (GoIT Links):</h4>
+                <ul
+                    style={{
+                        listStyle: 'none',
+                        display: 'flex',
+                        gap: '16px',
+                        padding: 0,
+                        margin: 0,
+                    }}>
+                    <li>
+                        <IconButton
+                            icon='facebook'
+                            variant='social'
+                            href='https://www.facebook.com/goITclub/'
+                            target='_blank'
+                            ariaLabel='Facebook GoIT'
+                        />
+                    </li>
+                    <li>
+                        <IconButton
+                            icon='instagram'
+                            variant='social'
+                            href='https://www.instagram.com/goitclub/'
+                            target='_blank'
+                            ariaLabel='Instagram GoIT'
+                        />
+                    </li>
+                    <li>
+                        <IconButton
+                            icon='youtube'
+                            variant='social'
+                            href='https://www.youtube.com/c/GoIT'
+                            target='_blank'
+                            ariaLabel='YouTube GoIT'
+                        />
+                    </li>
+                </ul>
+            </div>
         </div>
     );
 };

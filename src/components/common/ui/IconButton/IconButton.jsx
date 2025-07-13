@@ -18,6 +18,7 @@ const ICONS = {
     facebook: 'facebook',
     instagram: 'instagram',
     youtube: 'youtube',
+    close: 'close', // добавил крестик
 };
 
 /**
@@ -26,9 +27,11 @@ const ICONS = {
  * @param {Object} props
  * @param {'heart' | 'arrow' | 'delete' | 'eye' | 'eyeOff' | 'facebook' | 'instagram' | 'youtube'} props.icon - Тип іконки
  * @param {'small' | 'medium' | 'large'} props.size - Розмір кнопки
- * @param {'default' | 'filled' | 'outlined'} props.variant - Варіант стилю
+ * @param {'default' | 'filled' | 'outlined' | 'social'} props.variant - Варіант стилю
  * @param {boolean} props.filled - Для іконки heart - заповнена чи ні
- * @param {function} props.onClick - Обробник кліку
+ * @param {function} props.onClick - Обробник кліку (тільки для кнопки)
+ * @param {string} props.href - URL для посилання (рендерить як <a>)
+ * @param {string} props.target - Ціль посилання (_blank, _self)
  * @param {boolean} props.disabled - Чи вимкнена кнопка
  * @param {string} props.className - Додаткові CSS класи
  * @param {string} props.ariaLabel - Aria-label для доступності
@@ -58,6 +61,25 @@ const ICONS = {
  *   onClick={togglePasswordVisibility}
  *   ariaLabel="Toggle password visibility"
  * />
+ *
+ * @example
+ * // Кнопки соціальних мереж
+ * <IconButton
+ *   icon="facebook"
+ *   variant="social"
+ *   onClick={openFacebook}
+ *   ariaLabel="Facebook"
+ * />
+ *
+ * @example
+ * // Посилання на соціальні мережі
+ * <IconButton
+ *   icon="facebook"
+ *   variant="social"
+ *   href="https://www.facebook.com/goITclub/"
+ *   target="_blank"
+ *   ariaLabel="Facebook"
+ * />
  */
 const IconButton = ({
     icon,
@@ -65,6 +87,8 @@ const IconButton = ({
     variant = 'default',
     filled = false,
     onClick,
+    href,
+    target,
     disabled = false,
     className,
     ariaLabel,
@@ -88,14 +112,27 @@ const IconButton = ({
         className
     );
 
+    const iconElement = <Icon name={iconName} />;
+
+    // Якщо передано href, рендеримо як посилання
+    if (href) {
+        return (
+            <a className={buttonClasses} href={href} target={target} aria-label={ariaLabel} {...props}>
+                {iconElement}
+            </a>
+        );
+    }
+
+    // Інакше рендеримо як кнопку
     return (
         <button
+            type='button' // <--- критично! не дає сабмітити форму
             className={buttonClasses}
             onClick={onClick}
             disabled={disabled}
             aria-label={ariaLabel}
             {...props}>
-            <Icon name={iconName} />
+            {iconElement}
         </button>
     );
 };

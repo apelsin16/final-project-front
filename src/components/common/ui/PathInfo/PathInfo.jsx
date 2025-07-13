@@ -3,7 +3,7 @@ import styles from './PathInfo.module.css';
 import clsx from 'clsx';
 
 /**
- * Универсальный компонент для отображения навигационных хлебных крошек
+ * Універсальний компонент для відображення навігаційних хлібних крошок
  * Показывает ссылку на HOME и название текущей страницы
  *
  * @param {Object} props
@@ -15,7 +15,7 @@ import clsx from 'clsx';
  * @param {boolean} props.withLink - Делать ли HOME кликабельной ссылкой (по умолчанию true)
  *
  * @example
- * // Основное использование
+ * // Основне використання
  * <PathInfo currentPage="Profile" />
  *
  * @example

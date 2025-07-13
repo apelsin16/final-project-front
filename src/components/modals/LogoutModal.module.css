@@ -1,0 +1,22 @@
+.content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.text {
+    width: 100%;
+    text-align: center;
+    font-size: var(--font-size-medium);
+    color: var(--color-black);
+    margin-bottom: 40px;
+    margin-top: 20px;
+}
+
+.buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}

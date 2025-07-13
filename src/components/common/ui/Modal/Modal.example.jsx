@@ -1,11 +1,18 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Modal from './Modal';
 import Button from '../Button/Button';
+import LoginModal from '../../../modals/LoginModal';
+import RegisterModal from '../../../modals/RegisterModal';
+import LogoutModal from '../../../modals/LogoutModal';
+import { openModal } from '../../../../features/modal/modalSlice';
 
 const ModalExample = () => {
     const [isBasicModalOpen, setIsBasicModalOpen] = useState(false);
     const [isContentModalOpen, setIsContentModalOpen] = useState(false);
     const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+    const dispatch = useDispatch();
+    const modalType = useSelector(state => state.modal.modalType);
 
     return (
         <div style={{ padding: '20px' }}>
@@ -66,6 +73,27 @@ const ModalExample = () => {
                         </Button>
                     </div>
                 </Modal>
+            </div>
+
+            {/* Login Modal Example */}
+            <div style={{ marginBottom: '20px' }}>
+                <h3>Login Modal</h3>
+                <Button onClick={() => dispatch(openModal({ type: 'login' }))}>Open Login Modal</Button>
+                {modalType === 'login' && <LoginModal />}
+            </div>
+
+            {/* Register Modal Example */}
+            <div style={{ marginBottom: '20px' }}>
+                <h3>Register Modal</h3>
+                <Button onClick={() => dispatch(openModal({ type: 'register' }))}>Open Register Modal</Button>
+                {modalType === 'register' && <RegisterModal />}
+            </div>
+
+            {/* Logout Modal Example */}
+            <div style={{ marginBottom: '20px' }}>
+                <h3>Logout Modal</h3>
+                <Button onClick={() => dispatch(openModal({ type: 'logout' }))}>Open Logout Modal</Button>
+                {modalType === 'logout' && <LogoutModal />}
             </div>
         </div>
     );
