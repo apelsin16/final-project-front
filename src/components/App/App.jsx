@@ -1,11 +1,11 @@
 import './App.css';
 import { Routes, Route } from 'react-router';
-import SharedLayout from '../SharedLayout/SharedLayout';
-import HomePage from '../HomePage/HomePage';
-import RecipePage from '../RecipePage/RecipePage';
+import SharedLayout from '../SharedLayout/SharedLayout.jsx';
+import HomePage from '../../pages/HomePage/HomePage.jsx';
+import RecipePage from '../../pages/RecipePage/RecipePage';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
-import AddRecipePage from '../AddRecipePage/AddRecipePage';
-import UserPage from '../UserPage/UserPage';
+import AddRecipePage from '../../pages/AddRecipePage/AddRecipePage';
+import UserPage from '../../pages/UserPage/UserPage';
 import UIExamplesPage from '../UIExamplesPage/UIExamplesPage';
 import { useSelector } from 'react-redux';
 
