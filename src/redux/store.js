@@ -1,8 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit'
-import counterReducer from './counterSlice.js'
+import { configureStore } from '@reduxjs/toolkit';
+import authReducer from './features/auth/authSlice';
+import modalReducer from './features/modal/modalSlice';
 
 export const store = configureStore({
-  reducer: {
-    counter: counterReducer,
-  },
-})
+    reducer: {
+        auth: authReducer, // authReducer для авторизації
+        modal: modalReducer, // modalReducer для модалок
+    },
+});

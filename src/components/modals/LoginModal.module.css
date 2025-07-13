@@ -1,0 +1,36 @@
+.form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 20px;
+}
+
+.inputs {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+}
+
+.bottomText {
+    width: 100%;
+    text-align: center;
+    font-size: var(--font-size-medium-m);
+    color: var(--color-black);
+}
+
+.link {
+    color: var(--color-dark);
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: var(--font-weight-bold);
+    transition: text-decoration 0.2s;
+}
+
+.link:hover,
+.link:focus {
+    text-decoration: underline;
+}

@@ -4,7 +4,7 @@ import IconButton from '../IconButton/IconButton';
 import clsx from 'clsx';
 
 /**
- * Компонент текстового поля ввода
+ * Компонент текстового поля вводу
  *
  * @param {Object} props
  * @param {'text' | 'email' | 'password'} props.type - Тип поля ввода

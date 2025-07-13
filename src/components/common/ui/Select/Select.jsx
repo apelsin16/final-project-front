@@ -3,24 +3,24 @@ import styles from './Select.module.css';
 import clsx from 'clsx';
 
 /**
- * Компонент выпадающего списка (Select)
+ * Компонент випадаючого списку (Select)
  *
  * @param {Object} props
- * @param {Array} props.options - Массив опций [{value, label}]
- * @param {string|number} props.value - Выбранное значение
- * @param {function} props.onChange - Обработчик изменения значения
+ * @param {Array} props.options - Масив опцій [{value, label}]
+ * @param {string|number} props.value - Обране значення
+ * @param {function} props.onChange - Обробник зміни значення
  * @param {string} props.placeholder - Текст плейсхолдера
  * @param {string} props.label - Текст лейбла
- * @param {'small' | 'large'} props.size - Размер селекта (48px | 56px)
- * @param {boolean} props.required - Обязательно ли поле
- * @param {boolean} props.disabled - Выключен ли селект
- * @param {string} props.error - Текст ошибки
- * @param {string} props.className - Дополнительные CSS классы
- * @param {string} props.name - Имя поля
+ * @param {'small' | 'large'} props.size - Розмір селекта (48px | 56px)
+ * @param {boolean} props.required - Чи обов'язкове поле
+ * @param {boolean} props.disabled - Чи вимкнений селект
+ * @param {string} props.error - Текст помилки
+ * @param {string} props.className - Додаткові CSS класи
+ * @param {string} props.name - Ім'я поля
  * @param {string} props.id - ID поля
  *
  * @example
- * // Селект категорий
+ * // Селект категорій
  * <Select
  *   options={[
  *     {value: 'beef', label: 'Beef'},
@@ -54,7 +54,7 @@ const Select = ({
 
     const selectId = id || name || label?.toLowerCase().replace(/\s+/g, '-');
 
-    // Закрытие при клике вне компонента
+    // Закриття при кліці поза компонентом
     useEffect(() => {
         const handleClickOutside = event => {
             if (selectRef.current && !selectRef.current.contains(event.target)) {
@@ -66,7 +66,7 @@ const Select = ({
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    // Закрытие при нажатии Escape
+    // Закриття при натисканні Escape
     useEffect(() => {
         const handleKeyDown = event => {
             if (event.key === 'Escape') {

@@ -11,7 +11,7 @@ const PathInfoExample = () => {
             }}>
             <h3 style={{ margin: '0 0 20px 0', color: '#333' }}>PathInfo Examples</h3>
 
-            {/* Основные примеры из дизайна */}
+            {/* Основні приклади з дизайну */}
             <div
                 style={{
                     display: 'flex',
@@ -170,7 +170,7 @@ const PathInfoExample = () => {
                 </ul>
             </div>
 
-            {/* Использование в реальных сценариях */}
+            {/* Використання в реальних сценаріях */}
             <div
                 style={{
                     padding: '20px',

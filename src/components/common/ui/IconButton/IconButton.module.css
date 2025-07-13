@@ -2,12 +2,13 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: none;
-    background: transparent;
+    border: 1px solid #e0e0e0;
+    background: white;
     cursor: pointer;
     transition: all 0.2s ease;
     border-radius: 50%;
     color: var(--color-dark);
+    text-decoration: none; /* Для ссылок */
 }
 
 .iconButton svg {
@@ -20,14 +21,17 @@
 .filled {
     background: var(--color-dark) !important;
     color: white;
+    border-color: var(--color-dark) !important;
 }
 
 .filled:hover {
     background: rgba(0, 0, 0, 0.8) !important;
+    border-color: rgba(0, 0, 0, 0.8) !important;
 }
 
 .iconButton:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    border-color: var(--color-dark);
+    background: rgba(0, 0, 0, 0.05);
     transform: scale(1.05);
 }
 
@@ -76,26 +80,59 @@
 
 /* Варіанти */
 .default {
-    background: transparent;
+    /* Базовые стили уже применены */
 }
 
 .filled {
     background: var(--color-dark);
     color: white;
+    border-color: var(--color-dark);
 }
 
 .filled:hover {
     background: rgba(0, 0, 0, 0.8);
+    border-color: rgba(0, 0, 0, 0.8);
 }
 
 .outlined {
     border: 2px solid var(--color-dark);
-    background: transparent;
+    background: white;
 }
 
 .outlined:hover {
     background: var(--color-dark);
     color: white;
+}
+
+/* Соціальні мережі */
+.social {
+    /* Используем базовые стили рамки */
+    width: 60px;
+    height: 60px;
+    padding: 16px;
+}
+
+.social svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+    stroke: none;
+}
+
+.social:hover {
+    border-color: var(--color-dark);
+    background: rgba(0, 0, 0, 0.05);
+    transform: scale(1.05);
+}
+
+.social:active {
+    transform: scale(0.95);
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* Для ссылок social - убираем подчеркивание */
+a.social:visited {
+    color: var(--color-dark);
 }
 
 /* Вимкнений стан */
@@ -107,5 +144,6 @@
 
 .disabled:hover {
     transform: none;
-    background-color: transparent;
+    background-color: white;
+    border-color: #e0e0e0;
 }
