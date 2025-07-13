@@ -17,6 +17,9 @@ import MainTitleExample from '../common/ui/MainTitle/MainTitle.example';
 import PathInfoExample from '../common/ui/PathInfo/PathInfo.example';
 import SubtitleExample from '../common/ui/Subtitle/Subtitle.example';
 import ModalExample from '../common/ui/Modal/Modal.example';
+import beef from "../../assets/images/beef.jpg"
+import beef2x from "../../assets/images/beef@2x.jpg"
+import beef3x from "../../assets/images/beef@3x.jpg"
 
 function App() {
     return (
@@ -33,17 +36,25 @@ function App() {
                             <Button variant='white' size='large'>
                                 White Button
                             </Button>
-                            <IconButtonExample />
-                            <InputExample />
-                            <SelectExample />
-                            <MainTitleExample />
-                            <PathInfoExample />
-                            <SubtitleExample />
-                            <ModalExample />
-                            <Typography />
-                            <ExampleComponent />
-                            <ButtonExample />
-                            <HomePage />
+                            <IconButtonExample/>
+                            <InputExample/>
+                            <SelectExample/>
+                            <MainTitleExample/>
+                            <PathInfoExample/>
+                            <SubtitleExample/>
+                            <ModalExample/>
+                            <Typography/>
+                            <ExampleComponent/>
+                            <ButtonExample/>
+
+                            <div>
+                                <img
+                                    src={beef}
+                                    srcSet={`${beef} 1x, ${beef2x} 2x, ${beef3x} 3x`}
+                                    alt="Logo"
+                                />
+                            </div>
+                            <HomePage/>
                         </>
                     }
                 />
