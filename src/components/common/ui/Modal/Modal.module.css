@@ -1,69 +1,71 @@
-/* Backdrop - затемненный фон */
+/* Backdrop - затемнений фон */
 .backdrop {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    padding: var(--spacing-md);
+    padding: 0;
     box-sizing: border-box;
 }
 
-/* Модальное окно */
+/* === MOBILE FIRST === */
 .modal {
     position: relative;
     background-color: var(--color-white);
-    border-radius: var(--border-radius-small);
-    padding: var(--spacing-lg);
-    width: 100%;
-    max-width: 400px;
-    max-height: 90vh;
-    overflow-y: auto;
+    border-radius: 20px;
+    width: 343px;
+    /* height: 408px; */
+    padding: 60px 30px;
     box-shadow: var(--shadow-medium);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
+    max-width: 95vw;
+    max-height: 95vh;
 }
 
-/* Кнопка закрытия */
 .closeButton {
     position: absolute;
-    top: var(--spacing-md);
-    right: var(--spacing-md);
-    z-index: 1001;
+    top: 20px;
+    right: 20px;
+    z-index: 2000;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
 }
 
-/* Контент модального окна */
 .content {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* Адаптивные стили */
-/* Мобильные устройства: от var(--breakpoint-mobile) */
-@media screen and (min-width: 375px) {
-    .modal {
-        max-width: 480px;
-    }
-}
-
-/* Планшеты: от var(--breakpoint-tablet) */
+/* === TABLET & DESKTOP === */
 @media screen and (min-width: 768px) {
     .modal {
-        padding: var(--spacing-xl);
-        max-width: 600px;
-    }
+        width: 560px;
 
+        border-radius: 30px;
+        padding: 80px;
+    }
     .closeButton {
-        top: var(--spacing-lg);
-        right: var(--spacing-lg);
-    }
-}
-
-/* Десктоп: от var(--breakpoint-desktop) */
-@media screen and (min-width: 1440px) {
-    .modal {
-        max-width: 800px;
+        top: 20px;
+        right: 20px;
     }
 }

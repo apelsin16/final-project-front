@@ -1,4 +1,4 @@
-/* Базовые стили для PathInfo */
+/* Базові стилі для PathInfo */
 .pathInfo {
     width: 100%;
     margin: 0;
@@ -13,7 +13,7 @@
     margin: 0;
     padding: 0;
 
-    /* Стили из Figma */
+    /* Стилі з Figma */
     font-family: 'Mulish', sans-serif;
     font-weight: 700; /* Bold */
     font-size: 12px;
@@ -69,10 +69,10 @@
     font-weight: 700; /* Bold как и HOME */
 }
 
-/* Адаптивные стили */
+/* Адаптивні стилі */
 @media (max-width: 767px) {
     .breadcrumbList {
-        /* Мобильные стили остаются такими же */
+        /* Мобільні стилі залишаються такими ж */
         font-size: 12px;
         line-height: 18px;
         gap: 6px;
@@ -85,7 +85,7 @@
 
 @media (min-width: 768px) {
     .breadcrumbList {
-        /* Планшеты и десктопы */
+        /* Планшети та десктопи */
         font-size: 12px;
         line-height: 18px;
         gap: 8px;
@@ -146,7 +146,7 @@
     outline-color: #ffffff;
 }
 
-/* Стили для принтера */
+/* Стилі для принтера */
 @media print {
     .pathInfo {
         color: #000000 !important;

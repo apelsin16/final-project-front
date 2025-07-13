@@ -27,7 +27,7 @@
     width: 100%;
     padding: 14px 16px;
     border: 1px solid #d1d5db;
-    border-radius: 12px;
+    border-radius: 30px;
     font-size: 16px;
     line-height: 1.5;
     color: var(--color-dark);
@@ -75,7 +75,7 @@
     padding-right: 54px;
 }
 
-/* Кнопка показать/скрыть пароль */
+/* Кнопка показати/приховати пароль */
 .toggleButton {
     position: absolute;
     right: 8px;
@@ -117,7 +117,6 @@
     margin-top: 4px;
 }
 
-/* Выключенное состояние */
 .disabled {
     background-color: #f9fafb;
     color: #6b7280;
@@ -126,11 +125,4 @@
 
 .disabled::placeholder {
     color: #d1d5db;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .input {
-        font-size: 16px; /* Предотвращает zoom на iOS */
-    }
 }

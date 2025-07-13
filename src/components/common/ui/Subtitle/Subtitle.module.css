@@ -1,4 +1,4 @@
-/* Базовые стили для Subtitle */
+/* Базові стилі для Subtitle */
 .subtitle {
     font-family: 'Mulish', sans-serif;
     font-weight: 800; /* ExtraBold */
@@ -7,70 +7,35 @@
     margin: 0;
     padding: 0;
     display: block;
+    width: 100%;
 
-    /* Оптимизация рендеринга текста */
+    /* Оптимізація рендерингу тексту */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
 }
 
-/* Размеры */
-
-/* Small размер */
+/* Розміри */
 .small {
-    /* Мобильные устройства */
     font-size: 24px;
     line-height: 28px;
 }
 
-/* Medium размер (основной из Figma) */
-.medium {
-    /* Мобильные устройства */
-    font-size: 28px;
-    line-height: 32px;
-}
-
-/* Large размер */
 .large {
-    /* Мобильные устройства */
-    font-size: 32px;
-    line-height: 36px;
+    font-size: 28px;
+    line-height: 1.14;
 }
 
-/* Планшетные стили */
+/* Планшетні стилі */
 @media (min-width: 768px) {
     .small {
         font-size: 28px;
         line-height: 32px;
     }
 
-    .medium {
-        font-size: 36px;
-        line-height: 40px;
-    }
-
     .large {
-        font-size: 44px;
-        line-height: 48px;
-    }
-}
-
-/* Десктопные стили */
-@media (min-width: 1024px) {
-    .small {
         font-size: 32px;
-        line-height: 36px;
-    }
-
-    .medium {
-        /* Стили из Figma для основного размера */
-        font-size: 40px;
-        line-height: 44px;
-    }
-
-    .large {
-        font-size: 48px;
-        line-height: 52px;
+        line-height: 1.25;
     }
 }
 
@@ -88,6 +53,10 @@
     text-align: center;
 }
 
+.left {
+    text-align: left;
+}
+
 /* Анимация появления */
 .subtitle {
     opacity: 1;
@@ -95,87 +64,6 @@
     transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-/* Состояние загрузки */
-.subtitle.loading {
-    opacity: 0;
-    transform: translateY(15px);
-}
-
-/* Стили для очень маленьких экранов */
-@media (max-width: 480px) {
-    .small {
-        font-size: 20px;
-        line-height: 24px;
-    }
-
-    .medium {
-        font-size: 24px;
-        line-height: 28px;
-    }
-
-    .large {
-        font-size: 28px;
-        line-height: 32px;
-    }
-}
-
-/* Дополнительные стили для больших экранов */
-@media (min-width: 1440px) {
-    .small {
-        font-size: 36px;
-        line-height: 40px;
-    }
-
-    .medium {
-        font-size: 44px;
-        line-height: 48px;
-    }
-
-    .large {
-        font-size: 52px;
-        line-height: 56px;
-    }
-}
-
-/* Улучшенная читаемость */
-.subtitle {
-    /* Предотвращение переноса слов */
-    word-break: keep-all;
-    hyphens: none;
-
-    /* Оптимизация для больших размеров текста */
-    font-feature-settings: 'kern' 1;
-}
-
-/* Дополнительные цветовые варианты */
-.subtitle.muted {
-    color: #6b7280;
-}
-
 .subtitle.accent {
     color: var(--color-accent, #2563eb);
-}
-
-/* Стили для принтера */
-@media print {
-    .subtitle {
-        color: #000000 !important;
-        font-size: 18pt !important;
-        line-height: 1.2 !important;
-    }
-}
-
-/* Состояния hover для интерактивных элементов */
-.subtitle.interactive {
-    cursor: pointer;
-    transition: color 0.2s ease, transform 0.2s ease;
-}
-
-.subtitle.interactive:hover {
-    color: #333333;
-    transform: translateY(-1px);
-}
-
-.subtitle.interactive:active {
-    transform: translateY(0);
 }

@@ -6,54 +6,26 @@ import RecipePage from '../RecipePage/RecipePage';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import AddRecipePage from '../AddRecipePage/AddRecipePage';
 import UserPage from '../UserPage/UserPage';
-import ButtonExample from '../common/ui/Button/Button.example';
-import ExampleComponent from '../../styles/example-usage';
-import Typography from '../../styles/Typography';
-import { Button } from '../common/ui';
-import IconButtonExample from '../common/ui/IconButton/IconButton.example';
-import InputExample from '../common/ui/Input/Input.example';
-import SelectExample from '../common/ui/Select/Select.example';
-import MainTitleExample from '../common/ui/MainTitle/MainTitle.example';
-import PathInfoExample from '../common/ui/PathInfo/PathInfo.example';
-import SubtitleExample from '../common/ui/Subtitle/Subtitle.example';
-import ModalExample from '../common/ui/Modal/Modal.example';
+import UIExamplesPage from '../UIExamplesPage/UIExamplesPage';
+import { useSelector } from 'react-redux';
 
 function App() {
+    // Отримуємо статус авторизації з redux
+    const isAuth = useSelector(state => state.auth.isAuth);
+
     return (
         <Routes>
             <Route path='/' element={<SharedLayout />}>
                 {/* Публічні сторінки */}
-                <Route
-                    index
-                    element={
-                        <>
-                            <Button variant='primary' size='large' disabled>
-                                Primary Button
-                            </Button>
-                            <Button variant='white' size='large'>
-                                White Button
-                            </Button>
-                            <IconButtonExample />
-                            <InputExample />
-                            <SelectExample />
-                            <MainTitleExample />
-                            <PathInfoExample />
-                            <SubtitleExample />
-                            <ModalExample />
-                            <Typography />
-                            <ExampleComponent />
-                            <ButtonExample />
-                            <HomePage />
-                        </>
-                    }
-                />
+                <Route index element={<HomePage />} />
+                <Route path='ui' element={<UIExamplesPage />} />
                 <Route path='recipe/:id' element={<RecipePage />} />
 
-                {/* Приватні сторінки */}
+                {/* Приватні сторінки — доступні тільки для авторизованих */}
                 <Route
                     path='recipe/add'
                     element={
-                        <PrivateRoute>
+                        <PrivateRoute isAuth={isAuth}>
                             <AddRecipePage />
                         </PrivateRoute>
                     }
@@ -61,13 +33,13 @@ function App() {
                 <Route
                     path='user/:id'
                     element={
-                        <PrivateRoute>
+                        <PrivateRoute isAuth={isAuth}>
                             <UserPage />
                         </PrivateRoute>
                     }
                 />
 
-                {/* Можна додати 404 сторінку */}
+                {/* TODO: Додати 404 сторінку */}
                 {/* <Route path="*" element={<NotFoundPage />} /> */}
             </Route>
         </Routes>

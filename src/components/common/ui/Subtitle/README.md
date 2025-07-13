@@ -1,80 +1,43 @@
-# Subtitle Component
+# Компонент Subtitle
 
-Универсальный компонент подзаголовка для использования на разных страницах приложения. Меньше чем MainTitle, но больше обычного текста.
+Універсальний компонент підзаголовка для використання на різних сторінках додатку. Менший за MainTitle, але більший за звичайний текст.
 
-## Features
+## Можливості
 
--   ✅ Адаптивные размеры для всех устройств
--   ✅ Точные стили из Figma (Mulish ExtraBold, 40px на десктопе)
--   ✅ 3 размера: small, medium, large
--   ✅ Семантические HTML теги (h1-h6)
--   ✅ Цветовые варианты (dark/light)
--   ✅ Центрированное и левое выравнивание
--   ✅ Плавные анимации
+-   ✅ Адаптивні розміри для всіх пристроїв
+-   ✅ Точні стилі з Figma (Mulish ExtraBold, 40px на десктопі)
+-   ✅ 3 розміри: small, medium, large
+-   ✅ Семантичні HTML теги (h1-h6)
+-   ✅ Кольорові варіанти (dark/light)
+-   ✅ Вирівнювання по центру або зліва (align)
+-   ✅ Плавні анімації
 
-## Responsive Breakpoints
+## Пропси
 
-### Small Size
+| Проп        | Тип                                            | За замовчуванням | Опис                   |
+| ----------- | ---------------------------------------------- | ---------------- | ---------------------- |
+| `children`  | `ReactNode`                                    | -                | Текст підзаголовка     |
+| `as`        | `'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6'` | `'h2'`           | HTML тег для семантики |
+| `size`      | `'small' \| 'medium' \| 'large'`               | `'medium'`       | Розмір підзаголовка    |
+| `color`     | `'dark' \| 'light'`                            | `'dark'`         | Колір тексту           |
+| `align`     | `'left' \| 'center'`                           | `'left'`         | Вирівнювання тексту    |
+| `className` | `string`                                       | -                | Додаткові CSS класи    |
 
-| Устройство             | Размер экрана | Font Size | Line Height |
-| ---------------------- | ------------- | --------- | ----------- |
-| Очень маленькие экраны | < 480px       | 20px      | 24px        |
-| Мобильные              | 480px+        | 24px      | 28px        |
-| Планшеты               | 768px+        | 28px      | 32px        |
-| Десктопы               | 1024px+       | 32px      | 36px        |
-| Большие экраны         | 1440px+       | 36px      | 40px        |
-
-### Medium Size (Default)
-
-| Устройство             | Размер экрана | Font Size | Line Height |
-| ---------------------- | ------------- | --------- | ----------- |
-| Очень маленькие экраны | < 480px       | 24px      | 28px        |
-| Мобильные              | 480px+        | 28px      | 32px        |
-| Планшеты               | 768px+        | 36px      | 40px        |
-| Десктопы               | 1024px+       | **40px**  | **44px**    |
-| Большие экраны         | 1440px+       | 44px      | 48px        |
-
-### Large Size
-
-| Устройство             | Размер экрана | Font Size | Line Height |
-| ---------------------- | ------------- | --------- | ----------- |
-| Очень маленькие экраны | < 480px       | 28px      | 32px        |
-| Мобильные              | 480px+        | 32px      | 36px        |
-| Планшеты               | 768px+        | 44px      | 48px        |
-| Десктопы               | 1024px+       | 48px      | 52px        |
-| Большие экраны         | 1440px+       | 52px      | 56px        |
-
-> **Примечание**: Medium размер на десктопе (40px/44px) точно соответствует дизайну из Figma
-
-## Usage
+## Використання
 
 ```jsx
 import { Subtitle } from '../common/ui';
 
-// Заголовок страницы
-<Subtitle as="h1">Add Recipe</Subtitle>
+// Заголовок сторінки (по лівому краю)
+<Subtitle as="h1" align="left">Add Recipe</Subtitle>
 
-// Заголовок секции
-<Subtitle as="h2" size="small">Categories</Subtitle>
-
-// Центрированный заголовок
-<Subtitle centered>Profile</Subtitle>
+// Заголовок секції (по центру)
+<Subtitle as="h2" align="center">Categories</Subtitle>
 ```
 
-## Props
+## Типографіка
 
-| Prop        | Type                                           | Default    | Description               |
-| ----------- | ---------------------------------------------- | ---------- | ------------------------- |
-| `children`  | `ReactNode`                                    | -          | Текст подзаголовка        |
-| `as`        | `'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6'` | `'h2'`     | HTML тег для семантики    |
-| `size`      | `'small' \| 'medium' \| 'large'`               | `'medium'` | Размер подзаголовка       |
-| `color`     | `'dark' \| 'light'`                            | `'dark'`   | Цвет текста               |
-| `centered`  | `boolean`                                      | `false`    | Центрировать текст        |
-| `className` | `string`                                       | -          | Дополнительные CSS классы |
-
-## Typography Specifications
-
-Согласно дизайну из Figma:
+Згідно з дизайном Figma:
 
 -   **Font Family**: Mulish
 -   **Font Weight**: 800 (ExtraBold)
@@ -83,60 +46,60 @@ import { Subtitle } from '../common/ui';
 -   **Color**: #050505 (dark)
 -   **Medium Size Desktop**: 40px font-size, 44px line-height
 
-## Examples
+## Приклади
 
-### Основные варианты из дизайна
+### Основні варіанти з дизайну
 
 ```jsx
-// Страница добавления рецепта
-<Subtitle as="h1">Add Recipe</Subtitle>
+// Сторінка додавання рецепта
+<Subtitle as="h1" align="left">Add Recipe</Subtitle>
 
-// Страница профиля
-<Subtitle as="h1">Profile</Subtitle>
+// Сторінка профілю
+<Subtitle as="h1" align="left">Profile</Subtitle>
 
-// Секция категорий
-<Subtitle as="h2">Categories</Subtitle>
+// Секція категорій
+<Subtitle as="h2" align="left">Categories</Subtitle>
 
-// Популярные рецепты
-<Subtitle as="h2">Popular Recipes</Subtitle>
+// Популярні рецепти
+<Subtitle as="h2" align="left">Popular Recipes</Subtitle>
 ```
 
-### Разные размеры
+### Різні розміри
 
 ```jsx
-// Маленький подзаголовок
-<Subtitle size="small" as="h3">Small Section</Subtitle>
+// Маленький підзаголовок
+<Subtitle size="small" as="h3" align="left">Small Section</Subtitle>
 
-// Средний (по умолчанию)
-<Subtitle size="medium" as="h2">Medium Section</Subtitle>
+// Середній (за замовчуванням)
+<Subtitle size="medium" as="h2" align="left">Medium Section</Subtitle>
 
-// Большой подзаголовок
-<Subtitle size="large" as="h1">Large Section</Subtitle>
+// Великий підзаголовок
+<Subtitle size="large" as="h1" align="left">Large Section</Subtitle>
 ```
 
-### Центрированные заголовки
+### Центровані заголовки
 
 ```jsx
-<Subtitle centered>Centered Title</Subtitle>
-<Subtitle centered size="small">Small Centered</Subtitle>
-<Subtitle centered size="large">Large Centered</Subtitle>
+<Subtitle align="center">Centered Title</Subtitle>
+<Subtitle align="center" size="small">Small Centered</Subtitle>
+<Subtitle align="center" size="large">Large Centered</Subtitle>
 ```
 
-### Цветовые варианты
+### Кольорові варіанти
 
 ```jsx
-// Темный (по умолчанию)
-<Subtitle color="dark">Dark Subtitle</Subtitle>
+// Темний (за замовчуванням)
+<Subtitle color="dark" align="left">Dark Subtitle</Subtitle>
 
-// Светлый для темного фона
+// Світлий для темного фону
 <div style={{ backgroundColor: '#1a1a1a' }}>
-  <Subtitle color="light">Light Subtitle</Subtitle>
+  <Subtitle color="light" align="center">Light Subtitle</Subtitle>
 </div>
 ```
 
-## Real-world Usage
+## Реальні приклади використання
 
-### В страничных компонентах
+### У сторінкових компонентах
 
 ```jsx
 // AddRecipePage.jsx
@@ -144,8 +107,10 @@ const AddRecipePage = () => {
     return (
         <div>
             <PathInfo currentPage='Add Recipe' />
-            <Subtitle as='h1'>Add Recipe</Subtitle>
-            {/* Форма добавления рецепта */}
+            <Subtitle as='h1' align='left'>
+                Add Recipe
+            </Subtitle>
+            {/* Форма додавання рецепта */}
         </div>
     );
 };
@@ -155,44 +120,46 @@ const ProfilePage = () => {
     return (
         <div>
             <PathInfo currentPage='Profile' />
-            <Subtitle as='h1'>Profile</Subtitle>
-            {/* Контент профиля */}
+            <Subtitle as='h1' align='left'>
+                Profile
+            </Subtitle>
+            {/* Контент профілю */}
         </div>
     );
 };
 ```
 
-### В секциях контента
+### У секціях контенту
 
 ```jsx
 const HomePage = () => {
     return (
         <div>
             <section>
-                <Subtitle as='h2' size='small'>
+                <Subtitle as='h2' size='small' align='left'>
                     Categories
                 </Subtitle>
-                {/* Список категорий */}
+                {/* Список категорій */}
             </section>
 
             <section>
-                <Subtitle as='h2' size='small'>
+                <Subtitle as='h2' size='small' align='left'>
                     Popular Recipes
                 </Subtitle>
-                {/* Список рецептов */}
+                {/* Список рецептів */}
             </section>
         </div>
     );
 };
 ```
 
-### С динамическим контентом
+### З динамічним контентом
 
 ```jsx
 const RecipeSection = ({ title, recipes }) => {
     return (
         <section>
-            <Subtitle as='h2' size='small'>
+            <Subtitle as='h2' size='small' align='left'>
                 {title}
             </Subtitle>
             {recipes.map(recipe => (
@@ -203,90 +170,90 @@ const RecipeSection = ({ title, recipes }) => {
 };
 ```
 
-## Size Guidelines
+## Рекомендації по розміру
 
-### Когда использовать какой размер:
+### Коли який розмір використовувати:
 
 **Small (`size="small"`):**
 
--   Заголовки секций на главной странице
--   Подзаголовки в карточках контента
--   Навигационные заголовки
+-   Заголовки секцій на головній сторінці
+-   Підзаголовки в картках контенту
+-   Навігаційні заголовки
 
-**Medium (`size="medium"` - default):**
+**Medium (`size="medium"` - за замовчуванням):**
 
--   Основные заголовки страниц (Add Recipe, Profile)
+-   Основні заголовки сторінок (Add Recipe, Profile)
 -   Заголовки форм
--   Основные секции контента
+-   Основні секції контенту
 
 **Large (`size="large"`):**
 
--   Особенно важные заголовки
+-   Особливо важливі заголовки
 -   Landing page заголовки
--   Промо секции
+-   Промо секції
 
-## Semantic HTML
+## Семантичний HTML
 
-Правильное использование семантических тегов:
+Правильне використання семантичних тегів:
 
 ```jsx
-// Основной заголовок страницы
-<Subtitle as="h1" size="medium">Add Recipe</Subtitle>
+// Основний заголовок сторінки
+<Subtitle as="h1" size="medium" align="left">Add Recipe</Subtitle>
 
-// Заголовки секций
-<Subtitle as="h2" size="small">Categories</Subtitle>
-<Subtitle as="h2" size="small">Popular Recipes</Subtitle>
+// Заголовки секцій
+<Subtitle as="h2" size="small" align="left">Categories</Subtitle>
+<Subtitle as="h2" size="small" align="left">Popular Recipes</Subtitle>
 
-// Подзаголовки в секциях
-<Subtitle as="h3" size="small">Breakfast Recipes</Subtitle>
+// Підзаголовки в секціях
+<Subtitle as="h3" size="small" align="left">Breakfast Recipes</Subtitle>
 ```
 
 ## Accessibility
 
--   **Семантическая разметка**: Использует правильные HTML теги (h1-h6)
--   **Читаемые размеры**: Достаточные размеры шрифта на всех устройствах
--   **Высокий контраст**: Цвета обеспечивают хорошую читаемость
--   **Структура документа**: Помогает screen readers понимать иерархию
+-   **Семантична розмітка**: Використовує правильні HTML теги (h1-h6)
+-   **Читабельні розміри**: Достатні розміри шрифту на всіх пристроях
+-   **Високий контраст**: Кольори забезпечують хорошу читабельність
+-   **Структура документа**: Допомагає screen readers розуміти ієрархію
 
 ## Styling
 
-Компонент использует CSS модули. Основные классы:
+Компонент використовує CSS модулі. Основні класи:
 
--   `.subtitle` - Базовые стили
--   `.small`, `.medium`, `.large` - Размеры
--   `.dark`, `.light` - Цветовые варианты
--   `.centered` - Центрированное выравнивание
+-   `.subtitle` - Базові стилі
+-   `.small`, `.medium`, `.large` - Розміри
+-   `.dark`, `.light` - Кольорові варіанти
+-   `.centered` - Центроване вирівнювання (align='center')
 
-### Кастомизация
+### Кастомізація
 
 ```jsx
 // Через className
-<Subtitle className="my-custom-subtitle">Title</Subtitle>
+<Subtitle className="my-custom-subtitle" align="left">Title</Subtitle>
 
 // Через style
-<Subtitle style={{ marginBottom: '20px' }}>Title</Subtitle>
+<Subtitle style={{ marginBottom: '20px' }} align="left">Title</Subtitle>
 
-// Переопределение размера
-<Subtitle style={{ fontSize: '32px' }}>Custom Size</Subtitle>
+// Перевизначення розміру
+<Subtitle style={{ fontSize: '32px' }} align="left">Custom Size</Subtitle>
 ```
 
-## Comparison with Other Components
+## Порівняння з іншими компонентами
 
-| Компонент    | Размер        | Использование                  |
-| ------------ | ------------- | ------------------------------ |
-| MainTitle    | 40px-100px    | Hero секции, главные заголовки |
-| **Subtitle** | **20px-52px** | **Заголовки страниц и секций** |
-| Typography   | 12px-18px     | Обычный текст, параграфы       |
+| Компонент    | Розмір        | Використання                    |
+| ------------ | ------------- | ------------------------------- |
+| MainTitle    | 40px-100px    | Hero секції, головні заголовки  |
+| **Subtitle** | **20px-52px** | **Заголовки сторінок і секцій** |
+| Typography   | 12px-18px     | Звичайний текст, параграфи      |
 
 ## Performance
 
--   Оптимизированное отображение шрифта
--   Минимальный DOM footprint
--   Эффективные CSS медиа-запросы
--   Плавные анимации с CSS трансформами
+-   Оптимізоване відображення шрифту
+-   Мінімальний DOM footprint
+-   Ефективні CSS медіа-запити
+-   Плавні анімації з CSS трансформами
 
 ## Browser Support
 
--   Современные браузеры (Chrome, Firefox, Safari, Edge)
--   IE11+ (с полифиллами)
--   Мобильные браузеры (iOS Safari, Android Chrome)
+-   Сучасні браузери (Chrome, Firefox, Safari, Edge)
+-   IE11+ (з поліфілами)
+-   Мобільні браузери (iOS Safari, Android Chrome)

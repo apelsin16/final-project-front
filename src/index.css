@@ -1,6 +1,17 @@
 /* Підключаємо змінні проекту */
 @import './styles/variables.css';
 
+html,
+body,
+#root {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    min-width: 0;
+    max-width: 100vw;
+    min-height: 100vh;
+}
+
 :root {
     font-family: var(--font-family-main);
     line-height: 1.5;
@@ -14,6 +25,20 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+pre,
+blockquote {
+    margin-top: 0;
 }
 
 /* Скидання та базові стилі */
@@ -55,4 +80,47 @@ h2 {
 button {
     font-family: inherit;
     cursor: pointer;
+}
+
+/* Контейнер для основного контенту
+   - Гумова верстка від 320px
+   - max-width: 375px з 375px
+   - max-width: 768px з 768px
+   - max-width: 1440px з 1440px
+*/
+.container {
+    width: 100%;
+    min-width: 320px;
+    max-width: 100vw;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+    outline: 2px dashed #ff9800; /* Тестова підсвітка */
+    background: rgba(255, 152, 0, 0.07); /* Тестова підсвітка */
+}
+
+@media (min-width: 375px) {
+    .container {
+        max-width: 375px;
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 768px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .container {
+        max-width: 1440px;
+        padding-left: 80px;
+        padding-right: 80px;
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
 }
