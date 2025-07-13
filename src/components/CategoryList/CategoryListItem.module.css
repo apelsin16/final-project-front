@@ -1,0 +1,42 @@
+
+.category {
+    padding: 12px;
+    border-radius: 20px;
+    background: linear-gradient(0deg, rgba(5, 5, 5, 0.20) 0%, rgba(5, 5, 5, 0.20) 100%), var(--bg-image) lightgray -23.332px -4px / 116.214% 106% no-repeat;
+    height: 250px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+}
+
+.buttonBlock {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+}
+
+.categoryName {
+    display: flex;
+    padding: 8px 12px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    color: var(--color-white);
+    border: 1px solid var(--color-white);
+    background: rgba(255, 255, 255, 0.20);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: -0.32px;
+}
+
+.categotyButton {
+    display: flex;
+padding: 11px;
+align-items: flex-start;
+gap: 10px;
+border-radius: 30px;
+border: 1px solid rgba(255, 255, 255, 0.20);
+}

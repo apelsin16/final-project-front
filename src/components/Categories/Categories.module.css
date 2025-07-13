@@ -1,0 +1,21 @@
+.categories {
+    text-align: initial;
+}
+
+.categoriesTitleBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.categoriesTitle {
+    font-size: 28px;
+}
+
+.categoriesSubTitle {
+    color: var(--color-light);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: -0.28px;
+}
