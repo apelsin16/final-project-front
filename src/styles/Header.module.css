@@ -1,0 +1,163 @@
+.header {
+    padding: 20px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    color: black;
+}
+
+.unauth {
+    background-color: black;
+    color: white;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.logo {
+    font-family: 'Mulish', sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 28px;
+    text-transform: lowercase;
+    color: inherit;
+}
+
+.nav {
+    display: flex;
+    gap: 30px;
+}
+
+.link {
+    color: inherit;
+    padding: 8px 16px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.activeLink {
+    outline: 1px solid currentColor;
+}
+
+.toggleWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.toggleBackground {
+    display: flex;
+    width: 208px;
+    height: 46px;
+    background-color: white;
+    border-radius: 23px;
+    padding: 0.5px;
+    border: 1px solid #fff;
+    overflow: hidden;
+    gap: 1px;
+}
+
+.toggleBtn {
+    flex: 1;
+    height: 100%;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    background-color: transparent;
+    color: black;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 6px 20px;
+    border-radius: 23px;
+}
+
+.toggleBtn.active {
+    background-color: #1C1C1C;
+    color: white;
+}
+
+.userMenu {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.avatarWrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: relative;
+    z-index: 2;
+}
+
+.userToggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: -35px;
+    padding: 8px 16px 8px 44px;
+    min-height: 48px;
+    min-width: 160px;
+    border-radius: 28px;
+    background-color: black;
+    color: white;
+    border: none;
+    outline: none;
+    position: relative;
+    z-index: 1;
+    justify-content: space-between;
+}
+
+.username {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+.arrow svg {
+    display: block;
+    color: #ffffff;
+}
+
+.dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background-color: #000;
+    border: 1px solid #fff;
+    border-radius: 20px;
+    padding: 16px 20px;
+    box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    z-index: 10;
+}
+
+.menuItem {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: left;
+    padding: 0;
+}
