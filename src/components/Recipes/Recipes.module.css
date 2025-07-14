@@ -1,32 +1,41 @@
-.categories {
+.recipes {
     padding: var(--spacing-xl) var(--spacing-md);
     max-width: 1200px;
     margin: 0 auto;
-    text-align: center;
 }
 
-.categoriesTitleBlock {
+.recipesHeader {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.recipesTitle {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
-    margin-bottom: var(--spacing-xl);
+    text-align: center;
 }
 
 /* Планшети */
 @media screen and (min-width: 768px) {
-    .categories {
+    .recipes {
         padding: var(--spacing-xxl) var(--spacing-lg);
     }
     
-    .categoriesTitleBlock {
+    .recipesHeader {
+        align-items: flex-start;
+    }
+    
+    .recipesTitle {
         gap: var(--spacing-lg);
-        margin-bottom: var(--spacing-xxl);
     }
 }
 
 /* Десктоп */
 @media screen and (min-width: 1440px) {
-    .categories {
+    .recipes {
         padding: var(--spacing-xxl) var(--spacing-xl);
     }
-}
+} 

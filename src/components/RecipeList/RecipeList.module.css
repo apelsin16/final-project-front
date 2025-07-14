@@ -1,0 +1,46 @@
+.recipeList {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.loadingContainer,
+.emptyContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xxl);
+    text-align: center;
+}
+
+.loadingMessage,
+.emptyMessage {
+    font-size: var(--font-size-large);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-dark);
+    margin-bottom: var(--spacing-md);
+}
+
+.emptySubtext {
+    font-size: var(--font-size-medium);
+    color: var(--color-light);
+    margin: 0;
+}
+
+/* Планшети */
+@media screen and (min-width: 768px) {
+    .recipeList {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-xl);
+    }
+}
+
+/* Десктоп */
+@media screen and (min-width: 1440px) {
+    .recipeList {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--spacing-xxl);
+    }
+} 

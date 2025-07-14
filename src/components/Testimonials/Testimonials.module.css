@@ -1,0 +1,127 @@
+.testimonials {
+    padding: var(--spacing-xl) var(--spacing-md);
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: var(--color-white);
+}
+
+.testimonialsHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xxl);
+}
+
+.testimonialsSlider {
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonialsContainer {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.testimonialSlide {
+    min-width: 100%;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.testimonialSlide.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.testimonialContent {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    padding: var(--spacing-xl);
+}
+
+.testimonialText {
+    font-size: var(--font-size-large);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-dark);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-lg);
+    font-style: italic;
+}
+
+.testimonialAuthor {
+    font-size: var(--font-size-medium);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-light);
+    margin: 0;
+}
+
+.testimonialsPagination {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-xl);
+}
+
+.paginationDot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--color-light);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.paginationDot.active {
+    background-color: var(--color-black);
+}
+
+.paginationDot:hover {
+    background-color: var(--color-dark);
+}
+
+.loadingMessage {
+    text-align: center;
+    padding: var(--spacing-xxl);
+    color: var(--color-light);
+    font-size: var(--font-size-medium);
+}
+
+/* Планшети */
+@media screen and (min-width: 768px) {
+    .testimonials {
+        padding: var(--spacing-xxl) var(--spacing-lg);
+    }
+    
+    .testimonialsHeader {
+        gap: var(--spacing-lg);
+    }
+    
+    .testimonialText {
+        font-size: var(--font-size-title);
+    }
+    
+    .testimonialAuthor {
+        font-size: var(--font-size-large);
+    }
+    
+    .paginationDot {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* Десктоп */
+@media screen and (min-width: 1440px) {
+    .testimonials {
+        padding: var(--spacing-xxl) var(--spacing-xl);
+    }
+    
+    .testimonialContent {
+        padding: var(--spacing-xxl);
+    }
+} 

@@ -4,7 +4,7 @@ import CategoryListItem from './CategoryListItem';
 import DessertsImage from '../../assets/images/desserts.jpg';
 import BeefImage from '../../assets/images/beef.jpg';
 
-const CategoryList = () => {
+const CategoryList = ({ onCategorySelect }) => {
   const categories = [{
     image: DessertsImage,
     name: 'Desserts',
@@ -17,6 +17,9 @@ const CategoryList = () => {
 
   function onCategoryClick(category) {
     console.log(category);
+    if (onCategorySelect) {
+      onCategorySelect(category);
+    }
   }
 
   return (
