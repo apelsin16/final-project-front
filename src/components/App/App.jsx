@@ -25,9 +25,9 @@ function App() {
                 <Route
                     path='recipe/add'
                     element={
-                        <PrivateRoute isAuth={isAuth}>
+                        // <PrivateRoute isAuth={isAuth}>
                             <AddRecipePage />
-                        </PrivateRoute>
+                        // </PrivateRoute>
                     }
                 />
                 <Route

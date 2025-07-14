@@ -2,7 +2,6 @@
 .subtitle {
     font-family: 'Mulish', sans-serif;
     font-weight: 800; /* ExtraBold */
-    text-transform: uppercase;
     letter-spacing: -0.02em; /* -2% */
     margin: 0;
     padding: 0;
@@ -66,4 +65,19 @@
 
 .subtitle.accent {
     color: var(--color-accent, #2563eb);
+}
+
+@media (max-width: 767px) {
+    .subtitle {
+        font-family: 'Mulish', sans-serif;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        margin: 0;
+        padding: 0;
+        display: block;
+        width: 100%;
+        color: #BFBEBE;
+        font-size: 14px;
+        line-height: 20px;
+    }
 }

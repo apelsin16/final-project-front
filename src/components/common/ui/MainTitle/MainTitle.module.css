@@ -65,8 +65,8 @@
 /* Стилі для дуже маленьких екранів */
 @media (max-width: 480px) {
     .mainTitle {
-        font-size: 40px;
-        line-height: 40px;
+        font-size: 28px;
+        line-height: 32px;
         max-width: 280px;
     }
 }
