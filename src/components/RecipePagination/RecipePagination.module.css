@@ -12,8 +12,8 @@
     border-radius: 50%;
     border: 1px solid var(--color-light-gray);
     background-color: transparent;
-    color: var(--color-black);
-    font-family: var(--font-family);
+    color: #1A1A1A;
+    font-family: 'Mulish', sans-serif;
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
@@ -32,20 +32,37 @@
 .paginationButton.active {
     border-color: var(--color-light-gray);
     background-color: transparent;
-    color: var(--color-dark-gray);
+    color: #050505;
 }
 
 .paginationButton:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+    pointer-events: none;
 }
 
-.paginationButton:disabled:hover {
-    background-color: transparent;
+/* Планшети (768px - 1439px) */
+@media screen and (min-width: 768px) and (max-width: 1439px) {
+    .recipePagination {
+        gap: 8px;
+        padding: 8px;
+    }
+    
+    .paginationButton {
+        width: 48px;
+        height: 48px;
+    }
 }
 
-/* Стилі для першої активної кнопки відповідно до Figma */
-.paginationButton.active:first-of-type {
-    border-color: var(--color-light-gray);
-    background-color: transparent;
+/* Десктоп (1440px+) */
+@media screen and (min-width: 1440px) {
+    .recipePagination {
+        gap: 8px;
+        padding: 8px;
+    }
+    
+    .paginationButton {
+        width: 48px;
+        height: 48px;
+    }
 } 

@@ -81,21 +81,21 @@
 }
 
 .title {
-    font-family: var(--font-family);
+    font-family: 'Mulish', sans-serif;
     font-size: 18px;
     font-weight: 800;
     line-height: 24px;
     text-transform: uppercase;
-    color: var(--color-black);
+    color: #050505;
     margin: 0;
 }
 
 .description {
-    font-family: var(--font-family);
+    font-family: 'Mulish', sans-serif;
     font-size: 14px;
     font-weight: 500;
     line-height: 20px;
-    color: var(--color-dark-gray);
+    color: #1A1A1A;
     margin: 0;
     height: 40px;
     overflow: hidden;
@@ -134,11 +134,11 @@
 }
 
 .authorName {
-    font-family: var(--font-family);
+    font-family: 'Mulish', sans-serif;
     font-size: 14px;
     font-weight: 700;
     line-height: 20px;
-    color: var(--color-dark-gray);
+    color: #1A1A1A;
 }
 
 /* Планшети (768px - 1439px) */

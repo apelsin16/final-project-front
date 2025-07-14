@@ -31,8 +31,10 @@
     padding: 16px 18px;
     border: 1px solid #BFBEBE;
     border-radius: 30px;
-    font-size: 16px;
-    line-height: 1.5;
+    font-family: 'Mulish', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
     color: var(--color-dark);
     background-color: white;
     transition: all 0.2s ease;
@@ -59,12 +61,14 @@
     height: 48px;
     padding: 12px 16px;
     font-size: 14px;
+    line-height: 20px;
 }
 
 .large {
     height: 56px;
     padding: 16px 18px;
-    font-size: 16px;
+    font-size: 14px;
+    line-height: 20px;
 }
 
 /* Текст селекта */
@@ -76,9 +80,10 @@
     text-overflow: ellipsis;
 }
 
-/* Placeholder стиль */
+/* Placeholder стиль - Mobile */
 .select:not(.hasValue) .selectText {
-    color: #9ca3af;
+    color: #BFBEBE;
+    font-weight: 500;
 }
 
 /* Стрелка */
@@ -182,13 +187,38 @@
     color: #d1d5db;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+/* Планшети (768px - 1439px) */
+@media screen and (min-width: 768px) and (max-width: 1439px) {
     .select {
-        font-size: 16px; /* Предотвращает zoom на iOS */
+        font-size: 16px;
+        line-height: 24px;
     }
+    
+    .large {
+        font-size: 16px;
+        line-height: 24px;
+    }
+    
+    /* Placeholder остается #BFBEBE на планшете */
+    .select:not(.hasValue) .selectText {
+        color: #BFBEBE;
+    }
+}
 
-    .dropdown {
-        max-height: 150px;
+/* Десктоп (1440px+) */
+@media screen and (min-width: 1440px) {
+    .select {
+        font-size: 16px;
+        line-height: 24px;
+    }
+    
+    .large {
+        font-size: 16px;
+        line-height: 24px;
+    }
+    
+    /* Placeholder меняется на #1A1A1A на десктопе */
+    .select:not(.hasValue) .selectText {
+        color: #1A1A1A;
     }
 }

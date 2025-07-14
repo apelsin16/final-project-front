@@ -1,6 +1,8 @@
 .recipes {
     padding: var(--spacing-xl) var(--spacing-md);
     background-color: var(--color-white);
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .recipesHeader {
@@ -18,7 +20,7 @@
     border: none;
     cursor: pointer;
     padding: 0;
-    color: var(--color-black);
+    color: #050505;
 }
 
 .backIcon {
@@ -27,64 +29,49 @@
 }
 
 .backText {
-    font-family: var(--font-family);
+    font-family: 'Mulish', sans-serif;
     font-size: 12px;
     font-weight: 700;
     line-height: 16px;
     text-transform: uppercase;
-    color: var(--color-black);
+    color: #050505;
 }
 
 .categoryTitle {
-    font-family: var(--font-family);
+    font-family: 'Mulish', sans-serif;
     font-size: 28px;
     font-weight: 800;
     line-height: 32px;
     text-transform: uppercase;
-    color: var(--color-black);
+    color: #050505;
     margin: 0;
 }
 
 .categoryDescription {
-    width: 343px;
-    font-family: var(--font-family);
+    font-family: 'Mulish', sans-serif;
     font-size: 14px;
     font-weight: 500;
     line-height: 20px;
-    color: var(--color-light-gray);
+    color: #BFBEBE;
     margin: 0;
+    max-width: 343px;
 }
 
 .recipesContent {
     display: flex;
     flex-direction: column;
-    gap: 32px;
-}
-
-.recipesMain {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
+    gap: 40px;
 }
 
 /* Планшети (768px - 1439px) */
 @media screen and (min-width: 768px) and (max-width: 1439px) {
     .recipes {
-        padding: var(--spacing-xxl) var(--spacing-lg);
+        padding: 64px 32px;
     }
     
     .recipesHeader {
         gap: 20px;
         margin-bottom: 40px;
-    }
-    
-    .backButton {
-        gap: 6px;
-    }
-    
-    .backIcon {
-        width: 18px;
-        height: 18px;
     }
     
     .backText {
@@ -98,41 +85,27 @@
     }
     
     .categoryDescription {
-        width: 540px;
         font-size: 16px;
         line-height: 24px;
-        color: var(--color-dark-gray);
+        color: #1A1A1A;
+        max-width: 540px;
     }
     
     .recipesContent {
+        flex-direction: column;
         gap: 40px;
-    }
-    
-    .recipesMain {
-        gap: 60px;
     }
 }
 
 /* Десктоп (1440px+) */
 @media screen and (min-width: 1440px) {
     .recipes {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: var(--spacing-xxl) var(--spacing-xl);
+        padding: 80px 100px;
     }
     
     .recipesHeader {
         gap: 20px;
         margin-bottom: 40px;
-    }
-    
-    .backButton {
-        gap: 6px;
-    }
-    
-    .backIcon {
-        width: 18px;
-        height: 18px;
     }
     
     .backText {
@@ -146,24 +119,15 @@
     }
     
     .categoryDescription {
-        width: 540px;
         font-size: 16px;
         line-height: 24px;
-        color: var(--color-dark-gray);
+        color: #1A1A1A;
+        max-width: 540px;
     }
     
     .recipesContent {
-        display: flex;
         flex-direction: row;
-        align-items: flex-start;
         gap: 40px;
-    }
-    
-    .recipesMain {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 60px;
+        align-items: flex-start;
     }
 } 
