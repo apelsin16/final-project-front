@@ -41,7 +41,7 @@ const desktopCategories = [
   { id: 'starter', name: 'Starter', image: starterImg, size: 'small' }
 ];
 
-const CategoryList = () => {
+const CategoryList = ({ onCategorySelect }) => {
   const handleAllCategoriesClick = () => {
     console.log('All categories clicked');
     // TODO: Додати навігацію до сторінки з всіма категоріями
@@ -71,7 +71,11 @@ const CategoryList = () => {
       {/* Мобільна версія - 8 категорій в стовпець */}
       <div className={styles.mobileContent}>
         {mobileCategories.map((category) => (
-          <CategoryListItem key={category.id} category={category} />
+          <CategoryListItem 
+            key={category.id} 
+            category={category} 
+            onCategorySelect={onCategorySelect}
+          />
         ))}
         <AllCategoriesButton />
       </div>
@@ -80,7 +84,11 @@ const CategoryList = () => {
       <div className={styles.tabletContent}>
         <div className={styles.tabletGrid}>
           {desktopCategories.map((category) => (
-            <CategoryListItem key={category.id} category={category} />
+            <CategoryListItem 
+              key={category.id} 
+              category={category} 
+              onCategorySelect={onCategorySelect}
+            />
           ))}
           <AllCategoriesButton />
         </div>
@@ -91,29 +99,62 @@ const CategoryList = () => {
         <div className={styles.content}>
           {/* Перший ряд - Beef, Breakfast, Desserts */}
           <div className={styles.row}>
-            <CategoryListItem category={desktopCategories[0]} /> {/* Beef - small */}
-            <CategoryListItem category={desktopCategories[1]} /> {/* Breakfast - small */}
-            <CategoryListItem category={desktopCategories[2]} /> {/* Desserts - large */}
+            <CategoryListItem 
+              category={desktopCategories[0]} 
+              onCategorySelect={onCategorySelect}
+            /> {/* Beef - small */}
+            <CategoryListItem 
+              category={desktopCategories[1]} 
+              onCategorySelect={onCategorySelect}
+            /> {/* Breakfast - small */}
+            <CategoryListItem 
+              category={desktopCategories[2]} 
+              onCategorySelect={onCategorySelect}
+            /> {/* Desserts - large */}
           </div>
 
           {/* Другий ряд - Lamb, Goat, Miscellaneous */}
           <div className={styles.row}>
-            <CategoryListItem category={desktopCategories[3]} /> {/* Lamb - large */}
-            <CategoryListItem category={desktopCategories[4]} /> {/* Goat - small */}
-            <CategoryListItem category={desktopCategories[5]} /> {/* Miscellaneous - small */}
+            <CategoryListItem 
+              category={desktopCategories[3]} 
+              onCategorySelect={onCategorySelect}
+            /> {/* Lamb - large */}
+            <CategoryListItem 
+              category={desktopCategories[4]} 
+              onCategorySelect={onCategorySelect}
+            /> {/* Goat - small */}
+            <CategoryListItem 
+              category={desktopCategories[5]} 
+              onCategorySelect={onCategorySelect}
+            /> {/* Miscellaneous - small */}
           </div>
 
           {/* Третій ряд - Pasta, Pork, Seafood */}
           <div className={styles.row}>
-            <CategoryListItem category={desktopCategories[6]} /> {/* Pasta - small */}
-            <CategoryListItem category={desktopCategories[7]} /> {/* Pork - large */}
-            <CategoryListItem category={desktopCategories[8]} /> {/* Seafood - small */}
+            <CategoryListItem 
+              category={desktopCategories[6]} 
+              onCategorySelect={onCategorySelect}
+            /> {/* Pasta - small */}
+            <CategoryListItem 
+              category={desktopCategories[7]} 
+              onCategorySelect={onCategorySelect}
+            /> {/* Pork - large */}
+            <CategoryListItem 
+              category={desktopCategories[8]} 
+              onCategorySelect={onCategorySelect}
+            /> {/* Seafood - small */}
           </div>
 
           {/* Четвертий ряд - Side, Starter, All categories */}
           <div className={styles.row}>
-            <CategoryListItem category={desktopCategories[9]} /> {/* Side - large */}
-            <CategoryListItem category={desktopCategories[10]} /> {/* Starter - small */}
+            <CategoryListItem 
+              category={desktopCategories[9]} 
+              onCategorySelect={onCategorySelect}
+            /> {/* Side - large */}
+            <CategoryListItem 
+              category={desktopCategories[10]} 
+              onCategorySelect={onCategorySelect}
+            /> {/* Starter - small */}
             <AllCategoriesButton />
           </div>
         </div>

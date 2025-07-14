@@ -1,46 +1,47 @@
 .recipeList {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--spacing-lg);
-    margin-bottom: var(--spacing-xl);
+    gap: 16px;
 }
 
-.loadingContainer,
-.emptyContainer {
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+    font-size: var(--font-size-lg);
+    color: var(--color-gray);
+}
+
+.empty {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: var(--spacing-xxl);
+    min-height: 200px;
     text-align: center;
+    color: var(--color-gray);
 }
 
-.loadingMessage,
-.emptyMessage {
-    font-size: var(--font-size-large);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-dark);
+.emptyIcon {
+    font-size: 48px;
     margin-bottom: var(--spacing-md);
 }
 
-.emptySubtext {
-    font-size: var(--font-size-medium);
-    color: var(--color-light);
-    margin: 0;
-}
-
-/* Планшети */
-@media screen and (min-width: 768px) {
+/* Планшети (768px - 1439px) */
+@media screen and (min-width: 768px) and (max-width: 1439px) {
     .recipeList {
         grid-template-columns: repeat(2, 1fr);
-        gap: var(--spacing-xl);
+        gap: 20px;
+        width: 704px;
     }
 }
 
-/* Десктоп */
+/* Десктоп (1440px+) */
 @media screen and (min-width: 1440px) {
     .recipeList {
         grid-template-columns: repeat(3, 1fr);
-        gap: var(--spacing-xxl);
+        gap: 20px;
+        width: 930px;
     }
 } 

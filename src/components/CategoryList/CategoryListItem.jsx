@@ -1,19 +1,19 @@
 import styles from './CategoryListItem.module.css';
 
-const CategoryListItem = ({ category }) => {
+const CategoryListItem = ({ category, onCategorySelect }) => {
   const { id, name, image, size } = category;
 
   const handleCategoryClick = () => {
-    console.log(`Selected category: ${name} (${id})`);
-    // TODO: Додати навігацію до сторінки категорії
-    // Наприклад: navigate(`/categories/${id}`);
+    if (onCategorySelect) {
+      onCategorySelect(category);
+    }
   };
 
   const handleArrowClick = (e) => {
     e.stopPropagation();
-    console.log(`Quick view for category: ${name} (${id})`);
-    // TODO: Додати швидкий перегляд або додаткову функціональність
-    // Наприклад: відкрити модальне вікно з рецептами категорії
+    if (onCategorySelect) {
+      onCategorySelect(category);
+    }
   };
 
   return (
@@ -68,4 +68,4 @@ const CategoryListItem = ({ category }) => {
   );
 };
 
-export default CategoryListItem; 
+export default CategoryListItem;

@@ -51,6 +51,7 @@ const RecipeFilters = ({ filters, onFiltersChange }) => {
                 setAreas(mockAreas);
             } catch (error) {
                 console.error('Error fetching filters data:', error);
+                // TODO: Показати notification з помилкою
             }
         };
 
@@ -77,8 +78,7 @@ const RecipeFilters = ({ filters, onFiltersChange }) => {
                 options={ingredients}
                 value={filters.ingredient}
                 onChange={handleIngredientChange}
-                placeholder="Select ingredient"
-                label="INGREDIENT"
+                placeholder="Ingredients"
                 size="large"
                 className={styles.filterSelect}
             />
@@ -86,8 +86,7 @@ const RecipeFilters = ({ filters, onFiltersChange }) => {
                 options={areas}
                 value={filters.area}
                 onChange={handleAreaChange}
-                placeholder="Select area"
-                label="AREA"
+                placeholder="Area"
                 size="large"
                 className={styles.filterSelect}
             />

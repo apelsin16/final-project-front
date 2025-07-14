@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { openModal } from '../../features/modal/modalSlice';
-import IconButton from '../common/ui/IconButton/IconButton';
 import styles from './RecipeCard.module.css';
 
 const RecipeCard = ({ recipe }) => {
@@ -34,41 +33,94 @@ const RecipeCard = ({ recipe }) => {
         <div className={styles.recipeCard}>
             <div className={styles.imageContainer}>
                 <img
-                    src={recipe.image || '/src/assets/images/beef.jpg'}
+                    src={recipe.image || '/src/assets/images/desserts.jpg'}
                     alt={recipe.title}
                     className={styles.recipeImage}
                 />
                 <div className={styles.actions}>
-                    <IconButton
-                        icon="heart"
-                        onClick={handleFavoriteClick}
+                    <button
                         className={`${styles.favoriteButton} ${recipe.isFavorite ? styles.active : ''}`}
+                        onClick={handleFavoriteClick}
                         title="Add to favorites"
-                    />
-                    <IconButton
-                        icon="arrow-right"
-                        onClick={handleViewRecipe}
+                    >
+                        <svg width="16" height="16" viewBox="0 0 18 18" fill="none">
+                            <path 
+                                d="M15.68 13.67L1.16 2.25" 
+                                stroke="currentColor" 
+                                strokeWidth="1.5" 
+                                strokeLinecap="round"
+                            />
+                        </svg>
+                    </button>
+                    <button
                         className={styles.viewButton}
+                        onClick={handleViewRecipe}
                         title="View recipe"
-                    />
+                    >
+                        <svg width="16" height="16" viewBox="0 0 18 18" fill="none">
+                            <circle 
+                                cx="9" 
+                                cy="9" 
+                                r="3.75" 
+                                stroke="currentColor" 
+                                strokeWidth="1.5"
+                            />
+                        </svg>
+                    </button>
                 </div>
             </div>
             
             <div className={styles.content}>
-                <h3 className={styles.title}>{recipe.title}</h3>
-                <p className={styles.description}>{recipe.description}</p>
+                <div className={styles.textContent}>
+                    <h3 className={styles.title}>{recipe.title}</h3>
+                    <p className={styles.description}>{recipe.description}</p>
+                </div>
                 
-                <button
-                    className={styles.authorButton}
-                    onClick={handleAuthorClick}
-                >
-                    <img
-                        src={recipe.author.avatar || '/src/assets/images/beef.jpg'}
-                        alt={recipe.author.name}
-                        className={styles.authorAvatar}
-                    />
-                    <span className={styles.authorName}>{recipe.author.name}</span>
-                </button>
+                <div className={styles.footer}>
+                    <button
+                        className={styles.authorButton}
+                        onClick={handleAuthorClick}
+                    >
+                        <img
+                            src={recipe.author.avatar || '/src/assets/images/desserts.jpg'}
+                            alt={recipe.author.name}
+                            className={styles.authorAvatar}
+                        />
+                        <span className={styles.authorName}>{recipe.author.name}</span>
+                    </button>
+                    
+                    <div className={styles.cardActions}>
+                        <button
+                            className={`${styles.actionButton} ${recipe.isFavorite ? styles.active : ''}`}
+                            onClick={handleFavoriteClick}
+                            title="Add to favorites"
+                        >
+                            <svg width="16" height="16" viewBox="0 0 18 18" fill="none">
+                                <path 
+                                    d="M15.68 13.67L1.16 2.25" 
+                                    stroke="currentColor" 
+                                    strokeWidth="1.5" 
+                                    strokeLinecap="round"
+                                />
+                            </svg>
+                        </button>
+                        <button
+                            className={styles.actionButton}
+                            onClick={handleViewRecipe}
+                            title="View recipe"
+                        >
+                            <svg width="16" height="16" viewBox="0 0 18 18" fill="none">
+                                <circle 
+                                    cx="9" 
+                                    cy="9" 
+                                    r="3.75" 
+                                    stroke="currentColor" 
+                                    strokeWidth="1.5"
+                                />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     );

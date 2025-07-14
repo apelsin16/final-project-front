@@ -1,7 +1,7 @@
 import styles from './Categories.module.css';
 import CategoryList from '../CategoryList/CategoryList';
 
-const Categories = () => {
+const Categories = ({ onCategorySelect }) => {
   return (
     <section className={styles.categories}>
       <div className={styles.header}>
@@ -11,7 +11,7 @@ const Categories = () => {
           recipes that combine taste, style and the warm atmosphere of the kitchen.
         </p>
       </div>
-      <CategoryList />
+      <CategoryList onCategorySelect={onCategorySelect} />
     </section>
   );
 };
