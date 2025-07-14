@@ -1,14 +1,18 @@
 /* CategoryList styles */
 .categoryList {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-/* Мобільна версія - всі категорії в стовпець */
+/* Мобільна версія */
 .mobileContent {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
-  width: 100%;
+  gap: 16px;
+  width: 343px;
+  margin: 0 auto;
 }
 
 /* Планшетна версія */
@@ -16,32 +20,9 @@
   display: none;
 }
 
-/* Десктопна версія - приховано на мобільних і планшетах */
+/* Десктопна версія */
 .desktopContent {
   display: none;
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-lg);
-}
-
-/* Мобільна версія - всі категорії в один стовпець */
-.row {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-  width: 100%;
-}
-
-/* Планшетний контент - 2-колонкова сітка */
-.tabletGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-md);
-  max-width: 704px; /* 2 * 325px + 54px gap */
-  margin: 0 auto;
 }
 
 /* Кнопка "All categories" */
@@ -49,59 +30,74 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--color-black);
-  border-radius: var(--border-radius-button);
-  /* Такі ж розміри як у малих категорій з Figma */
-  width: 100%;
-  max-width: 343px;
-  aspect-ratio: 0.88; /* Такі ж пропорції як у small категорій */
-  margin: 0 auto; /* Центрування */
+  background: #050505;
+  border: none;
+  border-radius: 30px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  /* Мобільні розміри */
+  width: 342px;
+  height: 250px;
+  overflow: hidden;
 }
 
 .allCategoriesButton:hover {
-  background-color: var(--color-dark);
+  background: #1A1A1A;
 }
 
 .allCategoriesText {
-  font-family: var(--font-family-main);
-  font-weight: var(--font-weight-extra-bold);
-  font-size: var(--font-size-medium);
-  line-height: 1.5;
-  letter-spacing: -0.02em;
+  font-family: 'Mulish', sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 24px;
   text-transform: uppercase;
-  color: var(--color-white);
+  color: white;
 }
 
-/* Планшетні стилі (768px - 1439px) відповідно до ТЗ */
+/* Планшетні стилі (768px - 1439px) */
 @media screen and (min-width: 768px) and (max-width: 1439px) {
-  /* Приховуємо мобільну версію */
+  .categoryList {
+    gap: 20px;
+  }
+
   .mobileContent {
     display: none;
   }
   
-  /* Показуємо планшетну версію */
   .tabletContent {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .tabletGrid {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 704px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
   }
   
   .allCategoriesButton {
-    /* Планшетні розміри */
-    width: 325px;
-    height: 285px; /* Трохи менша висота для планшета */
-    border-radius: 20px;
-    aspect-ratio: auto;
+    width: 342px;
+    height: 369px;
+    border-radius: 30px;
   }
   
   .allCategoriesText {
-    font-size: var(--font-size-large);
+    font-size: 20px;
+    line-height: 24px;
   }
 }
 
-/* Десктопні стилі (1440px+) відповідно до ТЗ */
+/* Десктопні стилі (1440px+) */
 @media screen and (min-width: 1440px) {
-  /* Приховуємо мобільну та планшетну версії */
+  .categoryList {
+    gap: 20px;
+  }
+
   .mobileContent {
     display: none;
   }
@@ -110,29 +106,27 @@
     display: none;
   }
   
-  /* Показуємо десктопну версію */
   .desktopContent {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-lg);
+    gap: 20px;
   }
   
   .row {
-    flex-direction: row;
-    gap: var(--spacing-lg);
-    justify-content: center;
+    display: inline-flex;
+    gap: 20px;
+    justify-content: flex-start;
+    align-items: flex-start;
   }
   
   .allCategoriesButton {
-    /* Точні розміри small категорії з Figma */
-    flex: 0 0 325px;
     width: 325px;
     height: 369px;
     border-radius: 30px;
-    aspect-ratio: auto;
   }
   
   .allCategoriesText {
-    font-size: var(--font-size-large);
+    font-size: 20px;
+    line-height: 24px;
   }
 } 

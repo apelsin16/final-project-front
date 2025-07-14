@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import styles from './CategoryList.module.css';
 import CategoryListItem from './CategoryListItem';
 
@@ -13,6 +14,8 @@ import porkImg from '../../assets/images/pork.jpg';
 import seafoodImg from '../../assets/images/seafood.jpg';
 import sideImg from '../../assets/images/side.jpg';
 import starterImg from '../../assets/images/starter.jpg';
+import veganImg from '../../assets/images/vegan.jpg';
+import vegetarianImg from '../../assets/images/vegetarian.jpg';
 
 // Мобільна версія - 8 категорій
 const mobileCategories = [
@@ -26,7 +29,22 @@ const mobileCategories = [
   { id: 'pork', name: 'Pork', image: porkImg, size: 'small' }
 ];
 
-// Планшетна і десктопна версії - 11 категорій
+// Планшетна версія - 11 категорій
+const tabletCategories = [
+  { id: 'beef', name: 'Beef', image: beefImg, size: 'small' },
+  { id: 'breakfast', name: 'Breakfast', image: breakfastImg, size: 'small' },
+  { id: 'desserts', name: 'Desserts', image: dessertsImg, size: 'large' },
+  { id: 'lamb', name: 'Lamb', image: lambImg, size: 'small' },
+  { id: 'goat', name: 'Goat', image: goatImg, size: 'small' },
+  { id: 'miscellaneous', name: 'Miscellaneous', image: miscellaneousImg, size: 'small' },
+  { id: 'pasta', name: 'Pasta', image: pastaImg, size: 'small' },
+  { id: 'pork', name: 'Pork', image: porkImg, size: 'large' },
+  { id: 'seafood', name: 'Seafood', image: seafoodImg, size: 'small' },
+  { id: 'side', name: 'Side', image: sideImg, size: 'small' },
+  { id: 'starter', name: 'Starter', image: starterImg, size: 'small' }
+];
+
+// Десктопна версія - 11 категорій
 const desktopCategories = [
   { id: 'beef', name: 'Beef', image: beefImg, size: 'small' },
   { id: 'breakfast', name: 'Breakfast', image: breakfastImg, size: 'small' },
@@ -42,15 +60,33 @@ const desktopCategories = [
 ];
 
 const CategoryList = ({ onCategorySelect }) => {
+  const [screenType, setScreenType] = useState('mobile');
+
+  // Визначення типу екрана
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1440) {
+        setScreenType('desktop');
+      } else if (window.innerWidth >= 768) {
+        setScreenType('tablet');
+      } else {
+        setScreenType('mobile');
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const handleAllCategoriesClick = () => {
     console.log('All categories clicked');
     // TODO: Додати навігацію до сторінки з всіма категоріями
-    // Наприклад: navigate('/categories');
   };
 
   const AllCategoriesButton = () => (
     <div 
-      className={`${styles.allCategoriesButton} ${styles.small}`}
+      className={styles.allCategoriesButton}
       onClick={handleAllCategoriesClick}
       role="button"
       tabIndex={0}
@@ -66,97 +102,100 @@ const CategoryList = ({ onCategorySelect }) => {
     </div>
   );
 
-  return (
-    <div className={styles.categoryList}>
-      {/* Мобільна версія - 8 категорій в стовпець */}
-      <div className={styles.mobileContent}>
-        {mobileCategories.map((category) => (
-          <CategoryListItem 
-            key={category.id} 
-            category={category} 
-            onCategorySelect={onCategorySelect}
-          />
-        ))}
-        <AllCategoriesButton />
-      </div>
-
-      {/* Планшетна версія - 11 категорій в 2-колонкову сітку */}
-      <div className={styles.tabletContent}>
-        <div className={styles.tabletGrid}>
-          {desktopCategories.map((category) => (
-            <CategoryListItem 
-              key={category.id} 
-              category={category} 
+  // Мобільна версія
+  if (screenType === 'mobile') {
+    return (
+      <div className={styles.categoryList}>
+        <div className={styles.mobileContent}>
+          {mobileCategories.map((category) => (
+            <CategoryListItem
+              key={category.id}
+              category={category}
               onCategorySelect={onCategorySelect}
             />
           ))}
           <AllCategoriesButton />
         </div>
       </div>
+    );
+  }
 
-      {/* Десктопна версія - 11 категорій в сітку відповідно до Figma */}
-      <div className={styles.desktopContent}>
-        <div className={styles.content}>
-          {/* Перший ряд - Beef, Breakfast, Desserts */}
-          <div className={styles.row}>
-            <CategoryListItem 
-              category={desktopCategories[0]} 
-              onCategorySelect={onCategorySelect}
-            /> {/* Beef - small */}
-            <CategoryListItem 
-              category={desktopCategories[1]} 
-              onCategorySelect={onCategorySelect}
-            /> {/* Breakfast - small */}
-            <CategoryListItem 
-              category={desktopCategories[2]} 
-              onCategorySelect={onCategorySelect}
-            /> {/* Desserts - large */}
-          </div>
-
-          {/* Другий ряд - Lamb, Goat, Miscellaneous */}
-          <div className={styles.row}>
-            <CategoryListItem 
-              category={desktopCategories[3]} 
-              onCategorySelect={onCategorySelect}
-            /> {/* Lamb - large */}
-            <CategoryListItem 
-              category={desktopCategories[4]} 
-              onCategorySelect={onCategorySelect}
-            /> {/* Goat - small */}
-            <CategoryListItem 
-              category={desktopCategories[5]} 
-              onCategorySelect={onCategorySelect}
-            /> {/* Miscellaneous - small */}
-          </div>
-
-          {/* Третій ряд - Pasta, Pork, Seafood */}
-          <div className={styles.row}>
-            <CategoryListItem 
-              category={desktopCategories[6]} 
-              onCategorySelect={onCategorySelect}
-            /> {/* Pasta - small */}
-            <CategoryListItem 
-              category={desktopCategories[7]} 
-              onCategorySelect={onCategorySelect}
-            /> {/* Pork - large */}
-            <CategoryListItem 
-              category={desktopCategories[8]} 
-              onCategorySelect={onCategorySelect}
-            /> {/* Seafood - small */}
-          </div>
-
-          {/* Четвертий ряд - Side, Starter, All categories */}
-          <div className={styles.row}>
-            <CategoryListItem 
-              category={desktopCategories[9]} 
-              onCategorySelect={onCategorySelect}
-            /> {/* Side - large */}
-            <CategoryListItem 
-              category={desktopCategories[10]} 
-              onCategorySelect={onCategorySelect}
-            /> {/* Starter - small */}
+  // Планшетна версія
+  if (screenType === 'tablet') {
+    return (
+      <div className={styles.categoryList}>
+        <div className={styles.tabletContent}>
+          <div className={styles.tabletGrid}>
+            {tabletCategories.map((category) => (
+              <CategoryListItem
+                key={category.id}
+                category={category}
+                onCategorySelect={onCategorySelect}
+              />
+            ))}
             <AllCategoriesButton />
           </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Десктопна версія
+  return (
+    <div className={styles.categoryList}>
+      <div className={styles.desktopContent}>
+        <div className={styles.row}>
+          <CategoryListItem
+            category={desktopCategories[0]}
+            onCategorySelect={onCategorySelect}
+          />
+          <CategoryListItem
+            category={desktopCategories[1]}
+            onCategorySelect={onCategorySelect}
+          />
+          <CategoryListItem
+            category={desktopCategories[2]}
+            onCategorySelect={onCategorySelect}
+          />
+        </div>
+        <div className={styles.row}>
+          <CategoryListItem
+            category={desktopCategories[3]}
+            onCategorySelect={onCategorySelect}
+          />
+          <CategoryListItem
+            category={desktopCategories[4]}
+            onCategorySelect={onCategorySelect}
+          />
+          <CategoryListItem
+            category={desktopCategories[5]}
+            onCategorySelect={onCategorySelect}
+          />
+        </div>
+        <div className={styles.row}>
+          <CategoryListItem
+            category={desktopCategories[6]}
+            onCategorySelect={onCategorySelect}
+          />
+          <CategoryListItem
+            category={desktopCategories[7]}
+            onCategorySelect={onCategorySelect}
+          />
+          <CategoryListItem
+            category={desktopCategories[8]}
+            onCategorySelect={onCategorySelect}
+          />
+        </div>
+        <div className={styles.row}>
+          <CategoryListItem
+            category={desktopCategories[9]}
+            onCategorySelect={onCategorySelect}
+          />
+          <CategoryListItem
+            category={desktopCategories[10]}
+            onCategorySelect={onCategorySelect}
+          />
+          <AllCategoriesButton />
         </div>
       </div>
     </div>

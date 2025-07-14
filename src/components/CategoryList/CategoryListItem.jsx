@@ -46,21 +46,8 @@ const CategoryListItem = ({ category, onCategorySelect }) => {
           aria-label={`Quick view ${name} recipes`}
           title={`Quick view ${name} recipes`}
         >
-          <svg 
-            className={styles.arrowIcon}
-            width="18" 
-            height="18" 
-            viewBox="0 0 18 18" 
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path 
-              d="M4.5 13.5L13.5 4.5M13.5 4.5H4.5M13.5 4.5V13.5" 
-              stroke="currentColor" 
-              strokeWidth="2" 
-              strokeLinecap="round" 
-              strokeLinejoin="round"
-            />
+          <svg className={styles.arrowIcon} width="18" height="18">
+            <use href="/src/assets/sprite.svg#arrow" />
           </svg>
         </button>
       </div>

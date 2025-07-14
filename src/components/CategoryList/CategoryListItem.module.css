@@ -7,15 +7,13 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  border-radius: var(--border-radius-button);
+  border-radius: 20px;
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.3s ease;
-  /* Мобільні розміри з пропорціями Figma */
-  width: 100%;
-  max-width: 343px;
-  aspect-ratio: 0.88; /* 325/369 з Figma для малих категорій */
-  margin: 0 auto; /* Центрування */
+  /* Мобільні розміри */
+  width: 343px;
+  height: 250px;
 }
 
 .categoryItem:hover {
@@ -29,30 +27,34 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(5, 5, 5, 0.2);
+  background: linear-gradient(0deg, rgba(5, 5, 5, 0.20) 0%, rgba(5, 5, 5, 0.20) 100%);
   z-index: 1;
 }
 
 /* Контейнер для кнопок */
 .buttons {
-  position: relative;
+  position: absolute;
+  left: 16px;
+  top: 194px;
   z-index: 2;
-  display: flex;
+  display: inline-flex;
   gap: 4px;
-  padding: var(--spacing-md);
-  width: 100%;
   justify-content: flex-start;
-  align-items: flex-end;
+  align-items: flex-start;
 }
 
 /* Кнопка з назвою категорії */
 .categoryButton {
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: var(--border-radius-button);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.20);
+  border: 1px solid white;
+  border-radius: 30px;
   cursor: pointer;
   transition: all 0.3s ease;
+  gap: 10px;
 }
 
 .categoryButton:hover {
@@ -60,28 +62,26 @@
 }
 
 .categoryName {
-  font-family: var(--font-family-main);
-  font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-medium);
-  line-height: 1.5;
-  letter-spacing: -0.02em;
-  color: var(--color-white);
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  color: white;
   white-space: nowrap;
 }
 
 /* Кнопка зі стрілкою */
 .arrowButton {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: var(--border-radius-button);
+  justify-content: flex-start;
+  align-items: flex-start;
   padding: 11px;
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  border-radius: 30px;
+  background: transparent;
   cursor: pointer;
   transition: all 0.3s ease;
-  width: 40px;
-  height: 40px;
+  gap: 10px;
 }
 
 .arrowButton:hover {
@@ -89,83 +89,90 @@
 }
 
 .arrowIcon {
-  color: var(--color-white);
   width: 18px;
   height: 18px;
+  stroke: white;
+  stroke-width: 1.5px;
+  fill: none;
 }
 
 /* Розміри категорій */
 .small {
-  flex: 0 0 100%;
+  width: 343px;
+  height: 250px;
 }
 
 .large {
-  flex: 0 0 100%;
+  width: 343px;
+  height: 250px;
 }
 
-/* Планшетні стилі (768px - 1439px) відповідно до ТЗ */
+/* Планшетні стилі (768px - 1439px) */
 @media screen and (min-width: 768px) and (max-width: 1439px) {
   .categoryItem {
-    width: 325px;
-    height: 285px; /* Трохи менша висота для планшета */
-    border-radius: 20px;
-    aspect-ratio: auto;
-    max-width: none;
-  }
-
-  .buttons {
-    padding: var(--spacing-md);
-  }
-
-  .categoryButton {
-    padding: 9px 13px;
-  }
-
-  .arrowButton {
-    padding: 12px;
-    width: 42px;
-    height: 42px;
-  }
-
-  /* На планшеті всі категорії однакового розміру для 2-колонкової сітки */
-  .small,
-  .large {
-    width: 100%;
-    flex: none;
-  }
-}
-
-/* Десктопні стилі (1440px+) відповідно до ТЗ */
-@media screen and (min-width: 1440px) {
-  .categoryItem {
-    height: 369px; /* Точна висота з Figma */
     border-radius: 30px;
-    aspect-ratio: auto;
-    max-width: none;
   }
 
   .buttons {
-    padding: var(--spacing-lg);
+    left: 24px;
+    top: 301px;
   }
 
   .categoryButton {
     padding: 10px 14px;
   }
 
-  .arrowButton {
-    padding: 13px;
-    width: 44px;
-    height: 44px;
+  .categoryName {
+    font-size: 20px;
+    line-height: 24px;
   }
 
-  /* Точні розміри з Figma для десктопу */
+  .arrowButton {
+    padding: 13px;
+  }
+
   .small {
-    flex: 0 0 325px;
-    width: 325px;
+    width: 342px;
+    height: 369px;
   }
 
   .large {
-    flex: 0 0 590px;
+    width: 704px;
+    height: 369px;
+  }
+}
+
+/* Десктопні стилі (1440px+) */
+@media screen and (min-width: 1440px) {
+  .categoryItem {
+    border-radius: 30px;
+  }
+
+  .buttons {
+    left: 24px;
+    top: 301px;
+  }
+
+  .categoryButton {
+    padding: 10px 14px;
+  }
+
+  .categoryName {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .arrowButton {
+    padding: 13px;
+  }
+
+  .small {
+    width: 325px;
+    height: 369px;
+  }
+
+  .large {
     width: 590px;
+    height: 369px;
   }
 }
