@@ -8,7 +8,6 @@ const RecipeFilters = ({ filters, onFiltersChange }) => {
 
     // Мок дані для інгредієнтів
     const mockIngredients = [
-        { value: '', label: 'All Ingredients' },
         { value: 'chicken', label: 'Chicken' },
         { value: 'beef', label: 'Beef' },
         { value: 'pork', label: 'Pork' },
@@ -21,7 +20,6 @@ const RecipeFilters = ({ filters, onFiltersChange }) => {
 
     // Мок дані для регіонів
     const mockAreas = [
-        { value: '', label: 'All Areas' },
         { value: 'italian', label: 'Italian' },
         { value: 'chinese', label: 'Chinese' },
         { value: 'mexican', label: 'Mexican' },

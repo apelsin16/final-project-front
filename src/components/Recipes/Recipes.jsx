@@ -10,8 +10,8 @@ import styles from './Recipes.module.css';
 const Recipes = ({ category, onBack }) => {
     const [recipes, setRecipes] = useState([]);
     const [filters, setFilters] = useState({
-        ingredient: '',
-        area: ''
+        ingredient: null,
+        area: null
     });
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
