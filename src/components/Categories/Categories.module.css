@@ -1,32 +1,62 @@
 .categories {
-    padding: var(--spacing-xl) var(--spacing-md);
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xxl);
+  width: 100%;
+  padding: 0 var(--spacing-md);
 }
 
-.categoriesTitleBlock {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
-    margin-bottom: var(--spacing-xl);
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  text-align: left;
 }
 
-/* Планшети */
+.title {
+  font-family: var(--font-family-main);
+  font-weight: var(--font-weight-extra-bold);
+  font-size: var(--font-size-title-m);
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--color-black);
+  margin: 0;
+}
+
+.description {
+  font-family: var(--font-family-main);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-medium-m);
+  line-height: 1.43;
+  letter-spacing: -0.02em;
+  color: var(--color-light);
+  margin: 0;
+  max-width: 531px;
+}
+
+/* Планшетні стилі */
 @media screen and (min-width: 768px) {
-    .categories {
-        padding: var(--spacing-xxl) var(--spacing-lg);
-    }
-    
-    .categoriesTitleBlock {
-        gap: var(--spacing-lg);
-        margin-bottom: var(--spacing-xxl);
-    }
+  .categories {
+    padding: 0 var(--spacing-lg);
+  }
+
+  .title {
+    font-size: var(--font-size-title-large);
+    line-height: 1.1;
+  }
+
+  .description {
+    font-size: var(--font-size-medium);
+    line-height: 1.5;
+  }
 }
 
-/* Десктоп */
+/* Десктопні стилі */
 @media screen and (min-width: 1440px) {
-    .categories {
-        padding: var(--spacing-xxl) var(--spacing-xl);
-    }
+  .categories {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+  }
 }

@@ -22,7 +22,7 @@ function HomePage() {
         <div className='App'>
             <Hero />
             {!showRecipes ? (
-                <Categories onCategorySelect={handleCategorySelect} />
+                <Categories />
             ) : (
                 <Recipes 
                     category={selectedCategory} 

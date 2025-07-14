@@ -1,42 +1,171 @@
 
-.category {
-    padding: 12px;
-    border-radius: 20px;
-    background: linear-gradient(0deg, rgba(5, 5, 5, 0.20) 0%, rgba(5, 5, 5, 0.20) 100%), var(--bg-image) lightgray -23.332px -4px / 116.214% 106% no-repeat;
-    height: 250px;
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: flex-end;
+.categoryItem {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: var(--border-radius-button);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  /* Мобільні розміри з пропорціями Figma */
+  width: 100%;
+  max-width: 343px;
+  aspect-ratio: 0.88; /* 325/369 з Figma для малих категорій */
+  margin: 0 auto; /* Центрування */
 }
 
-.buttonBlock {
-    display: flex;
-    flex-direction: row;
-    gap: 4px;
+.categoryItem:hover {
+  transform: translateY(-2px);
+}
+
+/* Темний overlay поверх зображення */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(5, 5, 5, 0.2);
+  z-index: 1;
+}
+
+/* Контейнер для кнопок */
+.buttons {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: 4px;
+  padding: var(--spacing-md);
+  width: 100%;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
+/* Кнопка з назвою категорії */
+.categoryButton {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--border-radius-button);
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.categoryButton:hover {
+  background: rgba(255, 255, 255, 0.3);
 }
 
 .categoryName {
-    display: flex;
-    padding: 8px 12px;
-    justify-content: center;
-    align-items: center;
-    border-radius: 30px;
-    color: var(--color-white);
-    border: 1px solid var(--color-white);
-    background: rgba(255, 255, 255, 0.20);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 24px;
-    letter-spacing: -0.32px;
+  font-family: var(--font-family-main);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-medium);
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+  color: var(--color-white);
+  white-space: nowrap;
 }
 
-.categotyButton {
-    display: flex;
-padding: 11px;
-align-items: flex-start;
-gap: 10px;
-border-radius: 30px;
-border: 1px solid rgba(255, 255, 255, 0.20);
+/* Кнопка зі стрілкою */
+.arrowButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--border-radius-button);
+  padding: 11px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 40px;
+  height: 40px;
+}
+
+.arrowButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.arrowIcon {
+  color: var(--color-white);
+  width: 18px;
+  height: 18px;
+}
+
+/* Розміри категорій */
+.small {
+  flex: 0 0 100%;
+}
+
+.large {
+  flex: 0 0 100%;
+}
+
+/* Планшетні стилі (768px - 1439px) відповідно до ТЗ */
+@media screen and (min-width: 768px) and (max-width: 1439px) {
+  .categoryItem {
+    width: 325px;
+    height: 285px; /* Трохи менша висота для планшета */
+    border-radius: 20px;
+    aspect-ratio: auto;
+    max-width: none;
+  }
+
+  .buttons {
+    padding: var(--spacing-md);
+  }
+
+  .categoryButton {
+    padding: 9px 13px;
+  }
+
+  .arrowButton {
+    padding: 12px;
+    width: 42px;
+    height: 42px;
+  }
+
+  /* На планшеті всі категорії однакового розміру для 2-колонкової сітки */
+  .small,
+  .large {
+    width: 100%;
+    flex: none;
+  }
+}
+
+/* Десктопні стилі (1440px+) відповідно до ТЗ */
+@media screen and (min-width: 1440px) {
+  .categoryItem {
+    height: 369px; /* Точна висота з Figma */
+    border-radius: 30px;
+    aspect-ratio: auto;
+    max-width: none;
+  }
+
+  .buttons {
+    padding: var(--spacing-lg);
+  }
+
+  .categoryButton {
+    padding: 10px 14px;
+  }
+
+  .arrowButton {
+    padding: 13px;
+    width: 44px;
+    height: 44px;
+  }
+
+  /* Точні розміри з Figma для десктопу */
+  .small {
+    flex: 0 0 325px;
+    width: 325px;
+  }
+
+  .large {
+    flex: 0 0 590px;
+    width: 590px;
+  }
 }
