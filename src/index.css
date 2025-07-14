@@ -1,6 +1,7 @@
 /* Підключаємо змінні проекту */
 @import './styles/variables.css';
 
+
 html,
 body,
 #root {
