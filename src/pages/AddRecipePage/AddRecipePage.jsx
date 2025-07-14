@@ -2,6 +2,7 @@ import styles from './AddRecipePage.module.css';
 import PathInfo from "../../components/common/ui/PathInfo/PathInfo.jsx";
 import MainTitle from "../../components/common/ui/MainTitle/MainTitle.jsx";
 import Subtitle from "../../components/common/ui/Subtitle/Subtitle.jsx";
+import AddRecipeForm from '../../components/AddRecipeForm/AddRecipeForm.jsx';
 
 function AddRecipePage() {
     return ( 
@@ -27,6 +28,7 @@ function AddRecipePage() {
             >
                 Reveal your culinary art, share your favorite recipe and create gastronomic masterpieces with us.
             </Subtitle>
+            <AddRecipeForm />
 
         </div>
      );
