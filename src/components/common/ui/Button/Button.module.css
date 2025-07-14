@@ -75,7 +75,7 @@
     padding-bottom: var(--spacing-md);
     padding-left: var(--spacing-xxl);
     padding-right: var(--spacing-xxl);
-    font-size: var(--font-size-medium);
+    font-size: var(--font-size-medium-m);
     font-weight: var(--font-weight-bold);
     line-height: 1.33;
     min-height: 56px;
@@ -115,7 +115,7 @@
 
     .large {
         padding: var(--spacing-sm) 28px;
-        font-size: var(--font-size-medium);
+        font-size: var(--font-size-medium-m);
         min-height: 48px;
     }
 }
