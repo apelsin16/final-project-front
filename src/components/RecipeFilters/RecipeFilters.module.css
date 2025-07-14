@@ -1,7 +1,7 @@
 .recipeFilters {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
+    gap: 14px;
     margin-bottom: var(--spacing-xl);
 }
 

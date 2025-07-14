@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import MainTitle from '../common/ui/MainTitle/MainTitle';
-import Subtitle from '../common/ui/Subtitle/Subtitle';
 import Button from '../common/ui/Button/Button';
 import { openModal } from '../../features/modal/modalSlice';
 import styles from './Hero.module.css';
@@ -25,9 +24,9 @@ const Hero = () => {
                 <MainTitle color="white" as="h1" centered>
                     Improve Your Culinary Talents
                 </MainTitle>
-                <Subtitle color="light" align="center" as="p" className={styles.heroSubtitle}>
+                <p className={styles.heroSubtitle}>
                     Amazing recipes for beginners in the world of cooking, enveloping you in the aromas and tastes of various cuisines.
-                </Subtitle>
+                </p>
                 <Button variant="white" size="large" onClick={handleAddRecipeClick}>
                     ADD RECIPE
                 </Button>

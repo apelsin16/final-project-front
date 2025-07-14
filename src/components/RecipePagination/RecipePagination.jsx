@@ -37,61 +37,43 @@ const RecipePagination = ({ currentPage, totalPages, onPageChange }) => {
 
     return (
         <div className={styles.pagination}>
-            <button
-                className={`${styles.paginationButton} ${styles.navButton}`}
-                onClick={handlePrevious}
-                disabled={currentPage === 1}
-            >
-                ← Previous
-            </button>
-
-            <div className={styles.pageNumbers}>
-                {visiblePages[0] > 1 && (
-                    <>
-                        <button
-                            className={styles.paginationButton}
-                            onClick={() => onPageChange(1)}
-                        >
-                            1
-                        </button>
-                        {visiblePages[0] > 2 && (
-                            <span className={styles.ellipsis}>...</span>
-                        )}
-                    </>
-                )}
-
-                {visiblePages.map(page => (
+            {visiblePages[0] > 1 && (
+                <>
                     <button
-                        key={page}
-                        className={`${styles.paginationButton} ${page === currentPage ? styles.active : ''}`}
-                        onClick={() => onPageChange(page)}
+                        className={styles.paginationButton}
+                        onClick={() => onPageChange(1)}
                     >
-                        {page}
+                        1
                     </button>
-                ))}
+                    {visiblePages[0] > 2 && (
+                        <span className={styles.ellipsis}>...</span>
+                    )}
+                </>
+            )}
 
-                {visiblePages[visiblePages.length - 1] < totalPages && (
-                    <>
-                        {visiblePages[visiblePages.length - 1] < totalPages - 1 && (
-                            <span className={styles.ellipsis}>...</span>
-                        )}
-                        <button
-                            className={styles.paginationButton}
-                            onClick={() => onPageChange(totalPages)}
-                        >
-                            {totalPages}
-                        </button>
-                    </>
-                )}
-            </div>
+            {visiblePages.map(page => (
+                <button
+                    key={page}
+                    className={`${styles.paginationButton} ${page === currentPage ? styles.active : ''}`}
+                    onClick={() => onPageChange(page)}
+                >
+                    {page}
+                </button>
+            ))}
 
-            <button
-                className={`${styles.paginationButton} ${styles.navButton}`}
-                onClick={handleNext}
-                disabled={currentPage === totalPages}
-            >
-                Next →
-            </button>
+            {visiblePages[visiblePages.length - 1] < totalPages && (
+                <>
+                    {visiblePages[visiblePages.length - 1] < totalPages - 1 && (
+                        <span className={styles.ellipsis}>...</span>
+                    )}
+                    <button
+                        className={styles.paginationButton}
+                        onClick={() => onPageChange(totalPages)}
+                    >
+                        {totalPages}
+                    </button>
+                </>
+            )}
         </div>
     );
 };
