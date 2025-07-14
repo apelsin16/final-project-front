@@ -1,5 +1,5 @@
 // SharedLayout.jsx
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import { useEffect } from 'react';
@@ -8,6 +8,7 @@ import { fetchCurrentUser, setSessionLoading } from '../../features/auth/authSli
 
 export default function SharedLayout() {
     const dispatch = useDispatch();
+    const location = useLocation();
 
     // При монтуванні layout пробуємо відновити користувача по токену
     useEffect(() => {
@@ -17,13 +18,18 @@ export default function SharedLayout() {
         });
     }, [dispatch]);
 
+    // Не показуємо Header на HomePage, оскільки Hero містить свій власний header
+    const showHeader = location.pathname !== '/';
+
     return (
         // Семантична структура layout
         <>
             {/* Хедер застосунку (логотип, навігація, авторизація) */}
-            <header>
-                <Header />
-            </header>
+            {showHeader && (
+                <header>
+                    <Header />
+                </header>
+            )}
             {/* Основний контент сторінки */}
             <main>
                 {/* Контейнер для обмеження ширини і відступів (адаптивність — через CSS) */}
