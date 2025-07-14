@@ -41,15 +41,10 @@ const RecipeCard = ({ recipe }) => {
                     <button
                         className={`${styles.favoriteButton} ${recipe.isFavorite ? styles.active : ''}`}
                         onClick={handleFavoriteClick}
-                        title="Add to favorites"
+                        title={recipe.isFavorite ? "Remove from favorites" : "Add to favorites"}
                     >
-                        <svg width="16" height="16" viewBox="0 0 18 18" fill="none">
-                            <path 
-                                d="M15.68 13.67L1.16 2.25" 
-                                stroke="currentColor" 
-                                strokeWidth="1.5" 
-                                strokeLinecap="round"
-                            />
+                        <svg width="16" height="16">
+                            <use href="/src/assets/sprite.svg#heart" />
                         </svg>
                     </button>
                     <button
@@ -57,14 +52,8 @@ const RecipeCard = ({ recipe }) => {
                         onClick={handleViewRecipe}
                         title="View recipe"
                     >
-                        <svg width="16" height="16" viewBox="0 0 18 18" fill="none">
-                            <circle 
-                                cx="9" 
-                                cy="9" 
-                                r="3.75" 
-                                stroke="currentColor" 
-                                strokeWidth="1.5"
-                            />
+                        <svg width="16" height="16">
+                            <use href="/src/assets/sprite.svg#arrow" />
                         </svg>
                     </button>
                 </div>
@@ -80,6 +69,7 @@ const RecipeCard = ({ recipe }) => {
                     <button
                         className={styles.authorButton}
                         onClick={handleAuthorClick}
+                        title={`View ${recipe.author.name}'s profile`}
                     >
                         <img
                             src={recipe.author.avatar || '/src/assets/images/desserts.jpg'}
@@ -88,38 +78,6 @@ const RecipeCard = ({ recipe }) => {
                         />
                         <span className={styles.authorName}>{recipe.author.name}</span>
                     </button>
-                    
-                    <div className={styles.cardActions}>
-                        <button
-                            className={`${styles.actionButton} ${recipe.isFavorite ? styles.active : ''}`}
-                            onClick={handleFavoriteClick}
-                            title="Add to favorites"
-                        >
-                            <svg width="16" height="16" viewBox="0 0 18 18" fill="none">
-                                <path 
-                                    d="M15.68 13.67L1.16 2.25" 
-                                    stroke="currentColor" 
-                                    strokeWidth="1.5" 
-                                    strokeLinecap="round"
-                                />
-                            </svg>
-                        </button>
-                        <button
-                            className={styles.actionButton}
-                            onClick={handleViewRecipe}
-                            title="View recipe"
-                        >
-                            <svg width="16" height="16" viewBox="0 0 18 18" fill="none">
-                                <circle 
-                                    cx="9" 
-                                    cy="9" 
-                                    r="3.75" 
-                                    stroke="currentColor" 
-                                    strokeWidth="1.5"
-                                />
-                            </svg>
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>

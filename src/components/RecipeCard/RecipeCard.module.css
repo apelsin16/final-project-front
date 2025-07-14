@@ -41,6 +41,7 @@
     justify-content: center;
     cursor: pointer;
     transition: all 0.2s ease;
+    color: var(--color-black);
 }
 
 .favoriteButton:hover,
@@ -52,6 +53,19 @@
     background-color: var(--color-accent);
     border-color: var(--color-accent);
     color: var(--color-white);
+}
+
+.favoriteButton svg,
+.viewButton svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    fill: none;
+}
+
+.favoriteButton.active svg {
+    fill: currentColor;
+    stroke: none;
 }
 
 .content {
@@ -92,7 +106,7 @@
 
 .footer {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -104,6 +118,11 @@
     border: none;
     cursor: pointer;
     padding: 0;
+    transition: opacity 0.2s ease;
+}
+
+.authorButton:hover {
+    opacity: 0.8;
 }
 
 .authorAvatar {
@@ -120,34 +139,6 @@
     font-weight: 700;
     line-height: 20px;
     color: var(--color-dark-gray);
-}
-
-.cardActions {
-    display: flex;
-    gap: 4px;
-}
-
-.actionButton {
-    width: 36px;
-    height: 36px;
-    border-radius: 30px;
-    border: 1px solid var(--color-light-gray);
-    background-color: var(--color-white);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.actionButton:hover {
-    background-color: var(--color-light);
-}
-
-.actionButton.active {
-    background-color: var(--color-accent);
-    border-color: var(--color-accent);
-    color: var(--color-white);
 }
 
 /* Планшети (768px - 1439px) */
@@ -170,7 +161,12 @@
     .viewButton {
         width: 42px;
         height: 42px;
-        padding: 12px;
+    }
+    
+    .favoriteButton svg,
+    .viewButton svg {
+        width: 20px;
+        height: 20px;
     }
     
     .title {
@@ -192,12 +188,6 @@
     .authorName {
         font-size: 16px;
         line-height: 24px;
-    }
-    
-    .actionButton {
-        width: 42px;
-        height: 42px;
-        padding: 12px;
     }
 }
 
@@ -221,7 +211,12 @@
     .viewButton {
         width: 42px;
         height: 42px;
-        padding: 12px;
+    }
+    
+    .favoriteButton svg,
+    .viewButton svg {
+        width: 20px;
+        height: 20px;
     }
     
     .title {
@@ -243,11 +238,5 @@
     .authorName {
         font-size: 16px;
         line-height: 24px;
-    }
-    
-    .actionButton {
-        width: 42px;
-        height: 42px;
-        padding: 12px;
     }
 } 
