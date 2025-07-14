@@ -75,7 +75,7 @@ const Testimonials = () => {
             <section className={styles.testimonials}>
                 <div className={styles.testimonialsHeader}>
                     <Subtitle color="dark" align="center" as="h3">
-                        What our users say
+                        What our customer say
                     </Subtitle>
                     <MainTitle color="dark" as="h2">
                         Testimonials
@@ -90,7 +90,7 @@ const Testimonials = () => {
         <section className={styles.testimonials}>
             <div className={styles.testimonialsHeader}>
                 <Subtitle color="dark" align="center" as="h3">
-                    What our users say
+                    What our customer say
                 </Subtitle>
                 <MainTitle color="dark" as="h2">
                     Testimonials
