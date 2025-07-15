@@ -34,11 +34,7 @@ function RecipePreview({ recipe, onDelete, activeTab, isDeleting }) {
   return (
     <div className={css.card}>
       <div className={css.imageWrapper} onClick={handleArrowClick}>
-        <img
-          src={recipe.thumb || "/placeholder.jpg"}
-          alt={recipe.title}
-          className={css.image}
-        />
+        <img src={recipe.thumb} alt={recipe.title} className={css.image} />
       </div>
 
       <div className={css.content}>
