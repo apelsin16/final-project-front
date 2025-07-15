@@ -16,7 +16,6 @@ function AddRecipePage() {
                 <MainTitle
                     color='dark'
                     as='h2'
-                    style={{ textAlign: "center" }}
                     centered={false}
                 >
                     Add recipe

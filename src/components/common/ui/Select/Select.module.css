@@ -188,6 +188,15 @@
         font-size: 16px; /* Предотвращает zoom на iOS */
     }
 
+    .label {
+        color: #050505;
+        font-weight: 800;
+        font-size: 16px;
+        line-height: 1.5;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+    }
+
     .dropdown {
         max-height: 150px;
     }

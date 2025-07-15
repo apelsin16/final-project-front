@@ -115,7 +115,6 @@ const Select = ({
             {label && (
                 <label htmlFor={selectId} className={styles.label}>
                     {label}
-                    {required && <span className={styles.required}>*</span>}
                 </label>
             )}
 
