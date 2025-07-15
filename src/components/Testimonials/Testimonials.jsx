@@ -67,6 +67,13 @@ const Testimonials = () => {
         fetchTestimonials();
     }, []);
 
+    // Скидання currentSlide коли змінюються testimonials
+    useEffect(() => {
+        if (testimonials.length > 0) {
+            setCurrentSlide(0);
+        }
+    }, [testimonials.length]);
+
     // Автоматичне перегортання слайдів
     useEffect(() => {
         if (testimonials.length > 1) {
