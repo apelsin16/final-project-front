@@ -20,13 +20,14 @@ const Subtitle = ({
     className,
     as: Component = 'h2',
     color,
+    limitWidth,
     ...props
 }) => {
     const subtitleClasses = clsx(
         styles.subtitle,
         className,
         styles[color],
-        props.limitWidth ? styles.limitWidth : ''
+        limitWidth ? styles.limitWidth : ''
     );
 
     return (
