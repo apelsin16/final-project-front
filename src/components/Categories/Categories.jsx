@@ -3,7 +3,7 @@ import CategoryList from '../CategoryList/CategoryList';
 import MainTitle from '../common/ui/MainTitle/MainTitle';
 import Subtitle from '../common/ui/Subtitle/Subtitle';
 
-const Categories = ({ onCategorySelect }) => {
+const Categories = ({ onCategorySelect, onAllCategoriesClick }) => {
     return (
         <section className={styles.categories}>
             <div className={styles.header}>
@@ -14,7 +14,10 @@ const Categories = ({ onCategorySelect }) => {
                     warm atmosphere of the kitchen.
                 </Subtitle>
             </div>
-            <CategoryList onCategorySelect={onCategorySelect} />
+            <CategoryList 
+                onCategorySelect={onCategorySelect} 
+                onAllCategoriesClick={onAllCategoriesClick}
+            />
         </section>
     );
 };

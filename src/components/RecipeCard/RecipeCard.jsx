@@ -10,7 +10,9 @@ const RecipeCard = ({ recipe }) => {
 
     const handleAuthorClick = () => {
         if (isAuth) {
-            navigate(`/user/${recipe.owner.id}`);
+            // Use owner.id if available, otherwise use ownerId
+            const userId = recipe.owner?.id || recipe.ownerId;
+            navigate(`/user/${userId}`);
         } else {
             dispatch(openModal({ type: 'login' }));
         }
@@ -29,11 +31,15 @@ const RecipeCard = ({ recipe }) => {
         navigate(`/recipe/${recipe.id}`);
     };
 
+    // Get owner info with fallback values
+    const ownerName = recipe.owner?.name || 'Unknown User';
+    const ownerAvatar = recipe.owner?.avatarURL || '/src/assets/images/desserts.jpg';
+
     return (
         <div className={styles.recipeCard}>
             <div className={styles.imageContainer}>
                 <img
-                    src={recipe.image || '/src/assets/images/desserts.jpg'}
+                    src={recipe.thumb || recipe.image || '/src/assets/images/desserts.jpg'}
                     alt={recipe.title}
                     className={styles.recipeImage}
                 />
@@ -69,14 +75,14 @@ const RecipeCard = ({ recipe }) => {
                     <button
                         className={styles.authorButton}
                         onClick={handleAuthorClick}
-                        title={`View ${recipe.owner.name}'s profile`}
+                        title={`View ${ownerName}'s profile`}
                     >
                         <img
-                            src={recipe.owner.avatarURL || '/src/assets/images/desserts.jpg'}
-                            alt={recipe.owner.name}
+                            src={ownerAvatar}
+                            alt={ownerName}
                             className={styles.authorAvatar}
                         />
-                        <span className={styles.authorName}>{recipe.owner.name}</span>
+                        <span className={styles.authorName}>{ownerName}</span>
                     </button>
                 </div>
             </div>

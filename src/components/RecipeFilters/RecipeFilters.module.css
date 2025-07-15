@@ -1,6 +1,9 @@
+/* Мобільна версія */
 .recipeFilters {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
     gap: 14px;
 }
 
@@ -8,26 +11,24 @@
     width: 100%;
 }
 
-/* Планшети (768px - 1439px) */
-@media screen and (min-width: 768px) and (max-width: 1439px) {
+/* Таблет */
+@media (min-width: 768px) {
     .recipeFilters {
         flex-direction: row;
-        gap: 14px;
-        width: 704px;
+        align-items: flex-start;
     }
     
     .filterSelect {
-        flex: 1;
+        width: auto;
+        min-width: 280px;
     }
 }
 
-/* Десктоп (1440px+) */
-@media screen and (min-width: 1440px) {
+/* Десктоп */
+@media (min-width: 1440px) {
     .recipeFilters {
         flex-direction: column;
-        gap: 14px;
-        width: 330px;
-        flex-shrink: 0;
+        align-items: flex-start;
     }
     
     .filterSelect {

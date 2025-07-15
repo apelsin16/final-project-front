@@ -100,7 +100,7 @@ const desktopCategories = [
   { id: 'starter', name: 'Starter', image: starterImg, size: 'small' }
 ];
 
-const CategoryList = ({ onCategorySelect }) => {
+const CategoryList = ({ onCategorySelect, onAllCategoriesClick }) => {
   const [screenType, setScreenType] = useState('mobile');
   const dispatch = useDispatch();
   const { categories, isLoading, error } = useSelector(state => state.categories);
@@ -149,8 +149,9 @@ const CategoryList = ({ onCategorySelect }) => {
   };
 
   const handleAllCategoriesClick = () => {
-    console.log('All categories clicked');
-    // TODO: Додати навігацію до сторінки з всіма категоріями
+    if (onAllCategoriesClick) {
+      onAllCategoriesClick();
+    }
   };
 
   const AllCategoriesButton = () => (

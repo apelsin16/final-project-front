@@ -3,31 +3,54 @@ import { useSelector } from 'react-redux';
 import Hero from '../../components/Hero/Hero';
 import Categories from '../../components/Categories/Categories';
 import Recipes from '../../components/Recipes/Recipes';
+import AllRecipes from '../../components/AllRecipes/AllRecipes';
 import Testimonials from '../../components/Testimonials/Testimonials';
 
 function HomePage() {
-    const [showRecipes, setShowRecipes] = useState(false);
+    const [currentView, setCurrentView] = useState('categories'); // 'categories', 'recipes', 'allRecipes'
     const { selectedCategory } = useSelector(state => state.categories);
 
     const handleCategorySelect = (category) => {
-        setShowRecipes(true);
+        setCurrentView('recipes');
+    };
+
+    const handleAllCategoriesClick = () => {
+        setCurrentView('allRecipes');
     };
 
     const handleBackToCategories = () => {
-        setShowRecipes(false);
+        setCurrentView('categories');
+    };
+
+    const renderContent = () => {
+        switch (currentView) {
+            case 'recipes':
+                return (
+                    <Recipes 
+                        category={selectedCategory} 
+                        onBack={handleBackToCategories}
+                    />
+                );
+            case 'allRecipes':
+                return (
+                    <AllRecipes 
+                        onBack={handleBackToCategories}
+                    />
+                );
+            default:
+                return (
+                    <Categories 
+                        onCategorySelect={handleCategorySelect}
+                        onAllCategoriesClick={handleAllCategoriesClick}
+                    />
+                );
+        }
     };
 
     return (
         <div className='App'>
             <Hero />
-            {!showRecipes ? (
-                <Categories onCategorySelect={handleCategorySelect} />
-            ) : (
-                <Recipes 
-                    category={selectedCategory} 
-                    onBack={handleBackToCategories}
-                />
-            )}
+            {renderContent()}
             <Testimonials />
         </div>
     );
