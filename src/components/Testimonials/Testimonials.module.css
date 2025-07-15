@@ -121,6 +121,16 @@
     font-size: var(--font-size-medium);
 }
 
+.errorMessage {
+    text-align: center;
+    padding: var(--spacing-md);
+    color: var(--color-accent);
+    font-size: var(--font-size-small);
+    background-color: rgba(255, 107, 8, 0.1);
+    border-radius: 8px;
+    margin-bottom: var(--spacing-md);
+}
+
 /* Планшети (768px - 1439px) */
 @media screen and (min-width: 768px) and (max-width: 1439px) {
     .testimonials {
