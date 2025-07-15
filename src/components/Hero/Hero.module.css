@@ -1,137 +1,43 @@
 /* Hero Container */
 .hero {
     position: relative;
-    width: 100%;
-    background: #050505;
+    background: var(--color-black);
     overflow: hidden;
     border-radius: 20px;
-    margin: var(--spacing-md);
-    height: 100vh; /* Default mobile height, will be adjusted */
-}
-
-/* Header inside Hero */
-.header {
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    right: 16px;
-    z-index: 10;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 38px;
-}
-
-/* Logo */
-.logo {
-    display: flex;
-    align-items: center;
-}
-
-.logoText {
-    color: white;
-    font-size: 20px;
-    font-family: var(--font-family-main);
-    font-weight: 800;
-    text-transform: lowercase;
-    line-height: 24px;
-}
-
-/* Navigation (hidden on mobile and tablet) */
-.nav {
-    display: none;
-}
-
-/* Auth Bar */
-.authBar {
-    display: flex;
-    background: white;
-    border-radius: 30px;
-    overflow: hidden;
-}
-
-.signInBtn {
-    padding: 10px 16px;
-    background: white;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.signInBtn:hover {
-    background: #f0f0f0;
-}
-
-.signInText {
-    color: #050505;
-    font-size: 12px;
-    font-family: var(--font-family-main);
-    font-weight: 700;
-    text-transform: uppercase;
-    line-height: 18px;
-}
-
-.signUpBtn {
-    padding: 10px 16px;
-    background: #1A1A1A;
-    border: 1px solid #BFBEBE;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.signUpBtn:hover {
-    background: #2A2A2A;
-}
-
-.signUpText {
-    color: white;
-    font-size: 12px;
-    font-family: var(--font-family-main);
-    font-weight: 700;
-    text-transform: uppercase;
-    line-height: 18px;
+    height: 796px;
+    margin: -16px -8px 0;
 }
 
 /* Hero Content */
 .heroContent {
-    position: absolute;
-    top: 194px;
-    left: 16px;
-    right: 16px;
-    z-index: 5;
+    padding: 194px 16px 0;
     text-align: center;
+    color: var(--color-white);
+    font-family: var(--font-family-main);
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .heroTitle {
-    width: 327px;
-    margin: 0 auto;
-    color: white;
     font-size: 40px;
-    font-family: var(--font-family-main);
     font-weight: 800;
     text-transform: uppercase;
     line-height: 40px;
-    word-wrap: break-word;
-    margin-bottom: 40px;
 }
 
 .heroSubtitle {
-    width: 326px;
-    margin: 0 auto 80px;
-    color: white;
     font-size: 14px;
-    font-family: var(--font-family-main);
     font-weight: 500;
     line-height: 20px;
-    word-wrap: break-word;
+    margin-bottom: 0;
 }
 
 .heroButton {
     padding: 12px 24px;
     background: transparent;
-    border: 1px solid white;
+    border: 1px solid var(--color-white);
     border-radius: 30px;
     cursor: pointer;
     transition: all 0.3s;
@@ -150,95 +56,55 @@
     line-height: 20px;
 }
 
-/* Floating Images */
-.floatingImages {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 2;
-}
-
 .bigImage {
     position: absolute;
-    top: 527px;
-    left: 116px;
-    transform: rotate(-12deg);
-    transform-origin: top left;
+    top: 500px;
+    right: 21px;
 }
 
 .bigImageEl {
-    width: 190px;
-    height: 172px;
+    width: 233px;
     border-radius: 30px;
     object-fit: cover;
 }
 
 .smallImage {
     position: absolute;
-    top: 580px;
-    left: 40px;
-    transform: rotate(11deg);
-    transform-origin: top left;
+    top: 593px;
+    left: 27px;
 }
 
 .smallImageEl {
-    width: 77px;
-    height: 70px;
+    width: 93px;
     border-radius: 15px;
     object-fit: cover;
 }
 
 /* Планшетна версія (768px - 1439px) */
-@media screen and (min-width: 768px) and (max-width: 1439px) {
+@media screen and (min-width: 768px) {
     .hero {
         border-radius: 30px;
-        height: 100vh;
-    }
-
-    .header {
-        top: 20px;
-        left: 32px;
-        right: 32px;
-        height: 46px;
-    }
-
-    .logoText {
-        font-size: 24px;
-        line-height: 28px;
-    }
-
-    .authBar {
-        margin-left: auto;
-    }
-
-    .signInBtn {
-        padding: 14px 30px;
-    }
-
-    .signUpBtn {
-        padding: 14px 28px;
+        height: 992px;
+        margin: -20px -16px 0;
     }
 
     .heroContent {
-        top: 217px;
-        left: 29px;
-        right: 29px;
+        padding: 217px 29px 0;
+        gap: 40px;
     }
 
     .heroTitle {
-        width: 678px;
         font-size: 70px;
         line-height: 70px;
-        margin-bottom: 40px;
+        letter-spacing: -1.4px;
     }
 
     .heroSubtitle {
         width: 577px;
         font-size: 16px;
         line-height: 24px;
-        margin-bottom: 88px;
+        letter-spacing: -0.32px;
+        text-align: center;
     }
 
     .heroButton {
@@ -251,113 +117,49 @@
     }
 
     .bigImage {
-        top: 634px;
-        left: 267px;
+        top: 554px;
+        right: 90px;
     }
 
     .bigImageEl {
-        width: 302px;
-        height: 273px;
+        width: 390px;
     }
 
     .smallImage {
-        top: 710px;
-        left: 139px;
+        top: 715px;
+        left: 104px;
     }
 
     .smallImageEl {
-        width: 128px;
-        height: 116px;
+        width: 149px;
     }
 }
 
 /* Десктопна версія (1440px+) */
 @media screen and (min-width: 1440px) {
     .hero {
-        border-radius: 30px;
-        margin: var(--spacing-xl);
-        height: 100vh;
-    }
-
-    .header {
-        top: 20px;
-        left: 60px;
-        right: 60px;
-        width: 1280px;
-    }
-
-    .logoText {
-        font-size: 24px;
-        line-height: 28px;
-    }
-
-    /* Show navigation on desktop */
-    .nav {
-        display: flex;
-        align-items: center;
-        gap: 40px;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        top: 2px;
-    }
-
-    .navItem {
-        padding: 14px;
-        border-radius: 30px;
-        cursor: pointer;
-        transition: all 0.3s;
-    }
-
-    .navItem:first-child {
-        outline: 1px rgba(255, 255, 255, 0.20) solid;
-        outline-offset: -1px;
-    }
-
-    .navItem:hover {
-        background: rgba(255, 255, 255, 0.1);
-    }
-
-    .navText {
-        color: white;
-        font-size: 12px;
-        font-family: var(--font-family-main);
-        font-weight: 700;
-        text-transform: uppercase;
-        line-height: 18px;
-    }
-
-    .authBar {
-        margin-left: auto;
+        height: 970px;
+        margin: -20px -60px 0;
     }
 
     .heroContent {
-        top: 154px;
-        left: 257px;
-        right: 257px;
+        padding: 154px;
     }
 
     .heroTitle {
         width: 875px;
         font-size: 90px;
         line-height: 90px;
-        margin-bottom: 40px;
-    }
-
-    .heroSubtitle {
-        width: 577px;
-        font-size: 16px;
-        line-height: 24px;
-        margin-bottom: 88px;
+        letter-spacing: -1.8px;
     }
 
     .bigImage {
-        top: 621px;
-        left: 599px;
+        top: 551px;
+        right: 420px;
     }
 
     .smallImage {
-        top: 697px;
-        left: 471px;
+        top: 705px;
+        left: 441px;
     }
-} 
+}
