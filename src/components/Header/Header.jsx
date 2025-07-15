@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import styles from '../../styles/Header.module.css';
@@ -6,6 +6,7 @@ import { openModal } from '../../features/modal/modalSlice';
 import LoginModal from '../modals/LoginModal';
 import RegisterModal from '../modals/RegisterModal';
 import LogoutModal from '../modals/LogoutModal';
+import { Button } from "../common/ui/index"
 
 function Header({ theme }) {
   const isAuth = useSelector(state => state.auth.isAuth);
