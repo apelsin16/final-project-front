@@ -1,0 +1,201 @@
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import iziToast from 'izitoast';
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
+const initialState = {
+    categories: [],
+    isLoading: false,
+    error: null,
+    // State for recipes by category
+    recipes: [],
+    selectedCategory: null,
+    recipesLoading: false,
+    recipesError: null,
+    totalPages: 1,
+    currentPage: 1,
+    // Filter states
+    ingredients: [],
+    areas: [],
+    filters: {
+        ingredient: null,
+        area: null
+    }
+};
+
+// Fetch all categories
+export const fetchCategories = createAsyncThunk(
+    'categories/fetchCategories',
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await axios.get(`${API_URL}/categories`);
+            return response.data.categories || response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data?.message || 'Failed to fetch categories');
+        }
+    }
+);
+
+// Fetch recipes by category
+export const fetchRecipesByCategory = createAsyncThunk(
+    'categories/fetchRecipesByCategory',
+    async ({ categoryId, page = 1, filters = {} }, { rejectWithValue }) => {
+        try {
+            const params = new URLSearchParams({
+                page: page.toString(),
+                limit: '12'
+            });
+            
+            if (filters.ingredient) {
+                params.append('ingredient', filters.ingredient);
+            }
+            if (filters.area) {
+                params.append('area', filters.area);
+            }
+            
+            const response = await axios.get(`${API_URL}/recipes/category/${categoryId}?${params}`);
+            return {
+                recipes: response.data.data || [],
+                totalPages: response.data.pagination?.totalPages || 1,
+                currentPage: response.data.pagination?.currentPage || page,
+                categoryId
+            };
+        } catch (error) {
+            return rejectWithValue(error.response?.data?.message || 'Failed to fetch recipes');
+        }
+    }
+);
+
+// Fetch ingredients for filters
+export const fetchIngredients = createAsyncThunk(
+    'categories/fetchIngredients',
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await axios.get(`${API_URL}/ingredients`);
+            return response.data.ingredients || response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data?.message || 'Failed to fetch ingredients');
+        }
+    }
+);
+
+// Fetch areas for filters
+export const fetchAreas = createAsyncThunk(
+    'categories/fetchAreas',
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await axios.get(`${API_URL}/areas`);
+            return response.data.areas || response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data?.message || 'Failed to fetch areas');
+        }
+    }
+);
+
+const categoriesSlice = createSlice({
+    name: 'categories',
+    initialState,
+    reducers: {
+        setSelectedCategory: (state, action) => {
+            state.selectedCategory = action.payload;
+        },
+        clearSelectedCategory: (state) => {
+            state.selectedCategory = null;
+            state.recipes = [];
+            state.recipesError = null;
+            state.currentPage = 1;
+        },
+        setFilters: (state, action) => {
+            state.filters = { ...state.filters, ...action.payload };
+            state.currentPage = 1; // Reset to first page when filters change
+        },
+        clearFilters: (state) => {
+            state.filters = {
+                ingredient: null,
+                area: null
+            };
+            state.currentPage = 1;
+        },
+        clearError: (state) => {
+            state.error = null;
+            state.recipesError = null;
+        }
+    },
+    extraReducers: (builder) => {
+        builder
+            // Fetch categories
+            .addCase(fetchCategories.pending, (state) => {
+                state.isLoading = true;
+                state.error = null;
+            })
+            .addCase(fetchCategories.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.categories = action.payload;
+            })
+            .addCase(fetchCategories.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+                iziToast.error({
+                    title: 'Error',
+                    message: action.payload || 'Failed to fetch categories',
+                    timeout: 7000
+                });
+            })
+            
+            // Fetch recipes by category
+            .addCase(fetchRecipesByCategory.pending, (state) => {
+                state.recipesLoading = true;
+                state.recipesError = null;
+            })
+            .addCase(fetchRecipesByCategory.fulfilled, (state, action) => {
+                state.recipesLoading = false;
+                state.recipes = action.payload.recipes;
+                state.totalPages = action.payload.totalPages;
+                state.currentPage = action.payload.currentPage;
+            })
+            .addCase(fetchRecipesByCategory.rejected, (state, action) => {
+                state.recipesLoading = false;
+                state.recipesError = action.payload;
+                iziToast.error({
+                    title: 'Error',
+                    message: action.payload || 'Failed to fetch recipes',
+                    timeout: 7000
+                });
+            })
+            
+            // Fetch ingredients
+            .addCase(fetchIngredients.fulfilled, (state, action) => {
+                state.ingredients = action.payload;
+            })
+            .addCase(fetchIngredients.rejected, (state, action) => {
+                iziToast.error({
+                    title: 'Error',
+                    message: action.payload || 'Failed to fetch ingredients',
+                    timeout: 7000
+                });
+            })
+            
+            // Fetch areas
+            .addCase(fetchAreas.fulfilled, (state, action) => {
+                state.areas = action.payload;
+            })
+            .addCase(fetchAreas.rejected, (state, action) => {
+                iziToast.error({
+                    title: 'Error',
+                    message: action.payload || 'Failed to fetch areas',
+                    timeout: 7000
+                });
+            });
+    }
+});
+
+export const { 
+    setSelectedCategory, 
+    clearSelectedCategory, 
+    setFilters, 
+    clearFilters, 
+    clearError 
+} = categoriesSlice.actions;
+
+export default categoriesSlice.reducer; 

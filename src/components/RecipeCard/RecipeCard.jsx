@@ -10,7 +10,7 @@ const RecipeCard = ({ recipe }) => {
 
     const handleAuthorClick = () => {
         if (isAuth) {
-            navigate(`/user/${recipe.author.id}`);
+            navigate(`/user/${recipe.owner.id}`);
         } else {
             dispatch(openModal({ type: 'login' }));
         }
@@ -69,14 +69,14 @@ const RecipeCard = ({ recipe }) => {
                     <button
                         className={styles.authorButton}
                         onClick={handleAuthorClick}
-                        title={`View ${recipe.author.name}'s profile`}
+                        title={`View ${recipe.owner.name}'s profile`}
                     >
                         <img
-                            src={recipe.author.avatar || '/src/assets/images/desserts.jpg'}
-                            alt={recipe.author.name}
+                            src={recipe.owner.avatarURL || '/src/assets/images/desserts.jpg'}
+                            alt={recipe.owner.name}
                             className={styles.authorAvatar}
                         />
-                        <span className={styles.authorName}>{recipe.author.name}</span>
+                        <span className={styles.authorName}>{recipe.owner.name}</span>
                     </button>
                 </div>
             </div>

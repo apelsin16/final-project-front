@@ -6,6 +6,16 @@
   gap: 16px;
 }
 
+/* Loading state */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 16px;
+  color: #666;
+}
+
 /* Мобільна версія */
 .mobileContent {
   display: flex;

@@ -1,21 +1,27 @@
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import MainTitle from '../common/ui/MainTitle/MainTitle';
 import Subtitle from '../common/ui/Subtitle/Subtitle';
 import Button from '../common/ui/Button/Button';
 import RecipeFilters from '../RecipeFilters/RecipeFilters';
 import RecipeList from '../RecipeList/RecipeList';
 import RecipePagination from '../RecipePagination/RecipePagination';
+import { fetchRecipesByCategory, fetchIngredients, fetchAreas, setFilters, clearSelectedCategory } from '../../features/categories/categoriesSlice.js';
 import styles from './Recipes.module.css';
 
 const Recipes = ({ category, onBack }) => {
-    const [recipes, setRecipes] = useState([]);
-    const [filters, setFilters] = useState({
-        ingredient: null,
-        area: null
-    });
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
-    const [isLoading, setIsLoading] = useState(false);
+    const dispatch = useDispatch();
+    const { 
+        recipes, 
+        recipesLoading, 
+        recipesError, 
+        selectedCategory, 
+        totalPages, 
+        currentPage, 
+        filters,
+        ingredients,
+        areas
+    } = useSelector(state => state.categories);
 
     // Мок дані для рецептів
     const mockRecipes = [
@@ -165,50 +171,46 @@ const Recipes = ({ category, onBack }) => {
         }
     ];
 
-    // Скидаємо сторінку при зміні фільтрів
+    // Завантажуємо інгредієнти та області при монтуванні
     useEffect(() => {
-        setCurrentPage(1);
-    }, [filters]);
+        if (ingredients.length === 0) {
+            dispatch(fetchIngredients());
+        }
+        if (areas.length === 0) {
+            dispatch(fetchAreas());
+        }
+    }, [dispatch, ingredients.length, areas.length]);
 
     // Завантажуємо рецепти при зміні категорії, фільтрів або сторінки
     useEffect(() => {
         if (category) {
-            fetchRecipes();
+            dispatch(fetchRecipesByCategory({
+                categoryId: category.id || category.name,
+                page: currentPage,
+                filters
+            }));
         }
-    }, [category, filters, currentPage]);
-
-    const fetchRecipes = async () => {
-        setIsLoading(true);
-        try {
-            // TODO: Замінити на реальний API запит
-            // Симуляція завантаження
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            
-            // Фільтруємо мок дані
-            let filteredRecipes = mockRecipes;
-            
-            // Імітуємо пагінацію
-            const recipesPerPage = 12;
-            const startIndex = (currentPage - 1) * recipesPerPage;
-            const endIndex = startIndex + recipesPerPage;
-            const paginatedRecipes = filteredRecipes.slice(startIndex, endIndex);
-            
-            setRecipes(paginatedRecipes);
-            setTotalPages(Math.ceil(filteredRecipes.length / recipesPerPage));
-        } catch (error) {
-            console.error('Error fetching recipes:', error);
-            // TODO: Показати notification з помилкою
-        } finally {
-            setIsLoading(false);
-        }
-    };
+    }, [dispatch, category, filters, currentPage]);
 
     const handleFilterChange = (newFilters) => {
-        setFilters(newFilters);
+        dispatch(setFilters(newFilters));
     };
 
     const handlePageChange = (page) => {
-        setCurrentPage(page);
+        if (category) {
+            dispatch(fetchRecipesByCategory({
+                categoryId: category.id || category.name,
+                page: page,
+                filters
+            }));
+        }
+    };
+
+    const handleBack = () => {
+        dispatch(clearSelectedCategory());
+        if (onBack) {
+            onBack();
+        }
     };
 
     const categoryName = category?.name || 'DESSERTS';
@@ -217,7 +219,7 @@ const Recipes = ({ category, onBack }) => {
     return (
         <section className={styles.recipes}>
             <div className={styles.recipesHeader}>
-                <button className={styles.backButton} onClick={onBack}>
+                <button className={styles.backButton} onClick={handleBack}>
                     <svg className={styles.backIcon} viewBox="0 0 18 18" fill="none">
                         <path 
                             d="M7.5 7.5L9 14.3" 
@@ -238,12 +240,14 @@ const Recipes = ({ category, onBack }) => {
                 <RecipeFilters 
                     filters={filters} 
                     onFiltersChange={handleFilterChange}
+                    ingredients={ingredients}
+                    areas={areas}
                 />
                 
                 <div className={styles.recipesMain}>
                     <RecipeList 
-                        recipes={recipes} 
-                        isLoading={isLoading}
+                        recipes={recipes.length > 0 ? recipes : mockRecipes} 
+                        isLoading={recipesLoading}
                     />
                     
                     <RecipePagination 

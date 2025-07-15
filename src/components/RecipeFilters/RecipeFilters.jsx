@@ -1,12 +1,8 @@
-import { useState, useEffect } from 'react';
 import Select from '../common/ui/Select/Select';
 import styles from './RecipeFilters.module.css';
 
-const RecipeFilters = ({ filters, onFiltersChange }) => {
-    const [ingredients, setIngredients] = useState([]);
-    const [areas, setAreas] = useState([]);
-
-    // Мок дані для інгредієнтів
+const RecipeFilters = ({ filters, onFiltersChange, ingredients = [], areas = [] }) => {
+    // Мок дані для інгредієнтів (fallback)
     const mockIngredients = [
         { value: 'chicken', label: 'Chicken' },
         { value: 'beef', label: 'Beef' },
@@ -18,7 +14,7 @@ const RecipeFilters = ({ filters, onFiltersChange }) => {
         { value: 'rice', label: 'Rice' }
     ];
 
-    // Мок дані для регіонів
+    // Мок дані для регіонів (fallback)
     const mockAreas = [
         { value: 'italian', label: 'Italian' },
         { value: 'chinese', label: 'Chinese' },
@@ -30,31 +26,20 @@ const RecipeFilters = ({ filters, onFiltersChange }) => {
         { value: 'greek', label: 'Greek' }
     ];
 
-    // Завантаження інгредієнтів та регіонів
-    useEffect(() => {
-        const fetchFiltersData = async () => {
-            try {
-                // TODO: Замінити на реальні API запити
-                // const [ingredientsRes, areasRes] = await Promise.all([
-                //     fetch('/api/ingredients'),
-                //     fetch('/api/areas')
-                // ]);
-                // const ingredientsData = await ingredientsRes.json();
-                // const areasData = await areasRes.json();
-                // setIngredients(ingredientsData);
-                // setAreas(areasData);
-                
-                // Поки що використовуємо мок дані
-                setIngredients(mockIngredients);
-                setAreas(mockAreas);
-            } catch (error) {
-                console.error('Error fetching filters data:', error);
-                // TODO: Показати notification з помилкою
-            }
-        };
+    // Підготовка даних для select'ів
+    const ingredientsOptions = ingredients.length > 0 
+        ? ingredients.map(ingredient => ({
+            value: ingredient.id || ingredient.value,
+            label: ingredient.name || ingredient.label
+        }))
+        : mockIngredients;
 
-        fetchFiltersData();
-    }, []);
+    const areasOptions = areas.length > 0 
+        ? areas.map(area => ({
+            value: area.id || area.value,
+            label: area.name || area.label
+        }))
+        : mockAreas;
 
     const handleIngredientChange = (value) => {
         onFiltersChange({
@@ -73,7 +58,7 @@ const RecipeFilters = ({ filters, onFiltersChange }) => {
     return (
         <div className={styles.recipeFilters}>
             <Select
-                options={ingredients}
+                options={ingredientsOptions}
                 value={filters.ingredient}
                 onChange={handleIngredientChange}
                 placeholder="Ingredients"
@@ -81,7 +66,7 @@ const RecipeFilters = ({ filters, onFiltersChange }) => {
                 className={styles.filterSelect}
             />
             <Select
-                options={areas}
+                options={areasOptions}
                 value={filters.area}
                 onChange={handleAreaChange}
                 placeholder="Area"

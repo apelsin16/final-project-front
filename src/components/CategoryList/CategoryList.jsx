@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './CategoryList.module.css';
 import CategoryListItem from './CategoryListItem';
+import { fetchCategories, fetchRecipesByCategory, setSelectedCategory } from '../../features/categories/categoriesSlice.js';
 
 // Імпорт зображень категорій відповідно до Figma дизайну
 import beefImg from '../../assets/images/beef.jpg';
@@ -17,7 +19,46 @@ import starterImg from '../../assets/images/starter.jpg';
 import veganImg from '../../assets/images/vegan.jpg';
 import vegetarianImg from '../../assets/images/vegetarian.jpg';
 
-// Мобільна версія - 8 категорій
+// Мапінг категорій з API на локальні зображення
+const categoryImageMap = {
+  'Beef': beefImg,
+  'Breakfast': breakfastImg,
+  'Dessert': dessertsImg,
+  'Lamb': lambImg,
+  'Goat': goatImg,
+  'Miscellaneous': miscellaneousImg,
+  'Pasta': pastaImg,
+  'Pork': porkImg,
+  'Seafood': seafoodImg,
+  'Side': sideImg,
+  'Starter': starterImg,
+  'Vegan': veganImg,
+  'Vegetarian': vegetarianImg,
+  'Chicken': beefImg, // fallback для нових категорій
+  'Soup': miscellaneousImg, // fallback для нових категорій
+};
+
+// Функція для мапінгу категорій з API
+const mapApiCategoriesToDisplay = (apiCategories, screenType) => {
+  return apiCategories.map(category => ({
+    id: category.id,
+    name: category.name,
+    image: categoryImageMap[category.name] || beefImg, // fallback зображення
+    size: getCategorySize(category.name, screenType)
+  }));
+};
+
+// Функція для визначення розміру категорії
+const getCategorySize = (categoryName, screenType) => {
+  if (screenType === 'desktop') {
+    // Для десктопу деякі категорії мають великий розмір
+    const largeCategories = ['Dessert', 'Lamb', 'Pork', 'Side'];
+    return largeCategories.includes(categoryName) ? 'large' : 'small';
+  }
+  return 'small'; // На мобільному та планшеті всі категорії малі
+};
+
+// Мобільна версія - 8 категорій (fallback)
 const mobileCategories = [
   { id: 'beef', name: 'Beef', image: beefImg, size: 'small' },
   { id: 'breakfast', name: 'Breakfast', image: breakfastImg, size: 'small' },
@@ -26,10 +67,10 @@ const mobileCategories = [
   { id: 'seafood', name: 'Seafood', image: seafoodImg, size: 'small' },
   { id: 'starter', name: 'Starter', image: starterImg, size: 'small' },
   { id: 'miscellaneous', name: 'Miscellaneous', image: miscellaneousImg, size: 'small' },
-  { id: 'pork', name: 'Pork', image: porkImg, size: 'small' }
+  { id: 'vegan', name: 'Vegan', image: veganImg, size: 'small' }
 ];
 
-// Планшетна версія - 11 категорій
+// Планшетна версія - 12 категорій (fallback)
 const tabletCategories = [
   { id: 'beef', name: 'Beef', image: beefImg, size: 'small' },
   { id: 'breakfast', name: 'Breakfast', image: breakfastImg, size: 'small' },
@@ -61,6 +102,8 @@ const desktopCategories = [
 
 const CategoryList = ({ onCategorySelect }) => {
   const [screenType, setScreenType] = useState('mobile');
+  const dispatch = useDispatch();
+  const { categories, isLoading, error } = useSelector(state => state.categories);
 
   // Визначення типу екрана
   useEffect(() => {
@@ -78,6 +121,32 @@ const CategoryList = ({ onCategorySelect }) => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Завантаження категорій при монтуванні компонента
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
+
+  // Обробка вибору категорії
+  const handleCategorySelect = async (category) => {
+    try {
+      dispatch(setSelectedCategory(category));
+      
+      // Запит на бекенд за рецептами обраної категорії
+      const result = await dispatch(fetchRecipesByCategory({ 
+        categoryId: category.id, // використовуємо UUID з API
+        page: 1 
+      })).unwrap();
+      
+      // Якщо запит успішний, викликаємо callback для переключення на Recipes
+      if (onCategorySelect) {
+        onCategorySelect(category);
+      }
+    } catch (error) {
+      // Помилка буде оброблена в Redux slice і показана через iziToast
+      console.error('Error fetching recipes:', error);
+    }
+  };
 
   const handleAllCategoriesClick = () => {
     console.log('All categories clicked');
@@ -102,16 +171,37 @@ const CategoryList = ({ onCategorySelect }) => {
     </div>
   );
 
+  const getCategoriesToDisplay = () => {
+    if (categories.length > 0) {
+      const mappedCategories = mapApiCategoriesToDisplay(categories, screenType);
+      return mappedCategories.slice(0, screenType === 'mobile' ? 8 : 11);
+    }
+    // Fallback on mock data
+    return screenType === 'mobile' ? mobileCategories : 
+           screenType === 'tablet' ? tabletCategories : desktopCategories;
+  };
+
+  const categoriesToDisplay = getCategoriesToDisplay();
+
+  // Show loading
+  if (isLoading) {
+    return (
+      <div className={styles.categoryList}>
+        <div className={styles.loading}>Loading categories...</div>
+      </div>
+    );
+  }
+
   // Мобільна версія
   if (screenType === 'mobile') {
     return (
       <div className={styles.categoryList}>
         <div className={styles.mobileContent}>
-          {mobileCategories.map((category) => (
+          {categoriesToDisplay.map((category) => (
             <CategoryListItem
               key={category.id}
               category={category}
-              onCategorySelect={onCategorySelect}
+              onCategorySelect={handleCategorySelect}
             />
           ))}
           <AllCategoriesButton />
@@ -126,11 +216,11 @@ const CategoryList = ({ onCategorySelect }) => {
       <div className={styles.categoryList}>
         <div className={styles.tabletContent}>
           <div className={styles.tabletGrid}>
-            {tabletCategories.map((category) => (
+            {categoriesToDisplay.map((category) => (
               <CategoryListItem
                 key={category.id}
                 category={category}
-                onCategorySelect={onCategorySelect}
+                onCategorySelect={handleCategorySelect}
               />
             ))}
             <AllCategoriesButton />
@@ -146,54 +236,54 @@ const CategoryList = ({ onCategorySelect }) => {
       <div className={styles.desktopContent}>
         <div className={styles.row}>
           <CategoryListItem
-            category={desktopCategories[0]}
-            onCategorySelect={onCategorySelect}
+            category={categoriesToDisplay[0]}
+            onCategorySelect={handleCategorySelect}
           />
           <CategoryListItem
-            category={desktopCategories[1]}
-            onCategorySelect={onCategorySelect}
+            category={categoriesToDisplay[1]}
+            onCategorySelect={handleCategorySelect}
           />
           <CategoryListItem
-            category={desktopCategories[2]}
-            onCategorySelect={onCategorySelect}
-          />
-        </div>
-        <div className={styles.row}>
-          <CategoryListItem
-            category={desktopCategories[3]}
-            onCategorySelect={onCategorySelect}
-          />
-          <CategoryListItem
-            category={desktopCategories[4]}
-            onCategorySelect={onCategorySelect}
-          />
-          <CategoryListItem
-            category={desktopCategories[5]}
-            onCategorySelect={onCategorySelect}
+            category={categoriesToDisplay[2]}
+            onCategorySelect={handleCategorySelect}
           />
         </div>
         <div className={styles.row}>
           <CategoryListItem
-            category={desktopCategories[6]}
-            onCategorySelect={onCategorySelect}
+            category={categoriesToDisplay[3]}
+            onCategorySelect={handleCategorySelect}
           />
           <CategoryListItem
-            category={desktopCategories[7]}
-            onCategorySelect={onCategorySelect}
+            category={categoriesToDisplay[4]}
+            onCategorySelect={handleCategorySelect}
           />
           <CategoryListItem
-            category={desktopCategories[8]}
-            onCategorySelect={onCategorySelect}
+            category={categoriesToDisplay[5]}
+            onCategorySelect={handleCategorySelect}
           />
         </div>
         <div className={styles.row}>
           <CategoryListItem
-            category={desktopCategories[9]}
-            onCategorySelect={onCategorySelect}
+            category={categoriesToDisplay[6]}
+            onCategorySelect={handleCategorySelect}
           />
           <CategoryListItem
-            category={desktopCategories[10]}
-            onCategorySelect={onCategorySelect}
+            category={categoriesToDisplay[7]}
+            onCategorySelect={handleCategorySelect}
+          />
+          <CategoryListItem
+            category={categoriesToDisplay[8]}
+            onCategorySelect={handleCategorySelect}
+          />
+        </div>
+        <div className={styles.row}>
+          <CategoryListItem
+            category={categoriesToDisplay[9]}
+            onCategorySelect={handleCategorySelect}
+          />
+          <CategoryListItem
+            category={categoriesToDisplay[10]}
+            onCategorySelect={handleCategorySelect}
           />
           <AllCategoriesButton />
         </div>
