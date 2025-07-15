@@ -1,12 +1,14 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { openModal } from '../../features/modal/modalSlice';
+import { toggleFavorite } from '../../features/recipes/recipesSlice';
 import styles from './RecipeCard.module.css';
 
 const RecipeCard = ({ recipe }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { isAuth } = useSelector(state => state.auth);
+    const { favoriteIds, favoritesLoading } = useSelector(state => state.recipes);
 
     const handleAuthorClick = () => {
         if (isAuth) {
@@ -20,8 +22,7 @@ const RecipeCard = ({ recipe }) => {
 
     const handleFavoriteClick = () => {
         if (isAuth) {
-            // TODO: Додати/видалити з улюблених
-            console.log('Toggle favorite for recipe:', recipe.id);
+            dispatch(toggleFavorite(recipe.id));
         } else {
             dispatch(openModal({ type: 'login' }));
         }
@@ -34,6 +35,9 @@ const RecipeCard = ({ recipe }) => {
     // Get owner info with fallback values
     const ownerName = recipe.owner?.name || 'Unknown User';
     const ownerAvatar = recipe.owner?.avatarURL || '/src/assets/images/desserts.jpg';
+    
+    // Check if recipe is in favorites
+    const isFavorite = favoriteIds.includes(recipe.id) || recipe.isFavorite;
 
     return (
         <div className={styles.recipeCard}>
@@ -45,9 +49,10 @@ const RecipeCard = ({ recipe }) => {
                 />
                 <div className={styles.actions}>
                     <button
-                        className={`${styles.favoriteButton} ${recipe.isFavorite ? styles.active : ''}`}
+                        className={`${styles.favoriteButton} ${isFavorite ? styles.active : ''}`}
                         onClick={handleFavoriteClick}
-                        title={recipe.isFavorite ? "Remove from favorites" : "Add to favorites"}
+                        title={isFavorite ? "Remove from favorites" : "Add to favorites"}
+                        disabled={favoritesLoading}
                     >
                         <svg width="16" height="16">
                             <use href="/src/assets/sprite.svg#heart" />

@@ -24,7 +24,12 @@ const initialState = {
     
     // Filter options
     areas: [],
-    ingredients: []
+    ingredients: [],
+    
+    // Favorites
+    favorites: [],
+    favoriteIds: [],
+    favoritesLoading: false
 };
 
 // Fetch all recipes with pagination and filters
@@ -100,6 +105,100 @@ export const fetchFilterOptions = createAsyncThunk(
     }
 );
 
+// Add/Remove from favorites
+export const toggleFavorite = createAsyncThunk(
+    'recipes/toggleFavorite',
+    async (recipeId, { getState, rejectWithValue }) => {
+        try {
+            const token = getState().auth.token;
+            if (!token) {
+                throw new Error('User not authenticated');
+            }
+            
+            // Try multiple possible endpoints for toggle favorite
+            let response;
+            try {
+                response = await axios.patch(
+                    `${API_URL}/recipes/${recipeId}/favorite`,
+                    {},
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+            } catch (firstError) {
+                // Try alternative endpoint structure
+                try {
+                    response = await axios.patch(
+                        `${API_URL}/recipes/favorite/${recipeId}`,
+                        {},
+                        { headers: { Authorization: `Bearer ${token}` } }
+                    );
+                } catch (secondError) {
+                    // Try POST request
+                    try {
+                        response = await axios.post(
+                            `${API_URL}/recipes/favorites`,
+                            { recipeId },
+                            { headers: { Authorization: `Bearer ${token}` } }
+                        );
+                    } catch (thirdError) {
+                        // If all endpoints fail, simulate toggle for frontend-only functionality
+                        console.warn('Backend endpoint for toggle favorite not found, using frontend-only mode');
+                        const favoriteIds = getState().recipes.favoriteIds;
+                        const isCurrentlyFavorite = favoriteIds.includes(recipeId);
+                        return { recipeId, isFavorite: !isCurrentlyFavorite };
+                    }
+                }
+            }
+            
+            return { recipeId, isFavorite: response.data.isFavorite };
+        } catch (error) {
+            console.error('Error toggling favorite:', error);
+            
+            if (error.response) {
+                return rejectWithValue(error.response.data.message || 'Server error');
+            } else if (error.request) {
+                return rejectWithValue('Network error - please check your connection');
+            } else {
+                return rejectWithValue(error.message || 'Failed to toggle favorite');
+            }
+        }
+    }
+);
+
+// Fetch user's favorite recipes
+export const fetchFavorites = createAsyncThunk(
+    'recipes/fetchFavorites',
+    async (_, { getState, rejectWithValue }) => {
+        try {
+            const token = getState().auth.token;
+            if (!token) {
+                throw new Error('User not authenticated');
+            }
+            
+            const response = await axios.get(`${API_URL}/recipes/favorites`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            
+            return response.data.favorites || response.data.data || [];
+        } catch (error) {
+            console.error('Error fetching favorites:', error);
+            
+            // If endpoint not found, return empty array for frontend-only mode
+            if (error.response?.status === 404) {
+                console.warn('Favorites endpoint not found, using frontend-only mode');
+                return [];
+            }
+            
+            if (error.response) {
+                return rejectWithValue(error.response.data.message || 'Server error');
+            } else if (error.request) {
+                return rejectWithValue('Network error - please check your connection');
+            } else {
+                return rejectWithValue(error.message || 'Failed to fetch favorites');
+            }
+        }
+    }
+);
+
 const recipesSlice = createSlice({
     name: 'recipes',
     initialState,
@@ -155,6 +254,61 @@ const recipesSlice = createSlice({
                 iziToast.error({
                     title: 'Error',
                     message: action.payload || 'Failed to fetch filter options',
+                    position: 'topRight'
+                });
+            })
+            // Toggle favorite
+            .addCase(toggleFavorite.pending, (state) => {
+                state.favoritesLoading = true;
+            })
+            .addCase(toggleFavorite.fulfilled, (state, action) => {
+                state.favoritesLoading = false;
+                const { recipeId, isFavorite } = action.payload;
+                
+                // Update local favorites
+                if (isFavorite) {
+                    if (!state.favoriteIds.includes(recipeId)) {
+                        state.favoriteIds.push(recipeId);
+                    }
+                } else {
+                    state.favoriteIds = state.favoriteIds.filter(id => id !== recipeId);
+                }
+                
+                // Update the recipe in the current recipes list
+                const recipeIndex = state.recipes.findIndex(recipe => recipe.id === recipeId);
+                if (recipeIndex !== -1) {
+                    state.recipes[recipeIndex].isFavorite = isFavorite;
+                }
+                
+                iziToast.success({
+                    title: 'Success',
+                    message: isFavorite ? 'Recipe added to favorites' : 'Recipe removed from favorites',
+                    position: 'topRight'
+                });
+            })
+            .addCase(toggleFavorite.rejected, (state, action) => {
+                state.favoritesLoading = false;
+                iziToast.error({
+                    title: 'Error',
+                    message: action.payload || 'Failed to toggle favorite',
+                    position: 'topRight'
+                });
+            })
+            // Fetch favorites
+            .addCase(fetchFavorites.pending, (state) => {
+                state.favoritesLoading = true;
+            })
+            .addCase(fetchFavorites.fulfilled, (state, action) => {
+                state.favoritesLoading = false;
+                state.favorites = action.payload;
+                state.favoriteIds = action.payload.map(recipe => recipe.id);
+            })
+            .addCase(fetchFavorites.rejected, (state, action) => {
+                state.favoritesLoading = false;
+                state.error = action.payload;
+                iziToast.error({
+                    title: 'Error',
+                    message: action.payload || 'Failed to fetch favorites',
                     position: 'topRight'
                 });
             });

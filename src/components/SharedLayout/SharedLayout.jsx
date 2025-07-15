@@ -3,12 +3,14 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchCurrentUser, setSessionLoading } from '../../features/auth/authSlice';
+import { fetchFavorites } from '../../features/recipes/recipesSlice';
 
 export default function SharedLayout() {
     const dispatch = useDispatch();
     const location = useLocation();
+    const { isAuth } = useSelector(state => state.auth);
 
     // При монтуванні layout пробуємо відновити користувача по токену
     useEffect(() => {
@@ -17,6 +19,13 @@ export default function SharedLayout() {
             dispatch(setSessionLoading(false));
         });
     }, [dispatch]);
+
+    // Завантажуємо улюблені рецепти коли користувач авторизований
+    useEffect(() => {
+        if (isAuth) {
+            dispatch(fetchFavorites());
+        }
+    }, [isAuth, dispatch]);
 
     // Не показуємо Header на HomePage, оскільки Hero містить свій власний header
     const showHeader = location.pathname !== '/';
