@@ -2,26 +2,24 @@
 .mainTitle {
     font-family: 'Mulish', sans-serif;
     font-weight: 800; /* ExtraBold */
-    text-transform: uppercase;
-    letter-spacing: -0.02em; /* -2% */
+    letter-spacing: -0.56px;
     line-height: 1;
     margin: 0;
     padding: 0;
     display: block;
 
     /* Мобільні стилі (за замовчуванням) */
-    font-size: 48px;
-    line-height: 48px;
-    max-width: 320px;
+    font-size: 28px;
+    line-height: 32px;
 }
 
 /* Цвета */
 .white {
-    color: #ffffff;
+    color: var(--color-white);
 }
 
 .dark {
-    color: var(--color-dark, #1a1a1a);
+    color: var(--color-dark);
 }
 
 /* Центрирование */
@@ -35,10 +33,8 @@
 @media (min-width: 768px) {
     .mainTitle {
         /* Стилі з Figma для планшета */
-        font-size: 70px;
-        line-height: 70px;
-        max-width: 678px;
-        /* height: 140px; - не обмежуємо висоту, нехай буде динамічною */
+        font-size: 40px;
+        line-height: 44px;
     }
 }
 
@@ -46,28 +42,16 @@
 @media (min-width: 1024px) {
     .mainTitle {
         /* Стилі з Figma для десктопа */
-        font-size: 90px;
-        line-height: 90px;
-        max-width: 875px;
-        /* height: 180px; - не обмежуємо висоту, нехай буде динамічною */
-    }
-}
-
-/* Додаткові стилі для великих екранів */
-@media (min-width: 1440px) {
-    .mainTitle {
-        font-size: 100px;
-        line-height: 100px;
-        max-width: 950px;
+        font-size: 40px;
+        line-height: 44px;
     }
 }
 
 /* Стилі для дуже маленьких екранів */
 @media (max-width: 480px) {
     .mainTitle {
-        font-size: 40px;
-        line-height: 40px;
-        max-width: 280px;
+        font-size: 28px;
+        line-height: 32px;
     }
 }
 

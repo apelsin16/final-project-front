@@ -23,13 +23,14 @@ import clsx from 'clsx';
  * <MainTitle color="dark" as="h2">
  *   Our Best Recipes
  * </MainTitle>
+ *
  */
 const MainTitle = ({
     children,
     className,
     as: Component = 'h1',
-    color = 'white',
-    centered = true,
+    color = 'black',
+    centered = false,
     ...props
 }) => {
     const titleClasses = clsx(
