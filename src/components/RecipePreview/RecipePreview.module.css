@@ -1,0 +1,124 @@
+.card {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: flex-start;
+  background-color: var(--color-white);
+  max-width: 100%;
+  gap: 10px;
+}
+
+.image {
+  width: 75px;
+  height: 75px;
+  max-height: 75px;
+  transition: transform 0.4s ease;
+  object-fit: cover;
+  border-radius: 15px;
+  border: 1px solid #000;
+  flex-shrink: 0;
+}
+
+.imageWrapper {
+  cursor: pointer;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+}
+
+.text {
+  width: 166px;
+  flex: 1;
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: -0.02em;
+}
+
+.title {
+  color: var(--color-black);
+  margin: 0;
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.description {
+  color: var(--color-light);
+  overflow: hidden;
+  margin: 0;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-medium-m);
+  line-height: 1.43;
+}
+
+.actions {
+  display: flex;
+  gap: 4px;
+  margin-left: 16px;
+}
+
+.loading {
+  font-size: var(--font-size-small);
+  color: var(--color-light);
+  padding-left: 6px;
+  line-height: 32px;
+}
+
+@media screen and (min-width: 768px) {
+  .card {
+    max-width: 704px;
+    gap: 16px;
+  }
+
+  .text {
+    width: 250px;
+    gap: 10px;
+  }
+
+  .title {
+    font-weight: var(--font-weight-extra-bold);
+    font-size: 20px;
+    line-height: 1.2;
+  }
+
+  .description {
+    font-size: 16px;
+  }
+
+  .actions {
+    margin-left: 32px;
+  }
+
+  .image {
+    width: 100px;
+    height: 100px;
+    max-height: 100px;
+  }
+
+  .imageWrapper:hover .image {
+    transform: scale(1.05);
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .card {
+    max-width: 846px;
+  }
+
+  .text {
+    width: 350px;
+    gap: 12px;
+  }
+
+  .actions {
+    margin-left: 24px;
+  }
+}
