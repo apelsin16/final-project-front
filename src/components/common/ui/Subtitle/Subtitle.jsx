@@ -15,11 +15,17 @@ import clsx from 'clsx';
  * @example
  * <Subtitle as="h2" align="center">Centered Title</Subtitle>
  */
-const Subtitle = ({ children, className, as: Component = 'h2', ...props }) => {
+const Subtitle = ({
+    children,
+    className,
+    as: Component = 'h2',
+    color,
+    ...props
+}) => {
     const subtitleClasses = clsx(
         styles.subtitle,
         className,
-        props.color,
+        styles[color],
         props.limitWidth ? styles.limitWidth : ''
     );
 
