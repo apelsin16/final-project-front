@@ -126,3 +126,29 @@
 .disabled::placeholder {
     color: #d1d5db;
 }
+
+.inputRecipe {
+    text-transform: uppercase;
+    border: none;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 1.333;
+    letter-spacing: -0.02em;
+    color: #050505;
+    outline: none;
+    padding: 0;
+}
+
+.inputRecipe::placeholder {
+    color: #BFBEBE;
+}
+
+@media (max-width: 768px) {
+    .quantity {
+        border-radius: 0;
+        border: none;
+        border-bottom: 1px solid #BFBEBE;
+        outline: none;
+    }
+
+}

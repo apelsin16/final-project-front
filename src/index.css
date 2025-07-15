@@ -98,15 +98,13 @@ button {
     padding-left: 16px;
     padding-right: 16px;
     box-sizing: border-box;
-    outline: 2px dashed #ff9800; /* Тестова підсвітка */
-    background: rgba(255, 152, 0, 0.07); /* Тестова підсвітка */
 }
 
 @media (min-width: 375px) {
     .container {
         max-width: 375px;
-        padding-left: 32px;
-        padding-right: 32px;
+        padding-left: 16px;
+        padding-right: 16px;
     }
 }
 

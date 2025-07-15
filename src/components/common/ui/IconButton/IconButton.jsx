@@ -18,7 +18,7 @@ const ICONS = {
     facebook: 'facebook',
     instagram: 'instagram',
     youtube: 'youtube',
-    close: 'close', // добавил крестик
+    close: 'close', 
 };
 
 /**
