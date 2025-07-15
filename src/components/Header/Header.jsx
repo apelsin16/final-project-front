@@ -32,7 +32,7 @@ function Header() {
                             <Link to='/'>Головна</Link>
                         </li>
                         <li>
-                            <Link to='/recipe/123'>Рецепт</Link>
+                            <Link to='/recipe/1df085f0-f09a-4082-8b7b-1eb9a17310f9'>Рецепт</Link>
                         </li>
                         <li>
                             <Link to='/recipe/add'>Додати рецепт</Link>

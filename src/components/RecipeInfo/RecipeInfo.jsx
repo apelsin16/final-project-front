@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
+import { getRecipeById } from "../../services/recipes";
 import RecipeMainInfo from "../RecipeMainInfo/RecipeMainInfo";
 import RecipeIngredients from "../RecipeIngredients/RecipeIngredients";
 import RecipePreparation from "../RecipePreparation/RecipePreparation";
@@ -33,7 +34,7 @@ const RecipeInfo = ({ id }) => {
 
     const fetchRecipe = async () => {
       try {
-        const data = await mockGetRecipeById(id); // используем мок
+        const data = await mockGetRecipeById(id);
         setRecipe(data);
       } catch (error) {
         toast.error("Не удалось загрузить рецепт");
@@ -41,6 +42,20 @@ const RecipeInfo = ({ id }) => {
         setLoading(false);
       }
     };
+
+    const fetchRecipeTest = async () => {
+      try {
+        const data = await getRecipeById(id);
+        console.log(JSON.stringify(data));
+      } catch (error) {
+        const { message } = normalizeHttpError(error);
+        toast.error(message ?? DEFAULT_ERROR_MESSAGE);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRecipeTest();
 
     fetchRecipe();
   }, [id]);
