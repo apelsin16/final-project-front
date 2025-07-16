@@ -28,7 +28,7 @@ import clsx from 'clsx';
 const MainTitle = ({
     children,
     className,
-    as: Component = 'h1',
+    as: Component = 'h2',
     color = 'black',
     centered = false,
     ...props

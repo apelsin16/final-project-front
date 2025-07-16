@@ -1,10 +1,9 @@
 .testimonials {
-    padding: var(--spacing-xl) var(--spacing-md);
-    background-color: var(--color-white);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px; /* Gap між header і slider та pagination */
+    text-align: center;
+    gap: 64px; /* Gap між header і slider та pagination */
 }
 
 .testimonialsHeader {
@@ -12,22 +11,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: var(--spacing-md); /* 16px gap між subtitle і title */
-}
-
-/* Custom typography for Testimonials section to match Figma */
-.testimonialsHeader :global(.subtitle) {
-    /* Mobile: 14px, line-height 20px */
-    font-size: var(--font-size-medium-m) !important; /* 14px */
-    line-height: 1.43 !important; /* 20px / 14px = 1.43 */
-    color: #1A1A1A !important; /* Figma color */
-}
-
-.testimonialsHeader :global(.mainTitle) {
-    /* Mobile: 28px, line-height 32px */
-    font-size: var(--font-size-title-m) !important; /* 28px */
-    line-height: 1.14 !important; /* 32px / 28px = 1.14 */
-    color: var(--color-black) !important; /* #050505 */
+    gap: 16px;
 }
 
 .testimonialsSlider {
@@ -36,36 +20,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 64px; /* Mobile gap між контентом і пагінацією */
+    gap: 40px; /* Mobile gap між контентом і пагінацією */
 }
 
 .testimonialsContainer {
     position: relative;
     width: 100%;
-    min-height: 200px; /* Мінімальна висота для контейнера */
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .testimonialSlide {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
-    opacity: 0;
-    transform: translateX(20px);
-    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
     display: flex;
     flex-direction: column;
     align-items: center;
-    pointer-events: none;
-}
-
-.testimonialSlide.active {
-    opacity: 1;
-    transform: translateX(0);
-    pointer-events: auto;
 }
 
 .testimonialContent {
@@ -79,14 +46,11 @@
 }
 
 .testimonialText {
-    /* Mobile: 18px, line-height 24px, max-width 343px */
     font-size: var(--font-size-large); /* 18px */
     font-weight: 500;
     color: var(--color-black);
     line-height: 1.33; /* 24px / 18px = 1.33 */
-    max-width: 343px;
     margin: 0;
-    font-style: italic;
 }
 
 .testimonialAuthor {
@@ -118,6 +82,7 @@
 
 .paginationDot.active {
     background-color: var(--color-black);
+    pointer-events: none;
 }
 
 .paginationDot:hover {
@@ -142,49 +107,25 @@
 }
 
 /* Планшети (768px - 1439px) */
-@media screen and (min-width: 768px) and (max-width: 1439px) {
+@media screen and (min-width: 768px) {
     .testimonials {
-        padding: var(--spacing-xxl) var(--spacing-lg);
+        gap: 80px;
     }
 
-    /* Custom typography for tablet */
-    .testimonialsHeader :global(.subtitle) {
-        /* Tablet: 16px, line-height 24px */
-        font-size: var(--font-size-medium) !important; /* 16px */
-        line-height: 1.5 !important; /* 24px / 16px = 1.5 */
-    }
-
-    .testimonialsHeader :global(.mainTitle) {
-        /* Tablet: 40px, line-height 44px */
-        font-size: var(--font-size-title-large) !important; /* 40px */
-        line-height: 1.1 !important; /* 44px / 40px = 1.1 */
-    }
-    
     .testimonialsSlider {
-        gap: 80px; /* Tablet: 80px між контентом і пагінацією */
-    }
-
-    .testimonialsContainer {
-        min-height: 250px; /* Збільшена висота для планшетів */
+        gap: 40px; /* Tablet: 80px між контентом і пагінацією */
     }
 
     .testimonialContent {
         gap: 80px; /* Tablet: 80px між текстом і автором */
     }
-    
-    .testimonialText {
-        /* Tablet: 24px, line-height 36px, max-width 704px */
-        font-size: var(--font-size-title); /* 24px */
-        line-height: 1.5; /* 36px / 24px = 1.5 */
-        max-width: 704px;
-    }
-    
+
     .testimonialAuthor {
         /* Tablet: 20px, line-height 24px - hardcoded для точності */
         font-size: 20px;
         line-height: 1.2; /* 24px / 20px = 1.2 */
     }
-    
+
     .paginationDot {
         /* Tablet: 16x16px */
         width: 16px;
@@ -198,57 +139,28 @@
 
 /* Десктоп (1440px+) */
 @media screen and (min-width: 1440px) {
-    .testimonials {
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: var(--spacing-xxl) var(--spacing-xl);
-    }
-
-    /* Custom typography for desktop */
-    .testimonialsHeader :global(.subtitle) {
-        /* Desktop: 16px, line-height 24px */
-        font-size: var(--font-size-medium) !important; /* 16px */
-        line-height: 1.5 !important; /* 24px / 16px = 1.5 */
-    }
-
-    .testimonialsHeader :global(.mainTitle) {
-        /* Desktop: 40px, line-height 44px */
-        font-size: var(--font-size-title-large) !important; /* 40px */
-        line-height: 1.1 !important; /* 44px / 40px = 1.1 */
-    }
-    
     .testimonialsSlider {
-        gap: 80px; /* Desktop: 80px між контентом і пагінацією */
-    }
-
-    .testimonialsContainer {
-        min-height: 300px; /* Збільшена висота для десктопу */
+        gap: 40px; /* Desktop: 80px між контентом і пагінацією */
     }
 
     .testimonialContent {
         gap: 80px; /* Desktop: 80px між текстом і автором */
     }
-    
+
+    .testimonialSlide {
+        max-width: 822px;
+        margin: 0 auto;
+    }
+
     .testimonialText {
         /* Desktop: 24px, line-height 36px, max-width 822px */
         font-size: var(--font-size-title); /* 24px */
         line-height: 1.5; /* 36px / 24px = 1.5 */
-        max-width: 822px;
     }
-    
+
     .testimonialAuthor {
         /* Desktop: 20px, line-height 24px - hardcoded для точності */
         font-size: 20px;
         line-height: 1.2; /* 24px / 20px = 1.2 */
     }
-    
-    .paginationDot {
-        /* Desktop: 16x16px */
-        width: 16px;
-        height: 16px;
-    }
-
-    .testimonialsPagination {
-        gap: 12px; /* Desktop: 12px gap */
-    }
-} 
+}
