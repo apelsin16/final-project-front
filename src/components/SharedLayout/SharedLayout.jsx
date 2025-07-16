@@ -1,39 +1,43 @@
 // SharedLayout.jsx
-import { Outlet } from 'react-router-dom';
+import { Outlet, Link } from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { fetchCurrentUser, setSessionLoading } from '../../features/auth/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  fetchCurrentUser,
+  setSessionLoading,
+} from '../../features/auth/authSlice';
 
 export default function SharedLayout() {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const id = useSelector(state => state.auth.user?.id);
+  // При монтуванні layout пробуємо відновити користувача по токену
+  useEffect(() => {
+    dispatch(setSessionLoading(true));
+    dispatch(fetchCurrentUser()).finally(() => {
+      dispatch(setSessionLoading(false));
+    });
+  }, [dispatch]);
 
-    // При монтуванні layout пробуємо відновити користувача по токену
-    useEffect(() => {
-        dispatch(setSessionLoading(true));
-        dispatch(fetchCurrentUser()).finally(() => {
-            dispatch(setSessionLoading(false));
-        });
-    }, [dispatch]);
-
-    return (
-        // Семантична структура layout
-        <>
-            {/* Хедер застосунку (логотип, навігація, авторизація) */}
-            <header>
-                <Header />
-            </header>
-            {/* Основний контент сторінки */}
-            <main>
-                {/* Контейнер для обмеження ширини і відступів (адаптивність — через CSS) */}
-                <div className='container'>
-                    <Outlet />
-                </div>
-            </main>
-            <footer>
-                <Footer />
-            </footer>
-        </>
-    );
+  return (
+    // Семантична структура layout
+    <>
+      {/* Хедер застосунку (логотип, навігація, авторизація) */}
+      <header>
+        <Header />
+      </header>
+      {/* Основний контент сторінки */}
+      <main>
+        {/* Контейнер для обмеження ширини і відступів (адаптивність — через CSS) */}
+        <div className="container">
+          <Outlet />
+        </div>
+        <Link to={`/user/${id}`}>Перейти в профіль</Link>
+      </main>
+      <footer>
+        <Footer />
+      </footer>
+    </>
+  );
 }

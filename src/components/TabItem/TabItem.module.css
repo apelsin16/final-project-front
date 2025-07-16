@@ -1,0 +1,35 @@
+.tab-button {
+  color: #bfbebe;
+  outline: transparent;
+  border: transparent;
+  background-color: transparent;
+  font-size: var(--font-size-large);
+  font-weight: var(--font-weight-extra-bold);
+  line-height: 1.2;
+  letter-spacing: -0.4px;
+  text-transform: uppercase;
+  position: relative;
+  padding-bottom: 15px;
+  white-space: nowrap;
+}
+
+.active {
+  color: #050505;
+}
+
+.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background-color: var(--color-black);
+  z-index: 2;
+}
+
+@media screen and (min-width: 768px) {
+  .tab-button {
+    font-size: 20px;
+  }
+}
