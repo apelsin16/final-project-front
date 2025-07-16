@@ -20,8 +20,8 @@ const initialState = {
     areas: [],
     filters: {
         ingredient: null,
-        area: null
-    }
+        area: null,
+    },
 };
 
 // Fetch all categories
@@ -40,26 +40,30 @@ export const fetchCategories = createAsyncThunk(
 // Fetch recipes by category
 export const fetchRecipesByCategory = createAsyncThunk(
     'categories/fetchRecipesByCategory',
-    async ({ categoryId, page = 1, filters = {} }, { rejectWithValue }) => {
+    async ({ categoryName, page = 1, filters = {} }, { rejectWithValue }) => {
         try {
             const params = new URLSearchParams({
                 page: page.toString(),
-                limit: '12'
+                limit: '12',
             });
-            
+
             if (filters.ingredient) {
                 params.append('ingredient', filters.ingredient);
             }
             if (filters.area) {
                 params.append('area', filters.area);
             }
-            
-            const response = await axios.get(`${API_URL}/recipes/category/${categoryId}?${params}`);
+            if (categoryName) {
+                params.append('category', categoryName);
+            }
+
+            // Use the correct endpoint: /recipes/?category=...
+            const response = await axios.get(`${API_URL}/recipes?${params}`);
             return {
                 recipes: response.data.data || [],
                 totalPages: response.data.pagination?.totalPages || 1,
                 currentPage: response.data.pagination?.currentPage || page,
-                categoryId
+                categoryName,
             };
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || 'Failed to fetch recipes');
@@ -100,7 +104,7 @@ const categoriesSlice = createSlice({
         setSelectedCategory: (state, action) => {
             state.selectedCategory = action.payload;
         },
-        clearSelectedCategory: (state) => {
+        clearSelectedCategory: state => {
             state.selectedCategory = null;
             state.recipes = [];
             state.recipesError = null;
@@ -110,22 +114,22 @@ const categoriesSlice = createSlice({
             state.filters = { ...state.filters, ...action.payload };
             state.currentPage = 1; // Reset to first page when filters change
         },
-        clearFilters: (state) => {
+        clearFilters: state => {
             state.filters = {
                 ingredient: null,
-                area: null
+                area: null,
             };
             state.currentPage = 1;
         },
-        clearError: (state) => {
+        clearError: state => {
             state.error = null;
             state.recipesError = null;
-        }
+        },
     },
-    extraReducers: (builder) => {
+    extraReducers: builder => {
         builder
             // Fetch categories
-            .addCase(fetchCategories.pending, (state) => {
+            .addCase(fetchCategories.pending, state => {
                 state.isLoading = true;
                 state.error = null;
             })
@@ -139,12 +143,12 @@ const categoriesSlice = createSlice({
                 iziToast.error({
                     title: 'Error',
                     message: action.payload || 'Failed to fetch categories',
-                    timeout: 7000
+                    timeout: 7000,
                 });
             })
-            
+
             // Fetch recipes by category
-            .addCase(fetchRecipesByCategory.pending, (state) => {
+            .addCase(fetchRecipesByCategory.pending, state => {
                 state.recipesLoading = true;
                 state.recipesError = null;
             })
@@ -160,10 +164,10 @@ const categoriesSlice = createSlice({
                 iziToast.error({
                     title: 'Error',
                     message: action.payload || 'Failed to fetch recipes',
-                    timeout: 7000
+                    timeout: 7000,
                 });
             })
-            
+
             // Fetch ingredients
             .addCase(fetchIngredients.fulfilled, (state, action) => {
                 state.ingredients = action.payload;
@@ -172,10 +176,10 @@ const categoriesSlice = createSlice({
                 iziToast.error({
                     title: 'Error',
                     message: action.payload || 'Failed to fetch ingredients',
-                    timeout: 7000
+                    timeout: 7000,
                 });
             })
-            
+
             // Fetch areas
             .addCase(fetchAreas.fulfilled, (state, action) => {
                 state.areas = action.payload;
@@ -184,18 +188,13 @@ const categoriesSlice = createSlice({
                 iziToast.error({
                     title: 'Error',
                     message: action.payload || 'Failed to fetch areas',
-                    timeout: 7000
+                    timeout: 7000,
                 });
             });
-    }
+    },
 });
 
-export const { 
-    setSelectedCategory, 
-    clearSelectedCategory, 
-    setFilters, 
-    clearFilters, 
-    clearError 
-} = categoriesSlice.actions;
+export const { setSelectedCategory, clearSelectedCategory, setFilters, clearFilters, clearError } =
+    categoriesSlice.actions;
 
-export default categoriesSlice.reducer; 
+export default categoriesSlice.reducer;
