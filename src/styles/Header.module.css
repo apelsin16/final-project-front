@@ -10,10 +10,13 @@
 }
 
 .container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 16px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
 }
 
 .logo {
