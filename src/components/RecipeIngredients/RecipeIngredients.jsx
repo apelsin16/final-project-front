@@ -11,20 +11,21 @@ const RecipeIngredients = ({ ingredients }) => {
             <h3 className={styles.title}>INGREDIENTS</h3>
             <ul className={styles.list} aria-label="Ingredients list">
                 {ingredients.map((item, index) => (
-                    <li key={index} className={styles.item}>
+                    <li key={item.id || index} className={styles.item}>
                         <img
-                            src={item.image || "https://via.placeholder.com/90"}
+                            src={item.img || "https://via.placeholder.com/90"}
                             alt={item.name}
                             className={styles.image}
                         />
                         <div>
-                          <div className={styles.name}>{item.name}</div>
-                          <div className={styles.amount}>{item.amount}</div>
+                            <div className={styles.name}>{item.name}</div>
+                            <div className={styles.amount}>{item.RecipeIngredient?.measure || "-"}</div>
                         </div>
                     </li>
                 ))}
             </ul>
         </div>
+
     );
 };
 
