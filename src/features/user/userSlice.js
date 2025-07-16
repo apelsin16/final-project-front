@@ -1,32 +1,50 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import toast from "react-hot-toast";
 
-// 🔁 Асинхронна операція для оновлення аватарки
-export const updateUserAvatar = createAsyncThunk(
-  "user/updateAvatar",
-  async (formData, thunkAPI) => {
+const initialState = {
+  current: null,
+  following: [],
+  followers: [],
+  status: "idle",
+  error: null,
+};
+
+// Async Thunks
+export const followUser = createAsyncThunk(
+  "user/followUser",
+  async (userId, { rejectWithValue }) => {
     try {
-      const response = await axios.patch("/api/users/avatar", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(
-        error.response?.data?.message || "Failed to update avatar"
-      );
+      const { data } = await axios.post(`/api/users/${userId}/follow`);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || err.message);
     }
   }
 );
 
-const initialState = {
-  current: null,
-  isLoading: false,
-  error: null,
-};
+export const unfollowUser = createAsyncThunk(
+  "user/unfollowUser",
+  async (userId, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.delete(`/api/users/${userId}/unfollow`);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || err.message);
+    }
+  }
+);
+
+export const fetchFollowers = createAsyncThunk(
+  "user/fetchFollowers",
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(`/api/users/followers`);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data || err.message);
+    }
+  }
+);
 
 const userSlice = createSlice({
   name: "user",
@@ -35,29 +53,44 @@ const userSlice = createSlice({
     setCurrentUser(state, action) {
       state.current = action.payload;
     },
-    logoutUser(state) {
-      state.current = null;
-    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(updateUserAvatar.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
+      .addCase(followUser.fulfilled, (state, action) => {
+        state.following.push(action.payload);
       })
-      .addCase(updateUserAvatar.fulfilled, (state, action) => {
-        state.isLoading = false;
-        if (state.current) {
-          state.current.avatar = action.payload.avatar;
+      .addCase(unfollowUser.fulfilled, (state, action) => {
+        state.following = state.following.filter(
+          (user) => user._id !== action.payload._id
+        );
+      })
+      .addCase(fetchFollowers.fulfilled, (state, action) => {
+        state.followers = action.payload;
+      })
+      .addMatcher(
+        (action) =>
+          action.type.startsWith("user/") && action.type.endsWith("/pending"),
+        (state) => {
+          state.status = "loading";
         }
-      })
-      .addCase(updateUserAvatar.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload || "Something went wrong";
-        toast.error(state.error);
-      });
+      )
+      .addMatcher(
+        (action) =>
+          action.type.startsWith("user/") && action.type.endsWith("/fulfilled"),
+        (state) => {
+          state.status = "succeeded";
+        }
+      )
+      .addMatcher(
+        (action) =>
+          action.type.startsWith("user/") && action.type.endsWith("/rejected"),
+        (state, action) => {
+          state.status = "failed";
+          state.error = action.payload;
+        }
+      );
   },
 });
 
-export const { setCurrentUser, logoutUser } = userSlice.actions;
+export const { setCurrentUser } = userSlice.actions;
 export default userSlice.reducer;
