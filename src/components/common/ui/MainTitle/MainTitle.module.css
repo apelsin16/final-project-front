@@ -35,8 +35,8 @@
 @media (min-width: 768px) {
     .mainTitle {
         /* Стилі з Figma для планшета */
-        font-size: 70px;
-        line-height: 70px;
+        font-size: 40px;
+        line-height: 1.1;
         max-width: 678px;
         /* height: 140px; - не обмежуємо висоту, нехай буде динамічною */
     }

@@ -1,0 +1,67 @@
+.footer {
+    padding: 40px 16px;
+    background-color: #fff4e6;
+}
+
+.topSection {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footerLogo {
+    font-family: 'Mulish', sans-serif;
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 28px;
+    letter-spacing: -0.02em;
+    color: #050505;
+    text-transform: lowercase;
+}
+
+.socialList {
+    display: flex;
+    gap: 14px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.socialList li {
+    list-style: none;
+}
+
+.socialBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #BFBEBE;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+}
+
+.socialBtn svg {
+    width: 20px;
+    height: 20px;
+    fill: #050505;
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background-color: #d9d9d9;
+    margin: 40px 0 14px;
+    border: none;
+}
+
+.copy {
+    text-align: center;
+    font-size: 12px;
+    line-height: 18px;
+    color: #050505;
+}

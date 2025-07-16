@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router";
 import { store } from "./redux/store.js";
 import { Provider } from "react-redux";
 import App from "./components/App/App.jsx";
-// import "normalize.css";
+import "normalize.css";
 import "izitoast/dist/css/iziToast.min.css";
 import "./index.css";
 

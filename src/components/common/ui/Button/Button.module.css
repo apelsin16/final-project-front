@@ -96,7 +96,7 @@
 }
 
 /* Адаптивні налаштування */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .button {
         font-size: var(--font-size-small);
     }

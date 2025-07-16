@@ -4,6 +4,7 @@ import authReducer from '../features/auth/authSlice.js';
 import modalReducer from '../features/modal/modalSlice';
 import recipeReducer from '../features/recipe/recipeSlice.js';
 import { profileReducer } from './profile/profileSlice.js';
+import ingridientsSlice from "../features/ingridient/ingridientsSlice.js"
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     user: userReducer,
     recipe: recipeReducer,
     profile: profileReducer,
+    ingredients: ingridientsSlice
   },
 });

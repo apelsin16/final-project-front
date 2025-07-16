@@ -40,10 +40,6 @@ const MainTitle = ({
         },
         className
     );
-    console.log('titleClasses:', titleClasses);
-
-    console.log('centered prop:', centered);
-    console.log('styles.centered:', styles.centered);
 
     return (
         <Component className={titleClasses} {...props}>
