@@ -1,38 +1,46 @@
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+
+import { getPopularRecipes } from "../../services/recipes";
 import styles from "./PopularRecipes.module.css";
 
-// Temporary mock data
-const mockPopularRecipes = [
-    {
-        id: 1,
-        title: "Margherita Pizza",
-        category: "Italian Cuisine",
-        preview: "https://via.placeholder.com/300x200?text=Pizza",
-    },
-    {
-        id: 2,
-        title: "Caesar Salad",
-        category: "Salads",
-        preview: "https://via.placeholder.com/300x200?text=Salad",
-    },
-    {
-        id: 3,
-        title: "Tom Yum",
-        category: "Asian Cuisine",
-        preview: "https://via.placeholder.com/300x200?text=Tom+Yum",
-    },
-];
-
 const PopularRecipes = () => {
+    const [recipes, setRecipes] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchPopular = async () => {
+            try {
+                const popularRecipes = await getPopularRecipes();
+                console.log(popularRecipes)
+                setRecipes(popularRecipes);
+            } catch (error) {
+                toast.error(`Failed to load popular recipes. ${error?.message}`);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchPopular();
+    }, []);
+
+    if (loading) return <div>Loading...</div>;
+    if (!recipes.length) return <div>No popular recipes found.</div>;
+
     return (
         <section className={styles.wrapper}>
             <h3 className={styles.heading}>Popular Recipes</h3>
             <ul className={styles.list}>
-                {mockPopularRecipes.map((recipe) => (
+                {recipes.map((recipe) => (
                     <li key={recipe.id} className={styles.item}>
-                        <img src={recipe.preview} alt={recipe.title} className={styles.image} />
+                        <img
+                            src={recipe.thumb || "https://via.placeholder.com/300x200?text=No+Image"}
+                            alt={recipe.title}
+                            className={styles.image}
+                        />
                         <div>
                             <p className={styles.title}>{recipe.title}</p>
-                            <p className={styles.category}>{recipe.category}</p>
+                            <p className={styles.category}>{recipe.category?.name || "Unknown Category"}</p>
                         </div>
                     </li>
                 ))}
