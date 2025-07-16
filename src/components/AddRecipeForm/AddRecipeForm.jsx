@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -7,6 +7,9 @@ import styles from "./AddRecipeForm.module.css";
 import stylesInput from "../common/ui/Input/Input.module.css";
 import stylesIconButton from "../common/ui/IconButton/IconButton.module.css";
 import { Input, Select, FileInput, Textarea, Button, CookTimeInput, IconButton } from '../common/ui';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectError, selectLoading, selectIngredients } from '../../features/ingridient/ingridientsSlice';
+import { fetchIngredients } from '../../features/ingridient/ingridientsOps';
 
 const categoryOptions = [
   { value: 'beef', label: 'Beef' },
@@ -20,21 +23,6 @@ const categoryOptions = [
   { value: 'side', label: 'Side' },
   { value: 'starter', label: 'Starter' },
 ];
-
-const ingredientsOption = [
-    {
-        "_id": "640c2dd963a319ea671e37aa",
-        "name": "Squid",
-        "desc": "A type of cephalopod with a soft, cylindrical body and long tentacles, often used in seafood dishes such as calamari or grilled squid.",
-        "img": "https://ftp.goit.study/img/so-yummy/ingredients/640c2dd963a319ea671e37aa.png"
-    },{
-        "_id": "640c2dd963a319ea671e37f5",
-        "name": "Cabbage",
-        "desc": "A leafy green or purple vegetable that is often used in salads, coleslaw, and stir-fry dishes, and is also commonly fermented into sauerkraut.",
-        "img": "https://ftp.goit.study/img/so-yummy/ingredients/640c2dd963a319ea671e37f5.png"
-    }
-]
-
 
 const schema = Yup.object().shape({
   image: Yup.mixed().required('Фото обовʼязкове'),
@@ -51,12 +39,8 @@ const schema = Yup.object().shape({
     .required('Інструкція обовʼязкова'),
 });
 
-const AddRecipeForm = ({
-  ingredientsOptions = ingredientsOption,
-  onSubmitToBackend, // (formData) => Promise, має кидати помилку або повертати успіх
-}) => {
+const AddRecipeForm = () => {
   const {
-    register,
     handleSubmit,
     control,
     reset,
@@ -65,7 +49,18 @@ const AddRecipeForm = ({
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+     defaultValues: {
+      image: null,
+      title: '',
+      description: '',
+      category: '',
+      cookTime: '',
+      instruction: '',
+    },
   });
+
+
+
 
   const navigate = useNavigate();
 
@@ -78,19 +73,28 @@ const AddRecipeForm = ({
   const description = watch('description') || '';
   const instruction = watch('instruction') || '';
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setPreviewUrl(URL.createObjectURL(file));
-      setValue('image', file, { shouldValidate: true });
-    }
-  };
+  const dispatch = useDispatch();
+//   const loading = useSelector(selectLoading);
+//   const error = useSelector(selectError);
+  const ingredientsOptions = useSelector(selectIngredients);
+
+  useEffect(() => {
+    dispatch(fetchIngredients());
+  },[])
+
+    const handleImageChange = (file) => {
+        if (file) {
+            setValue('image', file, { shouldValidate: true });
+        } else {
+            setValue('image', null);
+        }
+    };
 
   const handleAddIngredient = () => {
     if (ingredientId && ingredientAmount) {
-      const existing = selectedIngredients.find((ing) => ing._id === ingredientId);
+      const existing = selectedIngredients.find((ing) => ing.id === ingredientId);
       if (!existing) {
-        const ingredient = ingredientsOptions.find((i) => i._id === ingredientId);
+        const ingredient = ingredientsOptions.find((i) => i.id === ingredientId);
         setSelectedIngredients((prev) => [
           ...prev,
           { id: ingredientId, name: ingredient.name, image: ingredient.image, amount: ingredientAmount },
@@ -101,8 +105,8 @@ const AddRecipeForm = ({
     }
   };
 
-    const selectOptions = ingredientsOptions.map(({ _id, name }) => ({
-        value: _id,
+    const selectOptions = ingredientsOptions.map(({ id, name }) => ({
+        value: id,
         label: name,
     }));
 
@@ -135,12 +139,14 @@ const AddRecipeForm = ({
     formData.append('ingredients', JSON.stringify(selectedIngredients));
 
     try {
-      await onSubmitToBackend(formData);
-      navigate('/user');
+        dispatch(createRecipe(formData));
+        navigate('/user');
     } catch (error) {
-      alert('Сталася помилка: ' + error.message);
+        alert('Сталася помилка: ' + error.message);
     }
   };
+
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.AddRecipeForm}>
@@ -152,7 +158,9 @@ const AddRecipeForm = ({
             required
         />
       {/* Назва */}
+        <div className={styles.rightSide}>
 
+        
         <Controller
             name="title"
             control={control}
@@ -218,7 +226,7 @@ const AddRecipeForm = ({
 
 
       {/* Інгредієнти */}
-        <div>
+        <div className={styles.ingredients}>
              <Select
                 options={selectOptions}
                 value={ingredientId}
@@ -251,7 +259,7 @@ const AddRecipeForm = ({
       {/* Список інгредієнтів */}
       <ul className={styles.ingridientList}>
         {selectedIngredients.map((ing) => (
-          <li key={ing._id} className={styles.ingridient}>
+          <li key={ing.id} className={styles.ingridient}>
             <div className={styles.imageWrapper}>
                 <img src={ing.img} alt={ing.name} width="50" />
             </div>
@@ -279,10 +287,11 @@ const AddRecipeForm = ({
             )}
         />
 
-      {/* Кнопки */}
-      <div className={styles.buttons}>
-        <IconButton icon='delete' onClick={handleClear} ariaLabel='Delete recipe' />
-        <Button type="submit">Publish</Button>
+        {/* Кнопки */}
+        <div className={styles.buttons}>
+            <IconButton icon='delete' onClick={handleClear} ariaLabel='Delete recipe' />
+            <Button type="submit">Publish</Button>
+        </div>
       </div>
     </form>
   );

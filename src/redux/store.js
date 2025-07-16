@@ -3,12 +3,14 @@ import userReducer from "../features/user/userSlice";
 import authReducer from '../features/auth/authSlice.js';
 import modalReducer from '../features/modal/modalSlice';
 import recipeReducer from "../features/recipe/recipeSlice.js";
+import ingridientsSlice from "../features/ingridient/ingridientsSlice.js"
 
 export const store = configureStore({
   reducer: {
     auth: authReducer, // authReducer для авторизації
     modal: modalReducer, // modalReducer для модалок
     user: userReducer,
-    recipe: recipeReducer
+    recipe: recipeReducer,
+    ingredients: ingridientsSlice
   },
 });

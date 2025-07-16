@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import styles from './FileInput.module.css'; // імпорт CSS-модулю, якщо потрібен
 
 const FileInput = ({
   name,
@@ -11,14 +12,14 @@ const FileInput = ({
   const [fileName, setFileName] = useState('');
   const inputRef = useRef(null);
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setPreviewUrl(URL.createObjectURL(file));
-      setFileName(file.name);
-      onChange(file); // передаємо файл у форму
-    }
-  };
+const handleFileChange = (e) => {
+  const file = e.target.files && e.target.files[0];
+  if (file) {
+    setPreviewUrl(URL.createObjectURL(file));
+    setFileName(file.name);
+    onChange(file); // <-- передаємо FILE
+  }
+};
 
   const handleDrop = (e) => {
     e.preventDefault();
@@ -44,52 +45,35 @@ const FileInput = ({
   };
 
   return (
-    <div >
+    <div className={styles.wrapper}>
       {label && (
-        <label>
+        <label className={styles.label}>
           {label}
+          {required && ' *'}
         </label>
       )}
 
       <div
+        className={styles.dropzone}
         onDrop={handleDrop}
         onDragOver={handleDragOver}
-        style={{
-           width: '343px',
-          height: '318px',
-          border: '1px dashed #BFBEBE',
-          borderRadius: '30px',
-          textAlign: 'center',
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: '#FAFAFA',
-          overflow: 'hidden',
-        }}
         onClick={() => inputRef.current?.click()}
       >
         {previewUrl ? (
           <img
             src={previewUrl}
             alt="Preview"
-            style={{  
-              maxWidth: '120%',
-              maxHeight: '120%',
-              objectFit: 'cover',
-              borderRadius: '20px', }}
+            className={styles.previewImage}
           />
         ) : (
-            <div>
-                <svg width={50} height={50}>
-                    <use href={"/src/assets/sprite.svg#photo"} />
-                </svg>
-                <p>Upload a photo</p>
-            </div> 
+          <div className={styles.placeholder}>
+            <svg width={50} height={50}>
+              <use href="/src/assets/sprite.svg#photo" />
+            </svg>
+            <p>Upload a photo</p>
+          </div>
         )}
       </div>
-
-      {/* {fileName && <div style={{ marginBottom: '8px' }}>{fileName}</div>} */}
 
       <input
         ref={inputRef}
@@ -102,12 +86,18 @@ const FileInput = ({
       />
 
       {previewUrl && (
-        <p type="button" onClick={handleClear} style={{ border: "none", background: "none", textDecoration: "underline", textAlign: "center" }}>
+        <p
+          role="button"
+          tabIndex={0}
+          onClick={handleClear}
+          onKeyDown={e => e.key === 'Enter' && handleClear()}
+          className={styles.clearButton}
+        >
           Upload another photo
         </p>
       )}
 
-      {error && <div style={{ color: 'red' }}>{error}</div>}
+      {error && <div className={styles.errorMessage}>{error}</div>}
     </div>
   );
 };
