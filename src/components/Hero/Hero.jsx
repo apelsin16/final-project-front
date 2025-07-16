@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { openModal } from '../../features/modal/modalSlice';
 import LoginModal from '../modals/LoginModal';
 import styles from './Hero.module.css';
@@ -20,12 +21,13 @@ import headerSmallImgMob3x from '../../assets/images/header-small-image-mob@3x.p
 
 const Hero = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { isAuth } = useSelector(state => state.auth);
     const modalType = useSelector(state => state.modal.modalType);
 
     const handleAddRecipeClick = () => {
         if (isAuth) {
-            navigate('/add-recipe');
+            navigate('/recipe/add');
         } else {
             dispatch(openModal({ type: 'login' }));
         }
