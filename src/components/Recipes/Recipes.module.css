@@ -1,10 +1,3 @@
-.recipes {
-    padding: var(--spacing-xl) var(--spacing-md);
-    background-color: var(--color-white);
-    max-width: 1400px;
-    margin: 0 auto;
-}
-
 .recipesHeader {
     display: flex;
     flex-direction: column;
@@ -20,7 +13,7 @@
     border: none;
     cursor: pointer;
     padding: 0;
-    color: #050505;
+    color: var(--color-black);
 }
 
 .backIcon {
@@ -34,27 +27,7 @@
     font-weight: 700;
     line-height: 16px;
     text-transform: uppercase;
-    color: #050505;
-}
-
-.categoryTitle {
-    font-family: 'Mulish', sans-serif;
-    font-size: 28px;
-    font-weight: 800;
-    line-height: 32px;
-    text-transform: uppercase;
-    color: #050505;
-    margin: 0;
-}
-
-.categoryDescription {
-    font-family: 'Mulish', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 20px;
-    color: #BFBEBE;
-    margin: 0;
-    max-width: 343px;
+    color: var(--color-black);
 }
 
 .recipesContent {
@@ -63,71 +36,49 @@
     gap: 40px;
 }
 
+.recipesPagination {
+    margin-top: 32px;
+}
+
 /* Планшети (768px - 1439px) */
 @media screen and (min-width: 768px) and (max-width: 1439px) {
-    .recipes {
-        padding: 64px 32px;
-    }
-    
     .recipesHeader {
         gap: 20px;
         margin-bottom: 40px;
     }
-    
+
     .backText {
         font-size: 14px;
         line-height: 18px;
     }
-    
-    .categoryTitle {
-        font-size: 40px;
-        line-height: 44px;
-    }
-    
-    .categoryDescription {
-        font-size: 16px;
-        line-height: 24px;
-        color: #1A1A1A;
-        max-width: 540px;
-    }
-    
+
     .recipesContent {
         flex-direction: column;
-        gap: 40px;
+    }
+
+    .recipesPagination {
+        margin-top: 60px;
     }
 }
 
 /* Десктоп (1440px+) */
 @media screen and (min-width: 1440px) {
-    .recipes {
-        padding: 80px 100px;
-    }
-    
     .recipesHeader {
         gap: 20px;
         margin-bottom: 40px;
     }
-    
+
     .backText {
         font-size: 14px;
         line-height: 18px;
     }
-    
-    .categoryTitle {
-        font-size: 40px;
-        line-height: 44px;
-    }
-    
-    .categoryDescription {
-        font-size: 16px;
-        line-height: 24px;
-        color: #1A1A1A;
-        max-width: 540px;
-    }
-    
+
     .recipesContent {
         flex-direction: row;
-        gap: 40px;
         align-items: flex-start;
     }
-} 
+
+    .recipesFilters {
+        width: 330px;
+    }
+}

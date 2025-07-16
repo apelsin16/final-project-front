@@ -1,7 +1,7 @@
 .recipeList {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 32px;
 }
 
 .loading {
@@ -32,8 +32,8 @@
 @media screen and (min-width: 768px) and (max-width: 1439px) {
     .recipeList {
         grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-        width: 704px;
+        column-gap: 20px;
+        row-gap: 40px;
     }
 }
 
@@ -41,7 +41,5 @@
 @media screen and (min-width: 1440px) {
     .recipeList {
         grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-        width: 930px;
     }
-} 
+}

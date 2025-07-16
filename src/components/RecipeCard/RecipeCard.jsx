@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { openModal } from '../../features/modal/modalSlice';
 import { toggleFavorite } from '../../features/recipes/recipesSlice';
+import IconButton from '../common/ui/IconButton/IconButton';
 import styles from './RecipeCard.module.css';
 
 const RecipeCard = ({ recipe }) => {
@@ -35,7 +36,7 @@ const RecipeCard = ({ recipe }) => {
     // Get owner info with fallback values
     const ownerName = recipe.owner?.name || 'Unknown User';
     const ownerAvatar = recipe.owner?.avatarURL || '/src/assets/images/desserts.jpg';
-    
+
     // Check if recipe is in favorites
     const isFavorite = favoriteIds.includes(recipe.id) || recipe.isFavorite;
 
@@ -47,52 +48,43 @@ const RecipeCard = ({ recipe }) => {
                     alt={recipe.title}
                     className={styles.recipeImage}
                 />
-                <div className={styles.actions}>
-                    <button
-                        className={`${styles.favoriteButton} ${isFavorite ? styles.active : ''}`}
-                        onClick={handleFavoriteClick}
-                        title={isFavorite ? "Remove from favorites" : "Add to favorites"}
-                        disabled={favoritesLoading}
-                    >
-                        <svg width="16" height="16">
-                            <use href="/src/assets/sprite.svg#heart" />
-                        </svg>
-                    </button>
-                    <button
-                        className={styles.viewButton}
-                        onClick={handleViewRecipe}
-                        title="View recipe"
-                    >
-                        <svg width="16" height="16">
-                            <use href="/src/assets/sprite.svg#arrow" />
-                        </svg>
-                    </button>
-                </div>
             </div>
-            
+
             <div className={styles.content}>
                 <div className={styles.textContent}>
                     <h3 className={styles.title}>{recipe.title}</h3>
                     <p className={styles.description}>{recipe.description}</p>
                 </div>
-                
+
                 <div className={styles.footer}>
                     <button
                         className={styles.authorButton}
                         onClick={handleAuthorClick}
                         title={`View ${ownerName}'s profile`}
                     >
-                        <img
-                            src={ownerAvatar}
-                            alt={ownerName}
-                            className={styles.authorAvatar}
-                        />
+                        <img src={ownerAvatar} alt={ownerName} className={styles.authorAvatar} />
                         <span className={styles.authorName}>{ownerName}</span>
                     </button>
+                    <div className={styles.actions}>
+                        <IconButton
+                            icon="heart"
+                            size="small"
+                            variant={isFavorite ? 'filled' : 'default'}
+                            color="white"
+                            onClick={handleFavoriteClick}
+                        />
+                        <IconButton
+                            onClick={handleViewRecipe}
+                            icon="arrow"
+                            size="small"
+                            variant="default"
+                            color="white"
+                        />
+                    </div>
                 </div>
             </div>
         </div>
     );
 };
 
-export default RecipeCard; 
+export default RecipeCard;

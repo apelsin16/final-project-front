@@ -1,7 +1,7 @@
 import Select from '../common/ui/Select/Select';
 import styles from './RecipeFilters.module.css';
 
-const RecipeFilters = ({ filters, onFiltersChange, areas = [], ingredients = [] }) => {
+const RecipeFilters = ({ filters, onFiltersChange, areas = [], ingredients = [], className }) => {
     // Мок дані для регіонів (fallback)
     const mockAreas = [
         { value: 'italian', label: 'Italian' },
@@ -11,7 +11,7 @@ const RecipeFilters = ({ filters, onFiltersChange, areas = [], ingredients = [] 
         { value: 'french', label: 'French' },
         { value: 'thai', label: 'Thai' },
         { value: 'japanese', label: 'Japanese' },
-        { value: 'greek', label: 'Greek' }
+        { value: 'greek', label: 'Greek' },
     ];
 
     // Мок дані для інгредієнтів (fallback)
@@ -23,41 +23,43 @@ const RecipeFilters = ({ filters, onFiltersChange, areas = [], ingredients = [] 
         { value: 'beef', label: 'Beef' },
         { value: 'rice', label: 'Rice' },
         { value: 'cheese', label: 'Cheese' },
-        { value: 'pepper', label: 'Pepper' }
+        { value: 'pepper', label: 'Pepper' },
     ];
 
     // Підготовка даних для select'а areas
-    const areasOptions = areas.length > 0 
-        ? areas.map(area => ({
-            value: area.id || area.value,
-            label: area.name || area.label
-        }))
-        : mockAreas;
+    const areasOptions =
+        areas.length > 0
+            ? areas.map(area => ({
+                  value: area.id || area.value,
+                  label: area.name || area.label,
+              }))
+            : mockAreas;
 
     // Підготовка даних для select'а ingredients
-    const ingredientsOptions = ingredients.length > 0 
-        ? ingredients.map(ingredient => ({
-            value: ingredient.id || ingredient.value,
-            label: ingredient.name || ingredient.label
-        }))
-        : mockIngredients;
+    const ingredientsOptions =
+        ingredients.length > 0
+            ? ingredients.map(ingredient => ({
+                  value: ingredient.id || ingredient.value,
+                  label: ingredient.name || ingredient.label,
+              }))
+            : mockIngredients;
 
-    const handleAreaChange = (value) => {
+    const handleAreaChange = value => {
         onFiltersChange({
             ...filters,
-            area: value
+            area: value,
         });
     };
 
-    const handleIngredientChange = (value) => {
+    const handleIngredientChange = value => {
         onFiltersChange({
             ...filters,
-            ingredient: value
+            ingredient: value,
         });
     };
 
     return (
-        <div className={styles.recipeFilters}>
+        <div className={`${styles.recipeFilters} ${className}`}>
             <Select
                 options={ingredientsOptions}
                 value={filters.ingredient}
@@ -78,4 +80,4 @@ const RecipeFilters = ({ filters, onFiltersChange, areas = [], ingredients = [] 
     );
 };
 
-export default RecipeFilters; 
+export default RecipeFilters;
