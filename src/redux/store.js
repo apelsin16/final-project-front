@@ -1,8 +1,9 @@
-import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "../features/user/userSlice";
+import { configureStore } from '@reduxjs/toolkit';
+import userReducer from '../features/user/userSlice';
 import authReducer from '../features/auth/authSlice.js';
 import modalReducer from '../features/modal/modalSlice';
-import recipeReducer from "../features/recipe/recipeSlice.js";
+import recipeReducer from '../features/recipe/recipeSlice.js';
+import { profileReducer } from './profile/profileSlice.js';
 import ingridientsSlice from "../features/ingridient/ingridientsSlice.js"
 
 export const store = configureStore({
@@ -11,6 +12,7 @@ export const store = configureStore({
     modal: modalReducer, // modalReducer для модалок
     user: userReducer,
     recipe: recipeReducer,
+    profile: profileReducer,
     ingredients: ingridientsSlice
   },
 });
