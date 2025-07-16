@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -7,6 +7,9 @@ import styles from "./AddRecipeForm.module.css";
 import stylesInput from "../common/ui/Input/Input.module.css";
 import stylesIconButton from "../common/ui/IconButton/IconButton.module.css";
 import { Input, Select, FileInput, Textarea, Button, CookTimeInput, IconButton } from '../common/ui';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectError, selectLoading, selectIngridients } from '../../features/ingridient/ingridientsSlice';
+import { fetchIngridients } from '../../features/ingridient/ingridientsOps';
 
 const categoryOptions = [
   { value: 'beef', label: 'Beef' },
@@ -20,21 +23,6 @@ const categoryOptions = [
   { value: 'side', label: 'Side' },
   { value: 'starter', label: 'Starter' },
 ];
-
-const ingredientsOption = [
-    {
-        "_id": "640c2dd963a319ea671e37aa",
-        "name": "Squid",
-        "desc": "A type of cephalopod with a soft, cylindrical body and long tentacles, often used in seafood dishes such as calamari or grilled squid.",
-        "img": "https://ftp.goit.study/img/so-yummy/ingredients/640c2dd963a319ea671e37aa.png"
-    },{
-        "_id": "640c2dd963a319ea671e37f5",
-        "name": "Cabbage",
-        "desc": "A leafy green or purple vegetable that is often used in salads, coleslaw, and stir-fry dishes, and is also commonly fermented into sauerkraut.",
-        "img": "https://ftp.goit.study/img/so-yummy/ingredients/640c2dd963a319ea671e37f5.png"
-    }
-]
-
 
 const schema = Yup.object().shape({
   image: Yup.mixed().required('Фото обовʼязкове'),
@@ -52,7 +40,6 @@ const schema = Yup.object().shape({
 });
 
 const AddRecipeForm = ({
-  ingredientsOptions = ingredientsOption,
   onSubmitToBackend, // (formData) => Promise, має кидати помилку або повертати успіх
 }) => {
   const {
@@ -77,6 +64,15 @@ const AddRecipeForm = ({
   const imageFile = watch('image');
   const description = watch('description') || '';
   const instruction = watch('instruction') || '';
+
+  const dispatch = useDispatch();
+//   const loading = useSelector(selectLoading);
+//   const error = useSelector(selectError);
+  const ingredientsOptions = useSelector(selectIngridients);
+
+  useEffect(() => {
+    dispatch(fetchIngridients);
+  },[])
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -141,6 +137,8 @@ const AddRecipeForm = ({
       alert('Сталася помилка: ' + error.message);
     }
   };
+
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.AddRecipeForm}>
