@@ -39,11 +39,8 @@ const schema = Yup.object().shape({
     .required('Інструкція обовʼязкова'),
 });
 
-const AddRecipeForm = ({
-  onSubmitToBackend, // (formData) => Promise, має кидати помилку або повертати успіх
-}) => {
+const AddRecipeForm = () => {
   const {
-    register,
     handleSubmit,
     control,
     reset,
@@ -52,7 +49,18 @@ const AddRecipeForm = ({
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+     defaultValues: {
+      image: null,
+      title: '',
+      description: '',
+      category: '',
+      cookTime: '',
+      instruction: '',
+    },
   });
+
+
+
 
   const navigate = useNavigate();
 
@@ -74,13 +82,13 @@ const AddRecipeForm = ({
     dispatch(fetchIngredients());
   },[])
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setPreviewUrl(URL.createObjectURL(file));
-      setValue('image', file, { shouldValidate: true });
-    }
-  };
+    const handleImageChange = (file) => {
+        if (file) {
+            setValue('image', file, { shouldValidate: true });
+        } else {
+            setValue('image', null);
+        }
+    };
 
   const handleAddIngredient = () => {
     if (ingredientId && ingredientAmount) {
@@ -131,10 +139,10 @@ const AddRecipeForm = ({
     formData.append('ingredients', JSON.stringify(selectedIngredients));
 
     try {
-      await onSubmitToBackend(formData);
-      navigate('/user');
+        dispatch(createRecipe(formData));
+        navigate('/user');
     } catch (error) {
-      alert('Сталася помилка: ' + error.message);
+        alert('Сталася помилка: ' + error.message);
     }
   };
 
@@ -150,7 +158,9 @@ const AddRecipeForm = ({
             required
         />
       {/* Назва */}
+        <div className={styles.rightSide}>
 
+        
         <Controller
             name="title"
             control={control}
@@ -277,10 +287,11 @@ const AddRecipeForm = ({
             )}
         />
 
-      {/* Кнопки */}
-      <div className={styles.buttons}>
-        <IconButton icon='delete' onClick={handleClear} ariaLabel='Delete recipe' />
-        <Button type="submit">Publish</Button>
+        {/* Кнопки */}
+        <div className={styles.buttons}>
+            <IconButton icon='delete' onClick={handleClear} ariaLabel='Delete recipe' />
+            <Button type="submit">Publish</Button>
+        </div>
       </div>
     </form>
   );

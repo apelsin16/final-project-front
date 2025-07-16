@@ -1,4 +1,7 @@
-
+.wrapper {
+    margin-bottom: 32px;
+    margin-top: 32px;
+}
 
 .label {
     display: block;
@@ -32,6 +35,7 @@
 @media (min-width: 768px)  {
     .wrapper {
         width: 194px;
+        margin: 0;
     }
 
     .label {

@@ -70,4 +70,14 @@
     }
 }
 
+@media (min-width: 1440px) {
+    .wrapper {
+        width: 551px;
+    }
+
+     .dropzone {
+        width: 551px;
+    }
+}
+
 

@@ -12,14 +12,14 @@ const FileInput = ({
   const [fileName, setFileName] = useState('');
   const inputRef = useRef(null);
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setPreviewUrl(URL.createObjectURL(file));
-      setFileName(file.name);
-      onChange(file);
-    }
-  };
+const handleFileChange = (e) => {
+  const file = e.target.files && e.target.files[0];
+  if (file) {
+    setPreviewUrl(URL.createObjectURL(file));
+    setFileName(file.name);
+    onChange(file); // <-- передаємо FILE
+  }
+};
 
   const handleDrop = (e) => {
     e.preventDefault();
