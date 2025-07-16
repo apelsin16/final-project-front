@@ -1,8 +1,8 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
-import {fetchIngridients} from './ingridientsOps';
+import {fetchIngredients} from './ingridientsOps';
 
-const ingridientsSlice = createSlice({
-    name: 'ingridients',
+const ingredientsSlice = createSlice({
+    name: 'ingredients',
     initialState: {
         items: [],
         loading: false,
@@ -10,15 +10,15 @@ const ingridientsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchIngridients.pending, (state) => {
+            .addCase(fetchIngredients.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(fetchIngridients.fulfilled, (state, action) => {
+            .addCase(fetchIngredients.fulfilled, (state, action) => {
                 state.loading = false;
-                state.ingridients = action.payload;
+                state.items = action.payload;
             })
-            .addCase(fetchIngridients.rejected, (state, action) => {
+            .addCase(fetchIngredients.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             })
@@ -26,8 +26,8 @@ const ingridientsSlice = createSlice({
     },
 });
 
-export const selectIngridients = (state) => state.ingridients.items || [];
-export const selectLoading = (state) => state.ingridients.loading;
-export const selectError = (state) => state.ingridients.error;
+export const selectIngredients = (state) => state.ingredients.items || [];
+export const selectLoading = (state) => state.ingredients.loading;
+export const selectError = (state) => state.ingredients.error;
 
-export default ingridientsSlice.reducer;
+export default ingredientsSlice.reducer;

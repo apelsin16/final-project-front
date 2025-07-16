@@ -11,6 +11,6 @@ export const store = configureStore({
     modal: modalReducer, // modalReducer для модалок
     user: userReducer,
     recipe: recipeReducer,
-    ingridients: ingridientsSlice
+    ingredients: ingridientsSlice
   },
 });

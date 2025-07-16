@@ -8,8 +8,8 @@ import stylesInput from "../common/ui/Input/Input.module.css";
 import stylesIconButton from "../common/ui/IconButton/IconButton.module.css";
 import { Input, Select, FileInput, Textarea, Button, CookTimeInput, IconButton } from '../common/ui';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectError, selectLoading, selectIngridients } from '../../features/ingridient/ingridientsSlice';
-import { fetchIngridients } from '../../features/ingridient/ingridientsOps';
+import { selectError, selectLoading, selectIngredients } from '../../features/ingridient/ingridientsSlice';
+import { fetchIngredients } from '../../features/ingridient/ingridientsOps';
 
 const categoryOptions = [
   { value: 'beef', label: 'Beef' },
@@ -68,10 +68,10 @@ const AddRecipeForm = ({
   const dispatch = useDispatch();
 //   const loading = useSelector(selectLoading);
 //   const error = useSelector(selectError);
-  const ingredientsOptions = useSelector(selectIngridients);
+  const ingredientsOptions = useSelector(selectIngredients);
 
   useEffect(() => {
-    dispatch(fetchIngridients);
+    dispatch(fetchIngredients());
   },[])
 
   const handleImageChange = (e) => {
@@ -84,9 +84,9 @@ const AddRecipeForm = ({
 
   const handleAddIngredient = () => {
     if (ingredientId && ingredientAmount) {
-      const existing = selectedIngredients.find((ing) => ing._id === ingredientId);
+      const existing = selectedIngredients.find((ing) => ing.id === ingredientId);
       if (!existing) {
-        const ingredient = ingredientsOptions.find((i) => i._id === ingredientId);
+        const ingredient = ingredientsOptions.find((i) => i.id === ingredientId);
         setSelectedIngredients((prev) => [
           ...prev,
           { id: ingredientId, name: ingredient.name, image: ingredient.image, amount: ingredientAmount },
@@ -97,8 +97,8 @@ const AddRecipeForm = ({
     }
   };
 
-    const selectOptions = ingredientsOptions.map(({ _id, name }) => ({
-        value: _id,
+    const selectOptions = ingredientsOptions.map(({ id, name }) => ({
+        value: id,
         label: name,
     }));
 
@@ -216,7 +216,7 @@ const AddRecipeForm = ({
 
 
       {/* Інгредієнти */}
-        <div>
+        <div className={styles.ingredients}>
              <Select
                 options={selectOptions}
                 value={ingredientId}
@@ -249,7 +249,7 @@ const AddRecipeForm = ({
       {/* Список інгредієнтів */}
       <ul className={styles.ingridientList}>
         {selectedIngredients.map((ing) => (
-          <li key={ing._id} className={styles.ingridient}>
+          <li key={ing.id} className={styles.ingridient}>
             <div className={styles.imageWrapper}>
                 <img src={ing.img} alt={ing.name} width="50" />
             </div>

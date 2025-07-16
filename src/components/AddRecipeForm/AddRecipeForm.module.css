@@ -1,9 +1,19 @@
 .AddRecipeForm {
     margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 32px;
+}
+
+.ingredients {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
 }
 
 .ingridientList {
     display: flex;
+    flex-wrap: wrap;
     gap: 16px;
     list-style: none;
     margin: 0;
@@ -11,7 +21,7 @@
 }
 
 .ingridient {
-    width: 50%;
+    width: 45%;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -34,6 +44,10 @@
     overflow: hidden;
 }
 
+.ingridientQn {
+    color: #BFBEBE;
+}
+
 .imageWrapper {
     min-width: 75px;
     height: 75px;
@@ -45,4 +59,21 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
+}
+
+@media (min-width: 768px) {
+    .AddRecipeForm {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 19px;
+    }
+
+    .ingredients {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .ingridient {
+        width: 315px;
+    }
 }

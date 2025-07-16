@@ -1,0 +1,73 @@
+.wrapper {
+  width: 343px;
+}
+
+.label {
+  /* Якщо потрібно, можна додати стилі для label */
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.dropzone {
+  width: 343px;
+  height: 318px;
+  border: 1px dashed #bfbebe;
+  border-radius: 30px;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fafafa;
+  overflow: hidden;
+  position: relative;
+}
+
+.previewImage {
+  max-width: 120%;
+  max-height: 120%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #666;
+}
+
+.placeholder svg {
+  margin-bottom: 8px;
+}
+
+.clearButton {
+  border: none;
+  background: none;
+  text-decoration: underline;
+  text-align: center;
+  color: #0000ee;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.errorMessage {
+  color: red;
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    .wrapper {
+        width: 704px;
+    }
+
+    .dropzone {
+        width: 704px;
+        height: 400px;
+    }
+}
+
+

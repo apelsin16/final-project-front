@@ -6,7 +6,7 @@ import AddRecipeForm from '../../components/AddRecipeForm/AddRecipeForm.jsx';
 
 function AddRecipePage() {
     return ( 
-        <div className="">
+        <div>
             <div className={styles.pathWrapper}>
                 <PathInfo
                     currentPage='Add Recipe'
@@ -28,7 +28,6 @@ function AddRecipePage() {
                 Reveal your culinary art, share your favorite recipe and create gastronomic masterpieces with us.
             </Subtitle>
             <AddRecipeForm />
-
         </div>
      );
 }

@@ -3,14 +3,12 @@ import axios from 'axios';
 
 axios.defaults.baseURL = 'http://localhost:3000/api';
 
-export const fetchIngridients = createAsyncThunk(
-    'ingridients/fetchAll',
+export const fetchIngredients = createAsyncThunk(
+    'ingredients/fetchAll',
     async (_, thunkAPI) => {
         try {
-            const response = await axios.get('/ingridients');
-            console.log(response);
-            
-            return response.data;
+            const response = await axios.get('/ingredients');
+            return response.data.ingredients;
         } catch (e) {
             return thunkAPI.rejectWithValue(e.message);
         }

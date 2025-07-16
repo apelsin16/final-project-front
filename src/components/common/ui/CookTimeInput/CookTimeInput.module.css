@@ -17,6 +17,10 @@
     margin-top: 8px;
 }
 
+.value {
+    color: #BFBEBE;
+}
+
 .btn {
     width: 48px;
     height: 48px;
@@ -24,3 +28,19 @@
     border: 1px solid #BFBEBE;
     background: none;
 }
+
+@media (min-width: 768px)  {
+    .wrapper {
+        width: 194px;
+    }
+
+    .label {
+        font-size: 20px;
+    }
+
+    .btn {
+        width: 56px;
+        height: 56px;
+    }
+}
+

@@ -1,6 +1,7 @@
 .wrapper {
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     gap: 8px;
     width: 100%;
 }
@@ -143,12 +144,24 @@
     color: #BFBEBE;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .quantity {
         border-radius: 0;
         border: none;
         border-bottom: 1px solid #BFBEBE;
         outline: none;
     }
+}
 
+@media (min-width: 768px) {
+    .inputRecipe,
+    .inputRecipe::placeholder {
+        font-size: 24px;
+        line-height: 1.1666;
+    }
+
+    .wrapper {
+        width: 315px;
+        margin-top: auto;
+    }
 }
