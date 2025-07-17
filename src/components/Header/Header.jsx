@@ -1,7 +1,7 @@
 import { NavLink, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-import styles from '../../styles/Header.module.css';
+import styles from './Header.module.css';
 import { openModal } from '../../features/modal/modalSlice';
 import LoginModal from '../modals/LoginModal';
 import RegisterModal from '../modals/RegisterModal';
@@ -177,7 +177,7 @@ function Header({ theme }) {
                 ) : (
                     <div className={styles.userMenu}>
                         <div className={styles.avatarWrapper}>
-                            <img src={user?.avatarUrl} alt={user?.name} className={styles.avatar} />
+                            <img src={user?.avatarURL} alt={user?.name} className={styles.avatar} />
                             <button
                                 className={styles.userToggle}
                                 onClick={() => setIsMenuOpen(prev => !prev)}
