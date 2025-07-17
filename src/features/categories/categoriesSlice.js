@@ -41,21 +41,35 @@ export const fetchCategories = createAsyncThunk(
 // Fetch recipes by category
 export const fetchRecipesByCategory = createAsyncThunk(
     'categories/fetchRecipesByCategory',
-    async ({ categoryId, page = 1, filters = {} }, { rejectWithValue }) => {
+    async ({ categoryId, categoryName, page = 1, filters = {} }, { rejectWithValue }) => {
         try {
             const params = new URLSearchParams({
                 page: page.toString(),
                 limit: '12',
             });
 
+            let hasFilters = false;
+            
             if (filters.ingredient) {
                 params.append('ingredient', filters.ingredient);
+                hasFilters = true;
             }
             if (filters.area) {
                 params.append('area', filters.area);
+                hasFilters = true;
             }
-            // Use the endpoint: /recipes/category/:categoryId
-            const response = await axios.get(`${API_URL}/recipes/category/${categoryId}?${params}`);
+            
+            let url;
+            if (hasFilters) {
+                // Use general endpoint with category name when filters are present
+                params.append('category', categoryName || categoryId);
+                url = `${API_URL}/recipes?${params}`;
+            } else {
+                // Use specific endpoint when no filters
+                url = `${API_URL}/recipes/category/${categoryId}?${params}`;
+            }
+            
+            const response = await axios.get(url);
             
             const recipes = response.data.data || [];
             const totalPages = response.data.pagination?.totalPages || 1;
@@ -70,6 +84,7 @@ export const fetchRecipesByCategory = createAsyncThunk(
                 currentPage,
                 totalRecipes,
                 categoryId,
+                categoryName,
             };
         } catch (error) {
             console.error('Error fetching recipes:', error);
@@ -97,6 +112,32 @@ export const fetchAreas = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const response = await axios.get(`${API_URL}/areas`);
+            return response.data.areas || response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data?.message || 'Failed to fetch areas');
+        }
+    }
+);
+
+// Fetch ingredients by category for filters
+export const fetchIngredientsByCategory = createAsyncThunk(
+    'categories/fetchIngredientsByCategory',
+    async (categoryName, { rejectWithValue }) => {
+        try {
+            const response = await axios.get(`${API_URL}/ingredients?category=${categoryName}`);
+            return response.data.ingredients || response.data;
+        } catch (error) {
+            return rejectWithValue(error.response?.data?.message || 'Failed to fetch ingredients');
+        }
+    }
+);
+
+// Fetch areas by category for filters
+export const fetchAreasByCategory = createAsyncThunk(
+    'categories/fetchAreasByCategory',
+    async (categoryName, { rejectWithValue }) => {
+        try {
+            const response = await axios.get(`${API_URL}/areas?category=${categoryName}`);
             return response.data.areas || response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || 'Failed to fetch areas');
@@ -204,6 +245,30 @@ const categoriesSlice = createSlice({
                 state.areas = action.payload;
             })
             .addCase(fetchAreas.rejected, (state, action) => {
+                iziToast.error({
+                    title: 'Error',
+                    message: action.payload || 'Failed to fetch areas',
+                    timeout: 7000,
+                });
+            })
+
+            // Fetch ingredients by category
+            .addCase(fetchIngredientsByCategory.fulfilled, (state, action) => {
+                state.ingredients = action.payload;
+            })
+            .addCase(fetchIngredientsByCategory.rejected, (state, action) => {
+                iziToast.error({
+                    title: 'Error',
+                    message: action.payload || 'Failed to fetch ingredients',
+                    timeout: 7000,
+                });
+            })
+
+            // Fetch areas by category
+            .addCase(fetchAreasByCategory.fulfilled, (state, action) => {
+                state.areas = action.payload;
+            })
+            .addCase(fetchAreasByCategory.rejected, (state, action) => {
                 iziToast.error({
                     title: 'Error',
                     message: action.payload || 'Failed to fetch areas',

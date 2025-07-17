@@ -48,14 +48,14 @@ export const fetchRecipes = createAsyncThunk(
             
             // Фільтрація за areas (тільки для поточної сторінки)
             if (filters.area) {
-                recipes = recipes.filter(recipe => recipe.areaId === filters.area);
+                recipes = recipes.filter(recipe => recipe.area?.name === filters.area);
             }
             
             // Фільтрація за ingredients (тільки для поточної сторінки)
             if (filters.ingredient) {
                 recipes = recipes.filter(recipe => 
                     recipe.ingredients && recipe.ingredients.some(ing => 
-                        ing.id === filters.ingredient
+                        ing.name === filters.ingredient
                     )
                 );
             }

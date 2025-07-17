@@ -155,6 +155,7 @@ const CategoryList = ({ onCategorySelect, onAllCategoriesClick }) => {
             const result = await dispatch(
                 fetchRecipesByCategory({
                     categoryId: category.id,
+                    categoryName: category.name,
                     page: 1,
                 })
             ).unwrap();

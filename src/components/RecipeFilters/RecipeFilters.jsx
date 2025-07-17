@@ -30,7 +30,7 @@ const RecipeFilters = ({ filters, onFiltersChange, areas = [], ingredients = [],
     const areasOptions =
         areas.length > 0
             ? areas.map(area => ({
-                  value: area.id || area.value,
+                  value: area.name || area.label,
                   label: area.name || area.label,
               }))
             : mockAreas;
@@ -39,7 +39,7 @@ const RecipeFilters = ({ filters, onFiltersChange, areas = [], ingredients = [],
     const ingredientsOptions =
         ingredients.length > 0
             ? ingredients.map(ingredient => ({
-                  value: ingredient.id || ingredient.value,
+                  value: ingredient.name || ingredient.label,
                   label: ingredient.name || ingredient.label,
               }))
             : mockIngredients;

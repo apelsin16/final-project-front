@@ -10,6 +10,8 @@ import {
     fetchRecipesByCategory,
     fetchIngredients,
     fetchAreas,
+    fetchIngredientsByCategory,
+    fetchAreasByCategory,
     setFilters,
     clearSelectedCategory,
     setCurrentPage,
@@ -190,21 +192,21 @@ const Recipes = ({ category, onBack }) => {
         },
     ];
 
-    // Завантажуємо інгредієнти та області при монтуванні
+    // Завантажуємо інгредієнти та області для конкретної категорії
     useEffect(() => {
-        if (ingredients.length === 0) {
-            dispatch(fetchIngredients());
+        if (category?.name) {
+            dispatch(fetchIngredientsByCategory(category.name));
+            dispatch(fetchAreasByCategory(category.name));
         }
-        if (areas.length === 0) {
-            dispatch(fetchAreas());
-        }
-    }, [dispatch, ingredients.length, areas.length]);
+    }, [dispatch, category?.name]);
 
     // Встановлюємо selectedCategory і скидаємо сторінку при зміні категорії
     useEffect(() => {
         if (category && category.id !== selectedCategory?.id) {
             dispatch(setCurrentPage(1));
             dispatch(setSelectedCategory(category));
+            // Скидаємо фільтри при переході на нову категорію
+            dispatch(setFilters({ ingredient: null, area: null }));
         }
     }, [dispatch, category?.id, selectedCategory?.id]);
 
@@ -214,6 +216,7 @@ const Recipes = ({ category, onBack }) => {
             dispatch(
                 fetchRecipesByCategory({
                     categoryId: category.id,
+                    categoryName: category.name,
                     page: currentPage,
                     filters,
                 })
