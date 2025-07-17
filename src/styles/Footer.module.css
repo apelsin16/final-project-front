@@ -1,6 +1,5 @@
 .footer {
     padding: 40px 16px;
-    background-color: #fff4e6;
 }
 
 .topSection {
@@ -40,7 +39,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 1px solid #BFBEBE;
+    border: 1px solid #bfbebe;
     background-color: transparent;
     transition: background-color 0.3s ease;
 }

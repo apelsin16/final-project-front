@@ -2,34 +2,34 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import iziToast from 'izitoast';
 
-const API_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000/api';
+const API_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000/api/';
 
 const initialState = {
     // All recipes (not filtered by category)
     recipes: [],
     isLoading: false,
     error: null,
-    
+
     // Pagination
     currentPage: 1,
     totalPages: 1,
     totalRecipes: 0,
     recipesPerPage: 12,
-    
+
     // Filters
     filters: {
         area: null,
-        ingredient: null
+        ingredient: null,
     },
-    
+
     // Filter options
     areas: [],
     ingredients: [],
-    
+
     // Favorites
     favorites: [],
     favoriteIds: [],
-    favoritesLoading: false
+    favoritesLoading: false,
 };
 
 // Fetch all recipes with pagination and filters
@@ -39,27 +39,27 @@ export const fetchRecipes = createAsyncThunk(
         try {
             // Використовуємо серверну пагінацію
             const response = await axios.get(`${API_URL}recipes?page=${page}&limit=${limit}`);
-            
+
             if (!response.data.success) {
                 throw new Error(response.data.message || 'Failed to fetch recipes');
             }
-            
+
             let recipes = response.data.data || [];
-            
+
             // Фільтрація за areas (тільки для поточної сторінки)
             if (filters.area) {
                 recipes = recipes.filter(recipe => recipe.area?.name === filters.area);
             }
-            
+
             // Фільтрація за ingredients (тільки для поточної сторінки)
             if (filters.ingredient) {
-                recipes = recipes.filter(recipe => 
-                    recipe.ingredients && recipe.ingredients.some(ing => 
-                        ing.name === filters.ingredient
-                    )
+                recipes = recipes.filter(
+                    recipe =>
+                        recipe.ingredients &&
+                        recipe.ingredients.some(ing => ing.name === filters.ingredient)
                 );
             }
-            
+
             return {
                 success: true,
                 data: recipes,
@@ -67,12 +67,12 @@ export const fetchRecipes = createAsyncThunk(
                     total: response.data.pagination?.total || 0,
                     page: page,
                     limit: limit,
-                    totalPages: response.data.pagination?.totalPages || 1
-                }
+                    totalPages: response.data.pagination?.totalPages || 1,
+                },
             };
         } catch (error) {
             console.error('Error fetching recipes:', error);
-            
+
             if (error.response) {
                 return rejectWithValue(error.response.data.message || 'Server error');
             } else if (error.request) {
@@ -91,12 +91,12 @@ export const fetchFilterOptions = createAsyncThunk(
         try {
             const [areasResponse, ingredientsResponse] = await Promise.all([
                 axios.get(`${API_URL}areas`),
-                axios.get(`${API_URL}ingredients`)
+                axios.get(`${API_URL}ingredients`),
             ]);
-            
+
             return {
                 areas: areasResponse.data.areas || [],
-                ingredients: ingredientsResponse.data.ingredients || []
+                ingredients: ingredientsResponse.data.ingredients || [],
             };
         } catch (error) {
             console.error('Error fetching filter options:', error);
@@ -114,7 +114,7 @@ export const toggleFavorite = createAsyncThunk(
             if (!token) {
                 throw new Error('User not authenticated');
             }
-            
+
             // Try multiple possible endpoints for toggle favorite
             let response;
             try {
@@ -141,18 +141,20 @@ export const toggleFavorite = createAsyncThunk(
                         );
                     } catch (thirdError) {
                         // If all endpoints fail, simulate toggle for frontend-only functionality
-                        console.warn('Backend endpoint for toggle favorite not found, using frontend-only mode');
+                        console.warn(
+                            'Backend endpoint for toggle favorite not found, using frontend-only mode'
+                        );
                         const favoriteIds = getState().recipes.favoriteIds;
                         const isCurrentlyFavorite = favoriteIds.includes(recipeId);
                         return { recipeId, isFavorite: !isCurrentlyFavorite };
                     }
                 }
             }
-            
+
             return { recipeId, isFavorite: response.data.isFavorite };
         } catch (error) {
             console.error('Error toggling favorite:', error);
-            
+
             if (error.response) {
                 return rejectWithValue(error.response.data.message || 'Server error');
             } else if (error.request) {
@@ -173,21 +175,21 @@ export const fetchFavorites = createAsyncThunk(
             if (!token) {
                 throw new Error('User not authenticated');
             }
-            
+
             const response = await axios.get(`${API_URL}recipes/favorites`, {
-                headers: { Authorization: `Bearer ${token}` }
+                headers: { Authorization: `Bearer ${token}` },
             });
-            
+
             return response.data.favorites || response.data.data || [];
         } catch (error) {
             console.error('Error fetching favorites:', error);
-            
+
             // If endpoint not found, return empty array for frontend-only mode
             if (error.response?.status === 404) {
                 console.warn('Favorites endpoint not found, using frontend-only mode');
                 return [];
             }
-            
+
             if (error.response) {
                 return rejectWithValue(error.response.data.message || 'Server error');
             } else if (error.request) {
@@ -209,17 +211,17 @@ const recipesSlice = createSlice({
         setFilters: (state, action) => {
             state.filters = action.payload;
         },
-        clearFilters: (state) => {
+        clearFilters: state => {
             state.filters = {
                 area: null,
-                ingredient: null
+                ingredient: null,
             };
-        }
+        },
     },
-    extraReducers: (builder) => {
+    extraReducers: builder => {
         builder
             // Fetch recipes
-            .addCase(fetchRecipes.pending, (state) => {
+            .addCase(fetchRecipes.pending, state => {
                 state.isLoading = true;
                 state.error = null;
             })
@@ -236,11 +238,11 @@ const recipesSlice = createSlice({
                 iziToast.error({
                     title: 'Error',
                     message: action.payload || 'Failed to fetch recipes',
-                    position: 'topRight'
+                    position: 'topRight',
                 });
             })
             // Fetch filter options
-            .addCase(fetchFilterOptions.pending, (state) => {
+            .addCase(fetchFilterOptions.pending, state => {
                 state.isLoading = true;
             })
             .addCase(fetchFilterOptions.fulfilled, (state, action) => {
@@ -254,17 +256,17 @@ const recipesSlice = createSlice({
                 iziToast.error({
                     title: 'Error',
                     message: action.payload || 'Failed to fetch filter options',
-                    position: 'topRight'
+                    position: 'topRight',
                 });
             })
             // Toggle favorite
-            .addCase(toggleFavorite.pending, (state) => {
+            .addCase(toggleFavorite.pending, state => {
                 state.favoritesLoading = true;
             })
             .addCase(toggleFavorite.fulfilled, (state, action) => {
                 state.favoritesLoading = false;
                 const { recipeId, isFavorite } = action.payload;
-                
+
                 // Update local favorites
                 if (isFavorite) {
                     if (!state.favoriteIds.includes(recipeId)) {
@@ -273,17 +275,19 @@ const recipesSlice = createSlice({
                 } else {
                     state.favoriteIds = state.favoriteIds.filter(id => id !== recipeId);
                 }
-                
+
                 // Update the recipe in the current recipes list
                 const recipeIndex = state.recipes.findIndex(recipe => recipe.id === recipeId);
                 if (recipeIndex !== -1) {
                     state.recipes[recipeIndex].isFavorite = isFavorite;
                 }
-                
+
                 iziToast.success({
                     title: 'Success',
-                    message: isFavorite ? 'Recipe added to favorites' : 'Recipe removed from favorites',
-                    position: 'topRight'
+                    message: isFavorite
+                        ? 'Recipe added to favorites'
+                        : 'Recipe removed from favorites',
+                    position: 'topRight',
                 });
             })
             .addCase(toggleFavorite.rejected, (state, action) => {
@@ -291,11 +295,11 @@ const recipesSlice = createSlice({
                 iziToast.error({
                     title: 'Error',
                     message: action.payload || 'Failed to toggle favorite',
-                    position: 'topRight'
+                    position: 'topRight',
                 });
             })
             // Fetch favorites
-            .addCase(fetchFavorites.pending, (state) => {
+            .addCase(fetchFavorites.pending, state => {
                 state.favoritesLoading = true;
             })
             .addCase(fetchFavorites.fulfilled, (state, action) => {
@@ -309,16 +313,12 @@ const recipesSlice = createSlice({
                 iziToast.error({
                     title: 'Error',
                     message: action.payload || 'Failed to fetch favorites',
-                    position: 'topRight'
+                    position: 'topRight',
                 });
             });
-    }
+    },
 });
 
-export const { 
-    setCurrentPage, 
-    setFilters, 
-    clearFilters
-} = recipesSlice.actions;
+export const { setCurrentPage, setFilters, clearFilters } = recipesSlice.actions;
 
-export default recipesSlice.reducer; 
+export default recipesSlice.reducer;

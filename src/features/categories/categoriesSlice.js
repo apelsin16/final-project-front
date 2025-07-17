@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import iziToast from 'izitoast';
 
-const API_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000/api';
+const API_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000/api/';
 
 const initialState = {
     categories: [],
@@ -30,7 +30,7 @@ export const fetchCategories = createAsyncThunk(
     'categories/fetchCategories',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${API_URL}/categories`);
+            const response = await axios.get(`${API_URL}categories`);
             return response.data.categories || response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || 'Failed to fetch categories');
