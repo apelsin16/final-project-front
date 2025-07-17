@@ -15,6 +15,7 @@ const initialState = {
     recipesError: null,
     totalPages: 1,
     currentPage: 1,
+    totalRecipes: 0,
     // Filter states
     ingredients: [],
     areas: [],
@@ -40,7 +41,7 @@ export const fetchCategories = createAsyncThunk(
 // Fetch recipes by category
 export const fetchRecipesByCategory = createAsyncThunk(
     'categories/fetchRecipesByCategory',
-    async ({ categoryName, page = 1, filters = {} }, { rejectWithValue }) => {
+    async ({ categoryId, page = 1, filters = {} }, { rejectWithValue }) => {
         try {
             const params = new URLSearchParams({
                 page: page.toString(),
@@ -53,19 +54,25 @@ export const fetchRecipesByCategory = createAsyncThunk(
             if (filters.area) {
                 params.append('area', filters.area);
             }
-            if (categoryName) {
-                params.append('category', categoryName);
-            }
-
-            // Use the correct endpoint: /recipes/?category=...
-            const response = await axios.get(`${API_URL}/recipes?${params}`);
+            // Use the endpoint: /recipes/category/:categoryId
+            const response = await axios.get(`${API_URL}/recipes/category/${categoryId}?${params}`);
+            
+            const recipes = response.data.data || [];
+            const totalPages = response.data.pagination?.totalPages || 1;
+            const currentPage = response.data.pagination?.currentPage || page;
+            const totalRecipes = response.data.pagination?.totalRecipes || response.data.pagination?.total || 0;
+            
+            // Pagination info available in Redux DevTools
+            
             return {
-                recipes: response.data.data || [],
-                totalPages: response.data.pagination?.totalPages || 1,
-                currentPage: response.data.pagination?.currentPage || page,
-                categoryName,
+                recipes,
+                totalPages,
+                currentPage,
+                totalRecipes,
+                categoryId,
             };
         } catch (error) {
+            console.error('Error fetching recipes:', error);
             return rejectWithValue(error.response?.data?.message || 'Failed to fetch recipes');
         }
     }
@@ -109,6 +116,7 @@ const categoriesSlice = createSlice({
             state.recipes = [];
             state.recipesError = null;
             state.currentPage = 1;
+            state.totalRecipes = 0;
         },
         setFilters: (state, action) => {
             state.filters = { ...state.filters, ...action.payload };
@@ -120,6 +128,10 @@ const categoriesSlice = createSlice({
                 area: null,
             };
             state.currentPage = 1;
+            state.totalRecipes = 0;
+        },
+        setCurrentPage: (state, action) => {
+            state.currentPage = action.payload;
         },
         clearError: state => {
             state.error = null;
@@ -157,6 +169,13 @@ const categoriesSlice = createSlice({
                 state.recipes = action.payload.recipes;
                 state.totalPages = action.payload.totalPages;
                 state.currentPage = action.payload.currentPage;
+                state.totalRecipes = action.payload.totalRecipes;
+                
+                // Якщо поточна сторінка більша за загальну кількість сторінок, 
+                // автоматично переходимо на останню сторінку
+                if (state.currentPage > state.totalPages && state.totalPages > 0) {
+                    state.currentPage = state.totalPages;
+                }
             })
             .addCase(fetchRecipesByCategory.rejected, (state, action) => {
                 state.recipesLoading = false;
@@ -194,7 +213,7 @@ const categoriesSlice = createSlice({
     },
 });
 
-export const { setSelectedCategory, clearSelectedCategory, setFilters, clearFilters, clearError } =
+export const { setSelectedCategory, clearSelectedCategory, setFilters, clearFilters, clearError, setCurrentPage } =
     categoriesSlice.actions;
 
 export default categoriesSlice.reducer;

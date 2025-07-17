@@ -12,6 +12,8 @@ import {
     fetchAreas,
     setFilters,
     clearSelectedCategory,
+    setCurrentPage,
+    setSelectedCategory,
 } from '../../features/categories/categoriesSlice.js';
 import styles from './Recipes.module.css';
 
@@ -24,6 +26,7 @@ const Recipes = ({ category, onBack }) => {
         selectedCategory,
         totalPages,
         currentPage,
+        totalRecipes,
         filters,
         ingredients,
         areas,
@@ -197,37 +200,45 @@ const Recipes = ({ category, onBack }) => {
         }
     }, [dispatch, ingredients.length, areas.length]);
 
+    // Встановлюємо selectedCategory і скидаємо сторінку при зміні категорії
+    useEffect(() => {
+        if (category && category.id !== selectedCategory?.id) {
+            dispatch(setCurrentPage(1));
+            dispatch(setSelectedCategory(category));
+        }
+    }, [dispatch, category?.id, selectedCategory?.id]);
+
     // Завантажуємо рецепти при зміні категорії, фільтрів або сторінки
     useEffect(() => {
         if (category) {
             dispatch(
                 fetchRecipesByCategory({
-                    categoryId: category.id || category.name,
+                    categoryId: category.id,
                     page: currentPage,
                     filters,
                 })
             );
         }
-    }, [dispatch, category, filters, currentPage]);
+    }, [dispatch, category?.id, filters, currentPage]);
+
+    // Автоматично переходимо на останню сторінку, якщо поточна сторінка більша за загальну кількість
+    useEffect(() => {
+        if (currentPage > totalPages && totalPages > 0) {
+            dispatch(setCurrentPage(totalPages));
+        }
+    }, [currentPage, totalPages, dispatch]);
 
     const handleFilterChange = newFilters => {
         dispatch(setFilters(newFilters));
     };
 
     const handlePageChange = page => {
-        if (category) {
-            dispatch(
-                fetchRecipesByCategory({
-                    categoryId: category.id || category.name,
-                    page: page,
-                    filters,
-                })
-            );
-        }
+        dispatch(setCurrentPage(page));
     };
 
     const handleBack = () => {
         dispatch(clearSelectedCategory());
+        dispatch(setCurrentPage(1)); // Скидаємо на першу сторінку при поверненні
         if (onBack) {
             onBack();
         }
@@ -236,6 +247,8 @@ const Recipes = ({ category, onBack }) => {
     const categoryName = category?.name || 'DESSERTS';
     const categoryDescription =
         'Go on a taste journey, where every sip is a sophisticated creative chord, and every dessert is an expression of the most refined gastronomic desires.';
+
+    // Pagination info available in Redux DevTools
 
     return (
         <section className={styles.recipes}>
@@ -252,16 +265,16 @@ const Recipes = ({ category, onBack }) => {
                         <path
                             d="M12.7136 8.00058L3.28549 7.99956"
                             stroke="#050505"
-                            stroke-width="1.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeWidth="1.3"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                         />
                         <path
                             d="M7.99902 12.7141L3.28549 7.99956L8.00004 3.28602"
                             stroke="#050505"
-                            stroke-width="1.3"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeWidth="1.3"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                         />
                     </svg>
 
@@ -282,7 +295,7 @@ const Recipes = ({ category, onBack }) => {
 
                 <div className={styles.recipesMain}>
                     <RecipeList
-                        recipes={recipes.length > 0 ? recipes : mockRecipes}
+                        recipes={recipes}
                         isLoading={recipesLoading}
                     />
 

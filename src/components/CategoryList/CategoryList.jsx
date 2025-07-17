@@ -148,14 +148,13 @@ const CategoryList = ({ onCategorySelect, onAllCategoriesClick }) => {
 
     // Обробка вибору категорії
     const handleCategorySelect = async category => {
-        console.log('category', category);
         try {
             dispatch(setSelectedCategory(category));
 
             // Запит на бекенд за рецептами обраної категорії
             const result = await dispatch(
                 fetchRecipesByCategory({
-                    categoryName: category.name, // використовуємо name замість id
+                    categoryId: category.id,
                     page: 1,
                 })
             ).unwrap();
