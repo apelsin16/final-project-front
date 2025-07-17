@@ -1,7 +1,9 @@
 import axios from "axios";
 import { tokenStorage } from "../utils/tokenStorage.js";
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/api/";
+const BACKEND_URL =
+  import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/api/";
+console.log("[API] Using backend URL:", BACKEND_URL);
 const api = axios.create({
   baseURL: BACKEND_URL,
 });
