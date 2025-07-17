@@ -4,7 +4,6 @@ import styles from './HomePage.module.css';
 import Hero from '../../components/Hero/Hero';
 import Categories from '../../components/Categories/Categories';
 import Recipes from '../../components/Recipes/Recipes';
-import AllRecipes from '../../components/AllRecipes/AllRecipes';
 import Testimonials from '../../components/Testimonials/Testimonials';
 
 function HomePage() {
