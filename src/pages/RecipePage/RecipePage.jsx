@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 
 import css from "./Recipe.module.css";
+import PathInfo from "../../components/common/ui/PathInfo/PathInfo";
 
 import { getRecipeById } from "../../services/recipes";
 
@@ -38,16 +39,27 @@ const RecipePage = () => {
 
   return (
     <div className={css.container}>
-      {/* Breadcrumbs */}
-      <nav className={css.breadcrumbs}>
-        <span className={css.breadcrumbHome}>Home</span>
-        <span className={css.breadcrumbDivider}>/</span>
-        <span className={css.breadcrumbCurrent}>{recipe.title}</span>
-      </nav>
+      {/* Breadcrumbs using shared PathInfo component */}
+      <PathInfo
+        currentPage={recipe.title}
+        homeText="Home"
+        className={css.breadcrumbs}
+      />
 
-      <RecipeMainInfo recipe={recipe} />
-      <RecipeIngredients ingredients={recipe.ingredients} />
-      <RecipePreparation preparation={recipe.instructions} />
+      <div className={css.mainContent}>
+        <div className={css.leftCol}>
+          <img
+            src={recipe.thumb}
+            alt={recipe.title}
+            className={css.recipeImage}
+          />
+        </div>
+        <div className={css.rightCol}>
+          <RecipeMainInfo recipe={recipe} hideImage />
+          <RecipeIngredients ingredients={recipe.ingredients} />
+          <RecipePreparation preparation={recipe.instructions} />
+        </div>
+      </div>
       <PopularRecipes />
     </div>
   );
