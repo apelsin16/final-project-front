@@ -59,7 +59,7 @@ export const fetchRecipesByCategory = createAsyncThunk(
                 params.append('category', categoryName);
             }
 
-            let url = `${API_URL}/recipes?${params}`;
+            let url = `${API_URL}recipes?${params}`;
 
             const response = await axios.get(url);
 
