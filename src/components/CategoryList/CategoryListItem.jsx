@@ -49,7 +49,7 @@ const CategoryListItem = ({ category, large, onCategorySelect }) => {
                     title={`Quick view ${name} recipes`}
                 >
                     <svg className={styles.arrowIcon} width="18" height="18">
-                        <use href="/src/assets/sprite.svg#arrow" />
+                        <use href="/sprite.svg#arrow" />
                     </svg>
                 </button>
             </div>

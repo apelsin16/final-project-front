@@ -4,7 +4,7 @@ import clsx from 'clsx';
 // Компонент іконки з спрайту
 const Icon = ({ name, size = 24 }) => (
     <svg width={size} height={size}>
-        <use href={`/src/assets/sprite.svg#${name}`} />
+        <use href={`/sprite.svg#${name}`} />
     </svg>
 );
 
@@ -18,7 +18,7 @@ const ICONS = {
     facebook: 'facebook',
     instagram: 'instagram',
     youtube: 'youtube',
-    close: 'close', 
+    close: 'close',
 };
 
 /**
@@ -117,7 +117,13 @@ const IconButton = ({
     // Якщо передано href, рендеримо як посилання
     if (href) {
         return (
-            <a className={buttonClasses} href={href} target={target} aria-label={ariaLabel} {...props}>
+            <a
+                className={buttonClasses}
+                href={href}
+                target={target}
+                aria-label={ariaLabel}
+                {...props}
+            >
                 {iconElement}
             </a>
         );
@@ -126,12 +132,13 @@ const IconButton = ({
     // Інакше рендеримо як кнопку
     return (
         <button
-            type='button' // <--- критично! не дає сабмітити форму
+            type="button" // <--- критично! не дає сабмітити форму
             className={buttonClasses}
             onClick={onClick}
             disabled={disabled}
             aria-label={ariaLabel}
-            {...props}>
+            {...props}
+        >
             {iconElement}
         </button>
     );

@@ -1,29 +1,28 @@
-import axios from "axios";
-import { tokenStorage } from "../utils/tokenStorage.js";
+import axios from 'axios';
+import { tokenStorage } from '../utils/tokenStorage.js';
 
-const BACKEND_URL =
-  import.meta.env.VITE_BACKEND_URL || "http://localhost:3000/api/";
-console.log("[API] Using backend URL:", BACKEND_URL);
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000/api/';
+console.log('[API] Using backend URL:', BACKEND_URL);
 const api = axios.create({
-  baseURL: BACKEND_URL,
+    baseURL: BACKEND_URL,
 });
 
 // Interceptors: Add auth token if needed
-api.interceptors.request.use((config) => {
-  const token = tokenStorage.token;
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
+api.interceptors.request.use(config => {
+    const token = tokenStorage.token;
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
 
-  if (config.data instanceof FormData) {
-    delete config.headers["Content-Type"];
-  } else {
-    config.headers["Content-Type"] = "application/json";
-  }
+    if (config.data instanceof FormData) {
+        delete config.headers['Content-Type'];
+    } else {
+        config.headers['Content-Type'] = 'application/json';
+    }
 
-  return config;
+    return config;
 });
 
-export const checkApiConnection = () => api.get("/ok");
+export const checkApiConnection = () => api.get('/ok');
 
 export default api;

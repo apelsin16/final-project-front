@@ -4,7 +4,7 @@ import MainTitle from '../common/ui/MainTitle/MainTitle';
 import Subtitle from '../common/ui/Subtitle/Subtitle';
 import styles from './Testimonials.module.css';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+const API_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000/api';
 
 // Мок даних для відгуків (fallback)
 const mockTestimonials = [

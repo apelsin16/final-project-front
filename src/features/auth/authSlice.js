@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import iziToast from 'izitoast';
 
-const API = import.meta.env.VITE_API_URL + '/users';
+const API = import.meta.env.VITE_BACKEND_URL + '/users';
 
 const initialState = {
     user: null, // поточний користувач
@@ -51,7 +51,9 @@ export const fetchCurrentUser = createAsyncThunk(
         try {
             const token = getState().auth.token || localStorage.getItem('token');
             if (!token) throw new Error('No token');
-            const res = await axios.get(`${API}/current`, { headers: { Authorization: `Bearer ${token}` } });
+            const res = await axios.get(`${API}/current`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
             return { ...res.data, token };
         } catch (err) {
             return rejectWithValue(err.response?.data?.message || 'Session expired');
@@ -88,7 +90,11 @@ const authSlice = createSlice({
             .addCase(register.rejected, (state, { payload }) => {
                 state.isLoading = false;
                 state.error = payload;
-                iziToast.error({ title: 'Error', message: payload || 'Registration failed', timeout: 7000 });
+                iziToast.error({
+                    title: 'Error',
+                    message: payload || 'Registration failed',
+                    timeout: 7000,
+                });
             })
 
             // login
@@ -106,7 +112,11 @@ const authSlice = createSlice({
             .addCase(login.rejected, (state, { payload }) => {
                 state.isLoading = false;
                 state.error = payload;
-                iziToast.error({ title: 'Error', message: payload || 'Login failed', timeout: 7000 });
+                iziToast.error({
+                    title: 'Error',
+                    message: payload || 'Login failed',
+                    timeout: 7000,
+                });
             })
 
             // logout
@@ -124,7 +134,11 @@ const authSlice = createSlice({
                 state.token = null;
                 state.isAuth = false;
                 localStorage.removeItem('token');
-                iziToast.error({ title: 'Error', message: payload || 'Logout failed', timeout: 7000 });
+                iziToast.error({
+                    title: 'Error',
+                    message: payload || 'Logout failed',
+                    timeout: 7000,
+                });
             })
             // fetchCurrentUser
             .addCase(fetchCurrentUser.fulfilled, (state, { payload }) => {
