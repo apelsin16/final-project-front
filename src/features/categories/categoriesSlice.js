@@ -59,7 +59,7 @@ export const fetchRecipesByCategory = createAsyncThunk(
                 params.append('category', categoryName);
             }
 
-            let url = `${API_URL}recipes?${params}`;
+            let url = `${API_URL}/recipes?${params}`;
 
             const response = await axios.get(url);
 
@@ -90,7 +90,7 @@ export const fetchIngredients = createAsyncThunk(
     'categories/fetchIngredients',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${API_URL}ingredients`);
+            const response = await axios.get(`${API_URL}/ingredients`);
             return response.data.ingredients || response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || 'Failed to fetch ingredients');
@@ -103,7 +103,7 @@ export const fetchAreas = createAsyncThunk(
     'categories/fetchAreas',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${API_URL}areas`);
+            const response = await axios.get(`${API_URL}/areas`);
             return response.data.areas || response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || 'Failed to fetch areas');
@@ -116,7 +116,7 @@ export const fetchIngredientsByCategory = createAsyncThunk(
     'categories/fetchIngredientsByCategory',
     async (categoryName, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${API_URL}ingredients?category=${categoryName}`);
+            const response = await axios.get(`${API_URL}/ingredients?category=${categoryName}`);
             return response.data.ingredients || response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || 'Failed to fetch ingredients');
@@ -129,7 +129,7 @@ export const fetchAreasByCategory = createAsyncThunk(
     'categories/fetchAreasByCategory',
     async (categoryName, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${API_URL}areas?category=${categoryName}`);
+            const response = await axios.get(`${API_URL}/areas?category=${categoryName}`);
             return response.data.areas || response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || 'Failed to fetch areas');
