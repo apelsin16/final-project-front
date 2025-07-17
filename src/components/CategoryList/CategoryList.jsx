@@ -88,7 +88,6 @@ const CategoryList = ({ onCategorySelect, onAllCategoriesClick }) => {
             // Запит на бекенд за рецептами обраної категорії
             const result = await dispatch(
                 fetchRecipesByCategory({
-                    categoryId: category.id,
                     categoryName: category.name,
                     page: 1,
                 })

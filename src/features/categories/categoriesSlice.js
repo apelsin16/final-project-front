@@ -41,49 +41,41 @@ export const fetchCategories = createAsyncThunk(
 // Fetch recipes by category
 export const fetchRecipesByCategory = createAsyncThunk(
     'categories/fetchRecipesByCategory',
-    async ({ categoryId, categoryName, page = 1, filters = {} }, { rejectWithValue }) => {
+    async ({ categoryName, page = 1, filters = {} }, { rejectWithValue }) => {
         try {
             const params = new URLSearchParams({
                 page: page.toString(),
                 limit: '12',
             });
 
-            let hasFilters = false;
-            
             if (filters.ingredient) {
                 params.append('ingredient', filters.ingredient);
-                hasFilters = true;
             }
             if (filters.area) {
                 params.append('area', filters.area);
-                hasFilters = true;
             }
-            
-            let url;
-            if (hasFilters) {
-                // Use general endpoint with category name when filters are present
-                params.append('category', categoryName || categoryId);
-                url = `${API_URL}recipes?${params}`;
-            } else {
-                // Use specific endpoint when no filters
-                url = `${API_URL}recipes/category/${categoryId}?${params}`;
+
+            if (categoryName) {
+                params.append('category', categoryName);
             }
-            
+
+            let url = `${API_URL}/recipes?${params}`;
+
             const response = await axios.get(url);
-            
+
             const recipes = response.data.data || [];
             const totalPages = response.data.pagination?.totalPages || 1;
             const currentPage = response.data.pagination?.currentPage || page;
-            const totalRecipes = response.data.pagination?.totalRecipes || response.data.pagination?.total || 0;
-            
+            const totalRecipes =
+                response.data.pagination?.totalRecipes || response.data.pagination?.total || 0;
+
             // Pagination info available in Redux DevTools
-            
+
             return {
                 recipes,
                 totalPages,
                 currentPage,
                 totalRecipes,
-                categoryId,
                 categoryName,
             };
         } catch (error) {
@@ -211,8 +203,8 @@ const categoriesSlice = createSlice({
                 state.totalPages = action.payload.totalPages;
                 state.currentPage = action.payload.currentPage;
                 state.totalRecipes = action.payload.totalRecipes;
-                
-                // Якщо поточна сторінка більша за загальну кількість сторінок, 
+
+                // Якщо поточна сторінка більша за загальну кількість сторінок,
                 // автоматично переходимо на останню сторінку
                 if (state.currentPage > state.totalPages && state.totalPages > 0) {
                     state.currentPage = state.totalPages;
@@ -278,7 +270,13 @@ const categoriesSlice = createSlice({
     },
 });
 
-export const { setSelectedCategory, clearSelectedCategory, setFilters, clearFilters, clearError, setCurrentPage } =
-    categoriesSlice.actions;
+export const {
+    setSelectedCategory,
+    clearSelectedCategory,
+    setFilters,
+    clearFilters,
+    clearError,
+    setCurrentPage,
+} = categoriesSlice.actions;
 
 export default categoriesSlice.reducer;
