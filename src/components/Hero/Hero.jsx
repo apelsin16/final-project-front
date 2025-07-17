@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { openModal } from '../../features/modal/modalSlice';
-import LoginModal from '../modals/LoginModal';
 import styles from './Hero.module.css';
 
 // Import floating images
@@ -90,8 +89,6 @@ const Hero = () => {
                     />
                 </picture>
             </section>
-
-            {modalType === 'login' && <LoginModal />}
         </>
     );
 };

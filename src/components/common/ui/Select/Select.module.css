@@ -198,7 +198,20 @@
 }
 
 /* Планшети (768px - 1439px) */
-@media screen and (min-width: 767px) and (max-width: 1439px) {
+@media screen and (min-width: 768px) and (max-width: 1439px) {
+    .wrapper {
+        width: 315px;
+    }
+
+    .label {
+        color: #050505;
+        font-weight: 800;
+        font-size: 16px;
+        line-height: 1.5;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+    }
+
     .select {
         font-size: 16px;
         line-height: 24px;
@@ -223,32 +236,17 @@
     }
 }
 
+/* Десктоп (1440px+) */
+@media screen and (min-width: 1440px) {
     .label {
-        color: #050505;
         font-weight: 800;
-        font-size: 16px;
+        color: #050505;
+        font-size: 20px;
         line-height: 1.5;
         letter-spacing: 0.02em;
         text-transform: uppercase;
     }
-}
 
-@media (min-width: 768px) {
-    .wrapper {
-        width: 315px;
-    }
-
-    .label {
-        font-size: 20px;
-    }
-}
-
-@media (min-width: 1440px) {
-    .label {
-        font-weight: 800;
-        color: #050505;
-/* Десктоп (1440px+) */
-@media screen and (min-width: 1440px) {
     .select {
         font-size: 16px;
         line-height: 24px;

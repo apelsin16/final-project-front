@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import iziToast from 'izitoast';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const API_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000/api';
 
 const initialState = {
     categories: [],
@@ -30,7 +30,7 @@ export const fetchCategories = createAsyncThunk(
     'categories/fetchCategories',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${API_URL}/categories`);
+            const response = await axios.get(`${API_URL}categories`);
             return response.data.categories || response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || 'Failed to fetch categories');
@@ -63,10 +63,10 @@ export const fetchRecipesByCategory = createAsyncThunk(
             if (hasFilters) {
                 // Use general endpoint with category name when filters are present
                 params.append('category', categoryName || categoryId);
-                url = `${API_URL}/recipes?${params}`;
+                url = `${API_URL}recipes?${params}`;
             } else {
                 // Use specific endpoint when no filters
-                url = `${API_URL}/recipes/category/${categoryId}?${params}`;
+                url = `${API_URL}recipes/category/${categoryId}?${params}`;
             }
             
             const response = await axios.get(url);
@@ -98,7 +98,7 @@ export const fetchIngredients = createAsyncThunk(
     'categories/fetchIngredients',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${API_URL}/ingredients`);
+            const response = await axios.get(`${API_URL}ingredients`);
             return response.data.ingredients || response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || 'Failed to fetch ingredients');
@@ -111,7 +111,7 @@ export const fetchAreas = createAsyncThunk(
     'categories/fetchAreas',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${API_URL}/areas`);
+            const response = await axios.get(`${API_URL}areas`);
             return response.data.areas || response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || 'Failed to fetch areas');
@@ -124,7 +124,7 @@ export const fetchIngredientsByCategory = createAsyncThunk(
     'categories/fetchIngredientsByCategory',
     async (categoryName, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${API_URL}/ingredients?category=${categoryName}`);
+            const response = await axios.get(`${API_URL}ingredients?category=${categoryName}`);
             return response.data.ingredients || response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || 'Failed to fetch ingredients');
@@ -137,7 +137,7 @@ export const fetchAreasByCategory = createAsyncThunk(
     'categories/fetchAreasByCategory',
     async (categoryName, { rejectWithValue }) => {
         try {
-            const response = await axios.get(`${API_URL}/areas?category=${categoryName}`);
+            const response = await axios.get(`${API_URL}areas?category=${categoryName}`);
             return response.data.areas || response.data;
         } catch (error) {
             return rejectWithValue(error.response?.data?.message || 'Failed to fetch areas');

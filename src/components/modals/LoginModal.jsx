@@ -53,6 +53,7 @@ const LoginModal = () => {
                     <Input
                         type='email'
                         name='email'
+                        id='login-email'
                         placeholder='Email*'
                         value={email}
                         onChange={handleEmailChange}
@@ -65,6 +66,7 @@ const LoginModal = () => {
                     <Input
                         type='password'
                         name='password'
+                        id='login-password'
                         placeholder='Password'
                         value={password}
                         onChange={handlePasswordChange}

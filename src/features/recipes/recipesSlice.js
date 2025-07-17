@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import iziToast from 'izitoast';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const API_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000/api';
 
 const initialState = {
     // All recipes (not filtered by category)
@@ -38,7 +38,7 @@ export const fetchRecipes = createAsyncThunk(
     async ({ page = 1, limit = 12, filters = {} }, { rejectWithValue }) => {
         try {
             // Використовуємо серверну пагінацію
-            const response = await axios.get(`${API_URL}/recipes?page=${page}&limit=${limit}`);
+            const response = await axios.get(`${API_URL}recipes?page=${page}&limit=${limit}`);
             
             if (!response.data.success) {
                 throw new Error(response.data.message || 'Failed to fetch recipes');
@@ -90,8 +90,8 @@ export const fetchFilterOptions = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const [areasResponse, ingredientsResponse] = await Promise.all([
-                axios.get(`${API_URL}/areas`),
-                axios.get(`${API_URL}/ingredients`)
+                axios.get(`${API_URL}areas`),
+                axios.get(`${API_URL}ingredients`)
             ]);
             
             return {
@@ -119,7 +119,7 @@ export const toggleFavorite = createAsyncThunk(
             let response;
             try {
                 response = await axios.patch(
-                    `${API_URL}/recipes/${recipeId}/favorite`,
+                    `${API_URL}recipes/${recipeId}/favorite`,
                     {},
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
@@ -127,7 +127,7 @@ export const toggleFavorite = createAsyncThunk(
                 // Try alternative endpoint structure
                 try {
                     response = await axios.patch(
-                        `${API_URL}/recipes/favorite/${recipeId}`,
+                        `${API_URL}recipes/favorite/${recipeId}`,
                         {},
                         { headers: { Authorization: `Bearer ${token}` } }
                     );
@@ -135,7 +135,7 @@ export const toggleFavorite = createAsyncThunk(
                     // Try POST request
                     try {
                         response = await axios.post(
-                            `${API_URL}/recipes/favorites`,
+                            `${API_URL}recipes/favorites`,
                             { recipeId },
                             { headers: { Authorization: `Bearer ${token}` } }
                         );
@@ -174,7 +174,7 @@ export const fetchFavorites = createAsyncThunk(
                 throw new Error('User not authenticated');
             }
             
-            const response = await axios.get(`${API_URL}/recipes/favorites`, {
+            const response = await axios.get(`${API_URL}recipes/favorites`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             

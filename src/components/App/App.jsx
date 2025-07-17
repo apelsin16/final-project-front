@@ -19,7 +19,14 @@ function App() {
                 {/* Публічні сторінки */}
                 <Route index element={<HomePage />} />
                 <Route path='ui' element={<UIExamplesPage />} />
-                <Route path='recipe/:id' element={<RecipePage />} />
+                <Route 
+                    path='recipe/:id' 
+                    element={
+                        <PrivateRoute isAuth={isAuth}>
+                            <RecipePage />
+                        </PrivateRoute>
+                    } 
+                />
 
                 {/* Приватні сторінки — доступні тільки для авторизованих */}
                 <Route

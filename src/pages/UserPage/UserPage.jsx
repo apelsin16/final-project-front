@@ -14,7 +14,8 @@ import {
 } from '../../redux/profile/profileOperations';
 
 import { TabsList } from '../../components/TabsList/TabsList';
-import { RecipeList } from '../../components/RecipeList/RecipeList';
+import RecipeList from '../../components/RecipeList/RecipeList';
+import RecipePagination from '../../components/RecipePagination/RecipePagination';
 import { FollowList } from '../../components/FollowList/FollowList';
 import { ErrorMessage } from '../../components/ErrorMessage/ErrorMessage';
 import Spinner from '../../components/Spinner/Spinner';
@@ -178,22 +179,31 @@ function UserPage({ isAuth: isAuthProp }) {
       case 'MY RECIPES':
       case 'RECIPES':
         return (
-          <RecipeList
-            recipes={resolvedRecipes}
-            pagination={resolvedRecipesPagination}
-            setCurrentPage={page => setPages(p => ({ ...p, recipes: page }))}
-            isCurrentUser={isCurrentUser}
-          />
+          <div>
+            <RecipeList
+              recipes={resolvedRecipes}
+              isLoading={loading}
+            />
+            <RecipePagination
+              currentPage={resolvedRecipesPagination?.currentPage || 1}
+              totalPages={resolvedRecipesPagination?.totalPages || 1}
+              onPageChange={page => setPages(p => ({ ...p, recipes: page }))}
+            />
+          </div>
         );
       case 'MY FAVORITES':
         return (
-          <RecipeList
-            recipes={favorites}
-            isFavorite
-            pagination={favoritesPagination}
-            setCurrentPage={page => setPages(p => ({ ...p, favorites: page }))}
-            isCurrentUser={isCurrentUser}
-          />
+          <div>
+            <RecipeList
+              recipes={favorites}
+              isLoading={loading}
+            />
+            <RecipePagination
+              currentPage={favoritesPagination?.currentPage || 1}
+              totalPages={favoritesPagination?.totalPages || 1}
+              onPageChange={page => setPages(p => ({ ...p, favorites: page }))}
+            />
+          </div>
         );
       case 'FOLLOWERS':
         return (
