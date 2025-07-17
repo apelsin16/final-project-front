@@ -11,6 +11,7 @@ import {
     fetchIngredientsByCategory,
     fetchAreasByCategory,
     setFilters,
+    clearFilters,
     clearSelectedCategory,
     setCurrentPage,
     setSelectedCategory,
@@ -30,6 +31,14 @@ const Recipes = ({ category, onBack }) => {
         ingredients,
         areas,
     } = useSelector(state => state.categories);
+
+    // Завантажуємо інгредієнти та області для конкретної категорії
+    useEffect(() => {
+        if (category?.name) {
+            dispatch(fetchIngredientsByCategory(category.name));
+            dispatch(fetchAreasByCategory(category.name));
+        }
+    }, [dispatch, category?.name]);
 
     // Встановлюємо selectedCategory і скидаємо сторінку при зміні категорії
     useEffect(() => {
@@ -72,6 +81,7 @@ const Recipes = ({ category, onBack }) => {
     const handleBack = () => {
         dispatch(clearSelectedCategory());
         dispatch(setCurrentPage(1)); // Скидаємо на першу сторінку при поверненні
+        dispatch(clearFilters());
         if (onBack) {
             onBack();
         }
