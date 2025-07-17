@@ -27,7 +27,7 @@ const ICONS = {
  * @param {Object} props
  * @param {'heart' | 'arrow' | 'delete' | 'eye' | 'eyeOff' | 'facebook' | 'instagram' | 'youtube'} props.icon - Тип іконки
  * @param {'small' | 'medium' | 'large'} props.size - Розмір кнопки
- * @param {'default' | 'filled' | 'outlined' | 'social'} props.variant - Варіант стилю
+ * @param {'default' | 'filled' | 'outlined' | 'social' | 'transparent'} props.variant - Варіант стилю
  * @param {boolean} props.filled - Для іконки heart - заповнена чи ні
  * @param {function} props.onClick - Обробник кліку (тільки для кнопки)
  * @param {string} props.href - URL для посилання (рендерить як <a>)

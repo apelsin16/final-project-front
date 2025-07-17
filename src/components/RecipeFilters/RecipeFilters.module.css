@@ -1,0 +1,21 @@
+/* Мобільна версія */
+.recipeFilters {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* Таблет */
+@media (min-width: 768px) {
+    .recipeFilters {
+        flex-direction: row;
+    }
+}
+
+/* Десктоп */
+@media (min-width: 1440px) {
+    .recipeFilters {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

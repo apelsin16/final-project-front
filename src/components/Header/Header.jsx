@@ -106,10 +106,6 @@ const user = useSelector(state => state.auth.user);
                         )}
                     </ul>
                 </nav>
-                {/* Модальні вікна */}
-                {modalType === 'login' && <LoginModal />}
-                {modalType === 'register' && <RegisterModal />}
-                {modalType === 'logout' && <LogoutModal />}
             </div>
         </header>
     );

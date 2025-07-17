@@ -1,83 +1,34 @@
-import { useCallback } from 'react';
+import RecipeCard from '../RecipeCard/RecipeCard';
+import styles from './RecipeList.module.css';
 
-import { RecipeItem } from '../RecipeItem/RecipeItem';
-
-import css from './RecipeList.module.css';
-
-export const RecipeList = ({
-  recipes,
-  isFavorite = false,
-  pagination,
-  setCurrentPage,
-  isCurrentUser,
-}) => {
-  const handlePageChange = useCallback(
-    page => {
-      if (page >= 1 && page <= (pagination?.totalPages || 1)) {
-        setCurrentPage(page);
-      } else {
-        console.log('RecipeList: Invalid page, not setting:', page);
-      }
-    },
-    [pagination?.totalPages, setCurrentPage]
-  );
-
-  const getEmptyMessage = () => {
-    if (isFavorite) {
-      return isCurrentUser
-        ? 'Nothing has been added to your favorite recipes list yet. Please browse our recipes and add your favorites for easy access in the future.'
-        : 'This user has not added any favorite recipes yet.';
+const RecipeList = ({ recipes, isLoading }) => {
+    if (isLoading) {
+        return (
+            <div className={styles.loadingContainer}>
+                <div className={styles.loadingMessage}>Loading recipes...</div>
+            </div>
+        );
     }
 
-    return isCurrentUser
-      ? 'Nothing has been added to your recipes list yet. Please browse our recipes and add your favorites for easy access in the future.'
-      : 'This user has not added any recipes yet.';
-  };
+    if (!recipes || recipes.length === 0) {
+        return (
+            <div className={styles.emptyContainer}>
+                <div className={styles.emptyMessage}>No recipes found</div>
+                <p className={styles.emptySubtext}>Try adjusting your filters or search criteria</p>
+            </div>
+        );
+    }
 
-  return (
-    <div>
-      {!recipes || recipes.length === 0 ? (
-        <p className={css['no-recipes']}>{getEmptyMessage()}</p>
-      ) : (
-        <ul className={css['recipes-list']}>
-          {recipes.map(
-            ({ thumb, title, instructions = 'No instructions', id }) => (
-              <li className={css['recipe-item']} key={id}>
-                <RecipeItem
-                  image={thumb}
-                  title={title}
-                  instructions={instructions}
-                  id={id}
-                  isFavorite={isFavorite}
-                  isCurrentUser={isCurrentUser}
+    return (
+        <div className={styles.recipeList}>
+            {recipes.map((recipe) => (
+                <RecipeCard
+                    key={recipe.id}
+                    recipe={recipe}
                 />
-              </li>
-            )
-          )}
-        </ul>
-      )}
-
-      {pagination && pagination.totalRecipes > pagination.recipesPerPage && (
-        <div className={css['pagination']}>
-          {Array.from(
-            { length: pagination.totalPages || 1 },
-            (_, index) => index + 1
-          ).map(page => (
-            <button
-              key={page}
-              onClick={() => handlePageChange(page)}
-              className={`${css['pagination-button']} ${
-                pagination.currentPage === page ? css['active-page'] : ''
-              }`}
-              aria-current={
-                pagination.currentPage === page ? 'page' : undefined
-              }
-            >
-              {page}
-            </button>
-          ))}
+            ))}
         </div>
-      )}
-    </div>
-  );
+    );
 };
+
+export default RecipeList;

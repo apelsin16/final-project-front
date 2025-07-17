@@ -61,6 +61,7 @@ const RegisterModal = () => {
                     <Input
                         type='text'
                         name='name'
+                        id='register-name'
                         placeholder='Name*'
                         value={name}
                         onChange={handleNameChange}
@@ -72,6 +73,7 @@ const RegisterModal = () => {
                     <Input
                         type='email'
                         name='email'
+                        id='register-email'
                         placeholder='Email*'
                         value={email}
                         onChange={handleEmailChange}
@@ -82,6 +84,7 @@ const RegisterModal = () => {
                     <Input
                         type='password'
                         name='password'
+                        id='register-password'
                         placeholder='Password'
                         value={password}
                         onChange={handlePasswordChange}

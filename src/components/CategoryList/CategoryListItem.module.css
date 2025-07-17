@@ -1,0 +1,181 @@
+.categoryItem {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  /* Мобільні розміри */
+  width: 343px;
+  height: 250px;
+}
+
+.categoryItem:hover {
+  transform: translateY(-2px);
+}
+
+/* Темний overlay поверх зображення */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(5, 5, 5, 0.2) 0%,
+    rgba(5, 5, 5, 0.2) 100%
+  );
+  z-index: 1;
+}
+
+/* Контейнер для кнопок */
+.buttons {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  z-index: 2;
+  display: inline-flex;
+  gap: 4px;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+/* Кнопка з назвою категорії */
+.categoryButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid white;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  gap: 10px;
+}
+
+.categoryButton:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.categoryName {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  color: white;
+  white-space: nowrap;
+}
+
+/* Кнопка зі стрілкою */
+.arrowButton {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 11px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 30px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  gap: 10px;
+}
+
+.arrowButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.arrowIcon {
+  width: 18px;
+  height: 18px;
+  stroke: white;
+  stroke-width: 1.5px;
+  fill: none;
+}
+
+/* Розміри категорій */
+.small {
+  width: 343px;
+  height: 250px;
+}
+
+.large {
+  width: 343px;
+  height: 250px;
+}
+
+/* Планшетні стилі (768px - 1439px) */
+@media screen and (min-width: 768px) and (max-width: 1439px) {
+  .categoryItem {
+    border-radius: 30px;
+  }
+
+  .buttons {
+    left: 24px;
+    top: 301px;
+  }
+
+  .categoryButton {
+    padding: 10px 14px;
+  }
+
+  .categoryName {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .arrowButton {
+    padding: 13px;
+  }
+
+  .small {
+    width: 342px;
+    height: 369px;
+  }
+
+  .large {
+    width: 704px;
+    height: 369px;
+  }
+}
+
+/* Десктопні стилі (1440px+) */
+@media screen and (min-width: 1440px) {
+  .categoryItem {
+    border-radius: 30px;
+  }
+
+  .buttons {
+    left: 24px;
+    top: 301px;
+  }
+
+  .categoryButton {
+    padding: 10px 14px;
+  }
+
+  .categoryName {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .arrowButton {
+    padding: 13px;
+  }
+
+  .small {
+    width: 325px;
+    height: 369px;
+  }
+
+  .large {
+    width: 590px;
+    height: 369px;
+  }
+}

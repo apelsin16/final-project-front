@@ -12,17 +12,10 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-}
-
-/* Розміри */
-.small {
-    font-size: 24px;
-    line-height: 28px;
-}
-
-.large {
-    font-size: 28px;
-    line-height: 1.14;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    color: var(--color-light);
 }
 
 /* Планшетні стилі */
@@ -32,6 +25,7 @@
         font-size: 16px;
         line-height: 1.5;
         font-weight: 500;
+        color: var(--color-dark);
     }
 
     .small {
@@ -39,30 +33,18 @@
         line-height: 32px;
     }
 
-    .large {
-        font-size: 32px;
-        line-height: 1.25;
+    .limitWidth {
+        max-width: 540px;
     }
 }
 
-/* Цвета */
 .dark {
-    color: #050505;
+    color: var(--color-dark);
 }
 
 .light {
-    color: #ffffff;
+    color: var(--color-light);
 }
-
-/* Центрирование */
-.centered {
-    text-align: center;
-}
-
-.left {
-    text-align: left;
-}
-
 /* Анимация появления */
 .subtitle {
     opacity: 1;

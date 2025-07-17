@@ -1,0 +1,165 @@
+/* Hero Container */
+.hero {
+    position: relative;
+    background: var(--color-black);
+    overflow: hidden;
+    border-radius: 20px;
+    height: 796px;
+    margin: -16px -8px 0;
+}
+
+/* Hero Content */
+.heroContent {
+    padding: 194px 16px 0;
+    text-align: center;
+    color: var(--color-white);
+    font-family: var(--font-family-main);
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.heroTitle {
+    font-size: 40px;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 40px;
+}
+
+.heroSubtitle {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    margin-bottom: 0;
+}
+
+.heroButton {
+    padding: 12px 24px;
+    background: transparent;
+    border: 1px solid var(--color-white);
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.heroButton:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.heroButtonText {
+    color: white;
+    font-size: 14px;
+    font-family: var(--font-family-main);
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 20px;
+}
+
+.bigImage {
+    position: absolute;
+    top: 500px;
+    right: 21px;
+}
+
+.bigImageEl {
+    width: 233px;
+    border-radius: 30px;
+    object-fit: cover;
+}
+
+.smallImage {
+    position: absolute;
+    top: 593px;
+    left: 27px;
+}
+
+.smallImageEl {
+    width: 93px;
+    border-radius: 15px;
+    object-fit: cover;
+}
+
+/* Планшетна версія (768px - 1439px) */
+@media screen and (min-width: 768px) {
+    .hero {
+        border-radius: 30px;
+        height: 992px;
+        margin: -20px -16px 0;
+    }
+
+    .heroContent {
+        padding: 217px 29px 0;
+        gap: 40px;
+    }
+
+    .heroTitle {
+        font-size: 70px;
+        line-height: 70px;
+        letter-spacing: -1.4px;
+    }
+
+    .heroSubtitle {
+        width: 577px;
+        font-size: 16px;
+        line-height: 24px;
+        letter-spacing: -0.32px;
+        text-align: center;
+    }
+
+    .heroButton {
+        padding: 16px 32px;
+    }
+
+    .heroButtonText {
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    .bigImage {
+        top: 554px;
+        right: 90px;
+    }
+
+    .bigImageEl {
+        width: 390px;
+    }
+
+    .smallImage {
+        top: 715px;
+        left: 104px;
+    }
+
+    .smallImageEl {
+        width: 149px;
+    }
+}
+
+/* Десктопна версія (1440px+) */
+@media screen and (min-width: 1440px) {
+    .hero {
+        height: 970px;
+        margin: -20px -60px 0;
+    }
+
+    .heroContent {
+        padding: 154px;
+    }
+
+    .heroTitle {
+        width: 875px;
+        font-size: 90px;
+        line-height: 90px;
+        letter-spacing: -1.8px;
+    }
+
+    .bigImage {
+        top: 551px;
+        right: 420px;
+    }
+
+    .smallImage {
+        top: 705px;
+        left: 441px;
+    }
+}
