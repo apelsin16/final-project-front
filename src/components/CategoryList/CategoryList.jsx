@@ -42,82 +42,16 @@ const categoryImageMap = {
     Soup: miscellaneousImg, // fallback для нових категорій
 };
 
+const largeCategoryIndexTablet = [2, 7];
+
 // Функція для мапінгу категорій з API
 const mapApiCategoriesToDisplay = (apiCategories, screenType) => {
     return apiCategories.map(category => ({
         id: category.id,
         name: category.name,
-        image: categoryImageMap[category.name] || beefImg, // fallback зображення
-        size: getCategorySize(category.name, screenType),
+        image: categoryImageMap[category.name],
     }));
 };
-
-// Функція для визначення розміру категорії
-const getCategorySize = (categoryName, screenType) => {
-    if (screenType === 'desktop') {
-        // Для десктопу деякі категорії мають великий розмір
-        const largeCategories = ['Dessert', 'Lamb', 'Pork', 'Side'];
-        return largeCategories.includes(categoryName) ? 'large' : 'small';
-    }
-    return 'small'; // На мобільному та планшеті всі категорії малі
-};
-
-// Мобільна версія - 8 категорій (fallback)
-const mobileCategories = [
-    { id: 'beef', name: 'Beef', image: beefImg, size: 'small' },
-    { id: 'breakfast', name: 'Breakfast', image: breakfastImg, size: 'small' },
-    { id: 'desserts', name: 'Desserts', image: dessertsImg, size: 'small' },
-    { id: 'pasta', name: 'Pasta', image: pastaImg, size: 'small' },
-    { id: 'seafood', name: 'Seafood', image: seafoodImg, size: 'small' },
-    { id: 'starter', name: 'Starter', image: starterImg, size: 'small' },
-    {
-        id: 'miscellaneous',
-        name: 'Miscellaneous',
-        image: miscellaneousImg,
-        size: 'small',
-    },
-    { id: 'vegan', name: 'Vegan', image: veganImg, size: 'small' },
-];
-
-// Планшетна версія - 12 категорій (fallback)
-const tabletCategories = [
-    { id: 'beef', name: 'Beef', image: beefImg, size: 'small' },
-    { id: 'breakfast', name: 'Breakfast', image: breakfastImg, size: 'small' },
-    { id: 'desserts', name: 'Desserts', image: dessertsImg, size: 'large' },
-    { id: 'lamb', name: 'Lamb', image: lambImg, size: 'small' },
-    { id: 'goat', name: 'Goat', image: goatImg, size: 'small' },
-    {
-        id: 'miscellaneous',
-        name: 'Miscellaneous',
-        image: miscellaneousImg,
-        size: 'small',
-    },
-    { id: 'pasta', name: 'Pasta', image: pastaImg, size: 'small' },
-    { id: 'pork', name: 'Pork', image: porkImg, size: 'large' },
-    { id: 'seafood', name: 'Seafood', image: seafoodImg, size: 'small' },
-    { id: 'side', name: 'Side', image: sideImg, size: 'small' },
-    { id: 'starter', name: 'Starter', image: starterImg, size: 'small' },
-];
-
-// Десктопна версія - 11 категорій
-const desktopCategories = [
-    { id: 'beef', name: 'Beef', image: beefImg, size: 'small' },
-    { id: 'breakfast', name: 'Breakfast', image: breakfastImg, size: 'small' },
-    { id: 'desserts', name: 'Desserts', image: dessertsImg, size: 'large' },
-    { id: 'lamb', name: 'Lamb', image: lambImg, size: 'large' },
-    { id: 'goat', name: 'Goat', image: goatImg, size: 'small' },
-    {
-        id: 'miscellaneous',
-        name: 'Miscellaneous',
-        image: miscellaneousImg,
-        size: 'small',
-    },
-    { id: 'pasta', name: 'Pasta', image: pastaImg, size: 'small' },
-    { id: 'pork', name: 'Pork', image: porkImg, size: 'large' },
-    { id: 'seafood', name: 'Seafood', image: seafoodImg, size: 'small' },
-    { id: 'side', name: 'Side', image: sideImg, size: 'large' },
-    { id: 'starter', name: 'Starter', image: starterImg, size: 'small' },
-];
 
 const CategoryList = ({ onCategorySelect, onAllCategoriesClick }) => {
     const [screenType, setScreenType] = useState('mobile');
@@ -195,16 +129,8 @@ const CategoryList = ({ onCategorySelect, onAllCategoriesClick }) => {
     );
 
     const getCategoriesToDisplay = () => {
-        if (categories.length > 0) {
-            const mappedCategories = mapApiCategoriesToDisplay(categories, screenType);
-            return mappedCategories.slice(0, screenType === 'mobile' ? 8 : 11);
-        }
-        // Fallback on mock data
-        return screenType === 'mobile'
-            ? mobileCategories
-            : screenType === 'tablet'
-            ? tabletCategories
-            : desktopCategories;
+        const mappedCategories = mapApiCategoriesToDisplay(categories, screenType);
+        return mappedCategories.slice(0, screenType === 'mobile' ? 8 : 11);
     };
 
     const categoriesToDisplay = getCategoriesToDisplay();
@@ -242,10 +168,11 @@ const CategoryList = ({ onCategorySelect, onAllCategoriesClick }) => {
             <div className={styles.categoryList}>
                 <div className={styles.tabletContent}>
                     <div className={styles.tabletGrid}>
-                        {categoriesToDisplay.map(category => (
+                        {categoriesToDisplay.map((category, index) => (
                             <CategoryListItem
                                 key={category.id}
                                 category={category}
+                                large={largeCategoryIndexTablet.includes(index)}
                                 onCategorySelect={handleCategorySelect}
                             />
                         ))}
@@ -272,12 +199,14 @@ const CategoryList = ({ onCategorySelect, onAllCategoriesClick }) => {
                     <CategoryListItem
                         category={categoriesToDisplay[2]}
                         onCategorySelect={handleCategorySelect}
+                        large={true}
                     />
                 </div>
                 <div className={styles.row}>
                     <CategoryListItem
                         category={categoriesToDisplay[3]}
                         onCategorySelect={handleCategorySelect}
+                        large={true}
                     />
                     <CategoryListItem
                         category={categoriesToDisplay[4]}
@@ -296,6 +225,7 @@ const CategoryList = ({ onCategorySelect, onAllCategoriesClick }) => {
                     <CategoryListItem
                         category={categoriesToDisplay[7]}
                         onCategorySelect={handleCategorySelect}
+                        large={true}
                     />
                     <CategoryListItem
                         category={categoriesToDisplay[8]}
@@ -306,6 +236,7 @@ const CategoryList = ({ onCategorySelect, onAllCategoriesClick }) => {
                     <CategoryListItem
                         category={categoriesToDisplay[9]}
                         onCategorySelect={handleCategorySelect}
+                        large={true}
                     />
                     <CategoryListItem
                         category={categoriesToDisplay[10]}
