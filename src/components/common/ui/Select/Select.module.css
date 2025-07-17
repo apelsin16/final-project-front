@@ -47,7 +47,7 @@
 }
 
 .select:hover:not(.disabled) {
-    border-color: #9ca3af;
+    border-color: var(--color-dark);
 }
 
 .select:focus,
@@ -198,24 +198,24 @@
 }
 
 /* Планшети (768px - 1439px) */
-@media screen and (min-width: 768px) and (max-width: 1439px) {
+@media screen and (min-width: 767px) and (max-width: 1439px) {
     .select {
         font-size: 16px;
         line-height: 24px;
         padding: 16px 18px;
     }
-    
+
     .large {
         font-size: 16px;
         line-height: 24px;
         padding: 16px 18px;
     }
-    
+
     /* Placeholder остается #BFBEBE на планшете */
     .select:not(.hasValue) .selectText {
         color: #BFBEBE;
     }
-    
+
     /* Dropdown для планшета */
     .option {
         font-size: 16px;
@@ -223,6 +223,30 @@
     }
 }
 
+    .label {
+        color: #050505;
+        font-weight: 800;
+        font-size: 16px;
+        line-height: 1.5;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+    }
+}
+
+@media (min-width: 768px) {
+    .wrapper {
+        width: 315px;
+    }
+
+    .label {
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .label {
+        font-weight: 800;
+        color: #050505;
 /* Десктоп (1440px+) */
 @media screen and (min-width: 1440px) {
     .select {
@@ -230,18 +254,18 @@
         line-height: 24px;
         padding: 16px 18px;
     }
-    
+
     .large {
         font-size: 16px;
         line-height: 24px;
         padding: 16px 18px;
     }
-    
+
     /* Placeholder меняется на #1A1A1A на десктопе */
     .select:not(.hasValue) .selectText {
         color: #1A1A1A;
     }
-    
+
     /* Dropdown для десктопа */
     .option {
         font-size: 16px;

@@ -1,0 +1,42 @@
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: #BFBEBE 1px solid;
+    margin-top: 32px;
+    margin-bottom: 32px;
+}
+
+.textarea {
+    width: 270px;
+    color: #BFBEBE;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    letter-spacing: -0.02em;
+    border: none;
+    outline: none;
+    resize: none;
+    overflow: hidden;
+    line-height: 1.5;
+    min-height: 40px;
+    max-height: 300px;
+    transition: height 0.2s ease;
+}
+
+.footer {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42857;
+    letter-spacing: -0.02em;
+    color: #BFBEBE;
+}
+
+.counter {
+    color: #050505;
+}
+
+@media (min-width: 768px) {
+    .wrapper {
+        width: 649px;
+    }
+}

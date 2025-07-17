@@ -36,6 +36,8 @@
         /* Стилі з Figma для планшета */
         font-size: 40px;
         line-height: 44px;
+        max-width: 678px;
+        /* height: 140px; - не обмежуємо висоту, нехай буде динамічною */
     }
 }
 
@@ -53,6 +55,7 @@
     .mainTitle {
         font-size: 28px;
         line-height: 32px;
+        max-width: 280px;
     }
 }
 

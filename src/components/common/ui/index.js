@@ -7,6 +7,9 @@ export { default as MainTitle } from './MainTitle/MainTitle';
 export { default as PathInfo } from './PathInfo/PathInfo';
 export { default as Subtitle } from './Subtitle/Subtitle';
 export { default as Modal } from './Modal/Modal';
+export { default as FileInput } from './FileInput/FileInput';
+export { default as Textarea } from './Textarea/Textarea';
+export { default as CookTimeInput } from './CookTimeInput/CookTimeInput';
 // export { default as Typography } from './Typography/Typography';
 
 // Додавай сюди нові UI компоненти у форматі:

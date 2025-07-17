@@ -1,7 +1,8 @@
 /* Базові стилі для Subtitle */
 .subtitle {
     font-family: 'Mulish', sans-serif;
-    letter-spacing: -0.28px;
+    font-weight: 800; /* ExtraBold */
+    letter-spacing: -0.02em; /* -2% */
     margin: 0;
     padding: 0;
     display: block;
@@ -20,10 +21,16 @@
 /* Планшетні стилі */
 @media (min-width: 768px) {
     .subtitle {
+        width: 443px;
         font-size: 16px;
-        line-height: 24px;
-        letter-spacing: -0.32px;
+        line-height: 1.5;
+        font-weight: 500;
         color: var(--color-dark);
+    }
+
+    .small {
+        font-size: 28px;
+        line-height: 32px;
     }
 
     .limitWidth {
@@ -47,4 +54,19 @@
 
 .subtitle.accent {
     color: var(--color-accent, #2563eb);
+}
+
+@media (max-width: 767px) {
+    .subtitle {
+        font-family: 'Mulish', sans-serif;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        margin: 0;
+        padding: 0;
+        display: block;
+        width: 100%;
+        color: #BFBEBE;
+        font-size: 14px;
+        line-height: 20px;
+    }
 }
