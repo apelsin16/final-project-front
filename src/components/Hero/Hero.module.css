@@ -4,13 +4,12 @@
     background: var(--color-black);
     overflow: hidden;
     border-radius: 20px;
-    height: 796px;
     margin: -16px -8px 0;
 }
 
 /* Hero Content */
 .heroContent {
-    padding: 194px 16px 0;
+    padding: 140px 16px 338px;
     text-align: center;
     color: var(--color-white);
     font-family: var(--font-family-main);
@@ -84,12 +83,11 @@
 @media screen and (min-width: 768px) {
     .hero {
         border-radius: 30px;
-        height: 992px;
         margin: -20px -16px 0;
     }
 
     .heroContent {
-        padding: 217px 29px 0;
+        padding: 147px 29px 451px;
         gap: 40px;
     }
 
@@ -138,12 +136,11 @@
 /* Десктопна версія (1440px+) */
 @media screen and (min-width: 1440px) {
     .hero {
-        height: 970px;
         margin: -20px -60px 0;
     }
 
     .heroContent {
-        padding: 154px;
+        padding: 88px 0 452px;
     }
 
     .heroTitle {

@@ -15,30 +15,30 @@ function App() {
 
     return (
         <Routes>
-            <Route path='/' element={<SharedLayout />}>
+            <Route path="/" element={<SharedLayout />}>
                 {/* Публічні сторінки */}
                 <Route index element={<HomePage />} />
-                <Route path='ui' element={<UIExamplesPage />} />
-                <Route 
-                    path='recipe/:id' 
+                <Route path="ui" element={<UIExamplesPage />} />
+                <Route
+                    path="recipe/:id"
                     element={
                         <PrivateRoute isAuth={isAuth}>
                             <RecipePage />
                         </PrivateRoute>
-                    } 
+                    }
                 />
 
                 {/* Приватні сторінки — доступні тільки для авторизованих */}
                 <Route
-                    path='recipe/add'
+                    path="recipe/add"
                     element={
-                        // <PrivateRoute isAuth={isAuth}>
+                        <PrivateRoute isAuth={isAuth}>
                             <AddRecipePage />
-                        // </PrivateRoute>
+                        </PrivateRoute>
                     }
                 />
                 <Route
-                    path='user/:id'
+                    path="user/:id"
                     element={
                         <PrivateRoute isAuth={isAuth}>
                             <UserPage />

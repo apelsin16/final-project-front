@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import iziToast from 'izitoast';
 
-const API = import.meta.env.VITE_BACKEND_URL + '/users';
+const API = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000/api';
 
 const initialState = {
     user: null, // поточний користувач
@@ -16,7 +16,7 @@ const initialState = {
 // Реєстрація
 export const register = createAsyncThunk('auth/register', async (data, { rejectWithValue }) => {
     try {
-        const res = await axios.post(`${API}/register`, data);
+        const res = await axios.post(`${API}/users/register`, data);
         return res.data;
     } catch (err) {
         return rejectWithValue(err.response?.data?.message);
@@ -26,7 +26,7 @@ export const register = createAsyncThunk('auth/register', async (data, { rejectW
 // Логін
 export const login = createAsyncThunk('auth/login', async (data, { rejectWithValue }) => {
     try {
-        const res = await axios.post(`${API}/login`, data);
+        const res = await axios.post(`${API}/users/login`, data);
         return res.data;
     } catch (err) {
         return rejectWithValue(err.response?.data?.message);
@@ -37,7 +37,11 @@ export const login = createAsyncThunk('auth/login', async (data, { rejectWithVal
 export const logout = createAsyncThunk('auth/logout', async (_, { getState, rejectWithValue }) => {
     try {
         const token = getState().auth.token;
-        await axios.post(`${API}/logout`, {}, { headers: { Authorization: `Bearer ${token}` } });
+        await axios.post(
+            `${API}/users/logout`,
+            {},
+            { headers: { Authorization: `Bearer ${token}` } }
+        );
         return;
     } catch (err) {
         return rejectWithValue(err.response?.data?.message);
@@ -51,7 +55,7 @@ export const fetchCurrentUser = createAsyncThunk(
         try {
             const token = getState().auth.token || localStorage.getItem('token');
             if (!token) throw new Error('No token');
-            const res = await axios.get(`${API}/current`, {
+            const res = await axios.get(`${API}/users/current`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             return { ...res.data, token };

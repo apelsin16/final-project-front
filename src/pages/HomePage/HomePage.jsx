@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import styles from './HomePage.module.css';
-import Hero from '../../components/Hero/Hero';
 import Categories from '../../components/Categories/Categories';
 import Recipes from '../../components/Recipes/Recipes';
 import Testimonials from '../../components/Testimonials/Testimonials';
@@ -40,7 +39,6 @@ function HomePage() {
 
     return (
         <div className={`${styles.homePage} ${styles.categories}`}>
-            <Hero />
             {renderContent()}
             <Testimonials />
         </div>

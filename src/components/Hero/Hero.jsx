@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { openModal } from '../../features/modal/modalSlice';
+import Header from '../Header/Header';
 import styles from './Hero.module.css';
 
 // Import floating images
@@ -33,25 +34,18 @@ const Hero = () => {
     };
 
     return (
-        <>
+        <div className="container">
             <section className={styles.hero}>
+                <Header theme="dark" />
                 {/* Hero Content */}
                 <div className={styles.heroContent}>
-                    <h1 className={styles.heroTitle}>
-                        Improve Your Culinary Talents
-                    </h1>
+                    <h1 className={styles.heroTitle}>Improve Your Culinary Talents</h1>
                     <p className={styles.heroSubtitle}>
-                        Amazing recipes for beginners in the world of cooking,
-                        enveloping you in the aromas and tastes of various
-                        cuisines.
+                        Amazing recipes for beginners in the world of cooking, enveloping you in the
+                        aromas and tastes of various cuisines.
                     </p>
-                    <button
-                        className={styles.heroButton}
-                        onClick={handleAddRecipeClick}
-                    >
-                        <span className={styles.heroButtonText}>
-                            Add recipe
-                        </span>
+                    <button className={styles.heroButton} onClick={handleAddRecipeClick}>
+                        <span className={styles.heroButtonText}>Add recipe</span>
                     </button>
                 </div>
 
@@ -65,11 +59,7 @@ const Hero = () => {
                         media="(min-width: 768px)"
                         srcSet={`${headerBigImg} 1x, ${headerBigImg2x} 2x, ${headerBigImg3x} 3x`}
                     />
-                    <img
-                        src={headerBigImg}
-                        alt="Culinary dish"
-                        className={styles.bigImageEl}
-                    />
+                    <img src={headerBigImg} alt="Culinary dish" className={styles.bigImageEl} />
                 </picture>
 
                 {/* Small rotated image */}
@@ -89,7 +79,7 @@ const Hero = () => {
                     />
                 </picture>
             </section>
-        </>
+        </div>
     );
 };
 
