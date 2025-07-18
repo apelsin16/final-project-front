@@ -92,7 +92,7 @@ const AddRecipeForm = () => {
                     {
                         ingredientId,
                         // name: ingredient.name,
-                        // image: ingredient.image,
+                        image: ingredient.image,
                         measure: ingredientAmount,
                     },
                 ]);
@@ -248,7 +248,7 @@ const AddRecipeForm = () => {
                     {selectedIngredients.map(ing => (
                         <li key={ing.id} className={styles.ingridient}>
                             <div className={styles.imageWrapper}>
-                                <img src={ing.img} alt={ing.name} width="50" />
+                                <img src={ing.image} alt={ing.name} width="50" />
                             </div>
                             <div className={styles.info}>
                                 <span className={styles.ingridientName}>{ing.name}</span>
