@@ -16,26 +16,10 @@ import {
     IconButton,
 } from '../common/ui';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    selectError,
-    selectLoading,
-    selectIngredients,
-} from '../../features/ingridient/ingridientsSlice';
+import { selectIngredients } from '../../features/ingridient/ingridientsSlice';
+import { fetchCategories } from '../../features/categories/categoriesSlice';
 import { fetchIngredients } from '../../features/ingridient/ingridientsOps';
 import { createRecipe } from '../../features/recipe/recipeSlice';
-
-const categoryOptions = [
-    { value: 'beef', label: 'Beef' },
-    { value: 'breakfast', label: 'Breakfast' },
-    { value: 'desserts', label: 'Desserts' },
-    { value: 'lamb', label: 'Lamb' },
-    { value: 'miscellaneous', label: 'Miscellaneous' },
-    { value: 'pasta', label: 'Pasta' },
-    { value: 'pork', label: 'Pork' },
-    { value: 'seafood', label: 'Seafood' },
-    { value: 'side', label: 'Side' },
-    { value: 'starter', label: 'Starter' },
-];
 
 const schema = Yup.object().shape({
     image: Yup.mixed().required('Фото обовʼязкове'),
@@ -82,9 +66,12 @@ const AddRecipeForm = () => {
     //   const loading = useSelector(selectLoading);
     //   const error = useSelector(selectError);
     const ingredientsOptions = useSelector(selectIngredients);
+    const { categories, isLoading, error } = useSelector(state => state.categories);
+    console.log(categories);
 
     useEffect(() => {
         dispatch(fetchIngredients());
+        dispatch(fetchCategories());
     }, []);
 
     const handleImageChange = file => {
@@ -115,10 +102,11 @@ const AddRecipeForm = () => {
         }
     };
 
-    const selectOptions = ingredientsOptions.map(({ id, name }) => ({
-        value: id,
-        label: name,
-    }));
+    const selectOptions = arr =>
+        arr.map(({ id, name }) => ({
+            value: id,
+            label: name,
+        }));
 
     const handleRemoveIngredient = id => {
         setSelectedIngredients(prev => prev.filter(i => i.id !== id));
@@ -202,7 +190,7 @@ const AddRecipeForm = () => {
                     rules={{ required: 'category' }}
                     render={({ field }) => (
                         <Select
-                            options={categoryOptions}
+                            options={selectOptions(categories)}
                             value={field.value}
                             onChange={field.onChange}
                             placeholder="Select a category"
@@ -231,7 +219,7 @@ const AddRecipeForm = () => {
                 {/* Інгредієнти */}
                 <div className={styles.ingredients}>
                     <Select
-                        options={selectOptions}
+                        options={selectOptions(ingredientsOptions)}
                         value={ingredientId}
                         onChange={setIngredientId}
                         placeholder="Add the ingredient"
