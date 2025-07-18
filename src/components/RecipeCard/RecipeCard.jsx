@@ -5,6 +5,8 @@ import { toggleFavorite } from '../../features/recipes/recipesSlice';
 import IconButton from '../common/ui/IconButton/IconButton';
 import styles from './RecipeCard.module.css';
 
+const API = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000/api';
+
 const RecipeCard = ({ recipe }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -33,18 +35,20 @@ const RecipeCard = ({ recipe }) => {
         navigate(`/recipe/${recipe.id}`);
     };
 
+    console.log(recipe);
+
     // Get owner info with fallback values
-    const ownerName = recipe.owner?.name || 'Unknown User';
-    const ownerAvatar = recipe.owner?.avatarURL || '/src/assets/images/desserts.jpg';
+    const ownerName = recipe.ownerId || 'Unknown User';
+    const ownerAvatar = API + recipe.owner?.avatarURL || '/src/assets/images/desserts.jpg';
 
     // Check if recipe is in favorites
-    const isFavorite = favoriteIds.includes(recipe.id) || recipe.isFavorite;
+    const isFavorite = favoriteIds.includes(recipe.id) || API + recipe.isFavorite;
 
     return (
         <div className={styles.recipeCard}>
             <div className={styles.imageContainer}>
                 <img
-                    src={recipe.thumb || recipe.image || '/src/assets/images/desserts.jpg'}
+                    src={API + recipe.thumb || API + recipe.image || '/desserts.jpg'}
                     alt={recipe.title}
                     className={styles.recipeImage}
                 />
