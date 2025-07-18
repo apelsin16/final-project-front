@@ -38,7 +38,7 @@ const RecipeCard = ({ recipe }) => {
     console.log(recipe);
 
     // Get owner info with fallback values
-    const ownerName = recipe.owner?.id || 'Unknown User';
+    const ownerName = recipe.owner?.name || 'Unknown User';
     const ownerAvatar = recipe.owner?.avatarURL || '/desserts.jpg';
 
     // Check if recipe is in favorites
