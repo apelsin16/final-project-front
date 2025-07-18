@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-
 import { getPopularRecipes } from '../../services/recipes';
+import RecipeCard from '../RecipeCard/RecipeCard';
 import styles from './PopularRecipes.module.css';
 
 const PopularRecipes = () => {
@@ -32,19 +32,7 @@ const PopularRecipes = () => {
             <ul className={styles.list}>
                 {recipes.map(recipe => (
                     <li key={recipe.id} className={styles.item}>
-                        <img
-                            src={
-                                recipe.thumb || 'https://via.placeholder.com/300x200?text=No+Image'
-                            }
-                            alt={recipe.title}
-                            className={styles.image}
-                        />
-                        <div>
-                            <p className={styles.title}>{recipe.title}</p>
-                            <p className={styles.category}>
-                                {recipe.category?.name || 'Unknown Category'}
-                            </p>
-                        </div>
+                        <RecipeCard recipe={recipe} />
                     </li>
                 ))}
             </ul>
