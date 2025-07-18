@@ -48,7 +48,13 @@ const RecipeCard = ({ recipe }) => {
         <div className={styles.recipeCard}>
             <div className={styles.imageContainer}>
                 <img
-                    src={recipe.thumb || API + recipe.image || '/desserts.jpg'}
+                    src={
+                        recipe.thumb?.startsWith('http')
+                            ? recipe.thumb
+                            : recipe.thumb
+                            ? `${API}${recipe.thumb}`
+                            : '/desserts.jpg'
+                    }
                     alt={recipe.title}
                     className={styles.recipeImage}
                 />
