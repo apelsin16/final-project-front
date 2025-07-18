@@ -58,6 +58,8 @@ const AddRecipeForm = () => {
     const [ingredientAmount, setIngredientAmount] = useState('');
     const [previewUrl, setPreviewUrl] = useState(null);
 
+    console.log(selectedIngredients);
+
     const imageFile = watch('image');
     const description = watch('description') || '';
     const instruction = watch('instruction') || '';
@@ -91,8 +93,8 @@ const AddRecipeForm = () => {
                     ...prev,
                     {
                         ingredientId,
-                        // name: ingredient.name,
-                        image: ingredient.image,
+                        name: ingredient.name,
+                        image: ingredient.img,
                         measure: ingredientAmount,
                     },
                 ]);
@@ -248,7 +250,7 @@ const AddRecipeForm = () => {
                     {selectedIngredients.map(ing => (
                         <li key={ing.id} className={styles.ingridient}>
                             <div className={styles.imageWrapper}>
-                                <img src={ing.image} alt={ing.name} width="50" />
+                                <img src={ing.image} alt={ing.name} width="75" />
                             </div>
                             <div className={styles.info}>
                                 <span className={styles.ingridientName}>{ing.name}</span>
