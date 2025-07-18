@@ -6,6 +6,7 @@ import Hero from '../Hero/Hero';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCurrentUser, setSessionLoading } from '../../features/auth/authSlice';
+import styles from './SharedLayout.module.css';
 
 export default function SharedLayout() {
     const dispatch = useDispatch();
@@ -25,11 +26,11 @@ export default function SharedLayout() {
 
     return (
         // Семантична структура layout
-        <>
+        <div className={styles.body}>
             {/* Хедер застосунку (логотип, навігація, авторизація) */}
             <header>{isHomePage ? <Hero /> : <Header />}</header>
             {/* Основний контент сторінки */}
-            <main>
+            <main className={styles.main}>
                 {/* Контейнер для обмеження ширини і відступів (адаптивність — через CSS) */}
                 <div className="container">
                     <Outlet />
@@ -38,6 +39,6 @@ export default function SharedLayout() {
             <footer>
                 <Footer />
             </footer>
-        </>
+        </div>
     );
 }

@@ -58,8 +58,6 @@ const AddRecipeForm = () => {
     const [ingredientAmount, setIngredientAmount] = useState('');
     const [previewUrl, setPreviewUrl] = useState(null);
 
-    console.log(selectedIngredients);
-
     const imageFile = watch('image');
     const description = watch('description') || '';
     const instruction = watch('instruction') || '';
@@ -69,7 +67,6 @@ const AddRecipeForm = () => {
     //   const error = useSelector(selectError);
     const ingredientsOptions = useSelector(selectIngredients);
     const { categories, isLoading, error } = useSelector(state => state.categories);
-    console.log(categories);
 
     useEffect(() => {
         dispatch(fetchIngredients());
