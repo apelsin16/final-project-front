@@ -38,8 +38,8 @@ const RecipeCard = ({ recipe }) => {
     console.log(recipe);
 
     // Get owner info with fallback values
-    const ownerName = recipe.ownerId || 'Unknown User';
-    const ownerAvatar = API + recipe.owner?.avatarURL || '/src/assets/images/desserts.jpg';
+    const ownerName = recipe.owner?.id || 'Unknown User';
+    const ownerAvatar = recipe.owner?.avatarURL || '/desserts.jpg';
 
     // Check if recipe is in favorites
     const isFavorite = favoriteIds.includes(recipe.id) || API + recipe.isFavorite;
@@ -48,7 +48,7 @@ const RecipeCard = ({ recipe }) => {
         <div className={styles.recipeCard}>
             <div className={styles.imageContainer}>
                 <img
-                    src={API + recipe.thumb || API + recipe.image || '/desserts.jpg'}
+                    src={recipe.thumb || API + recipe.image || '/desserts.jpg'}
                     alt={recipe.title}
                     className={styles.recipeImage}
                 />
