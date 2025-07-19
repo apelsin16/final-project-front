@@ -13,8 +13,6 @@ const RecipeCard = ({ recipe }) => {
     const { isAuth } = useSelector(state => state.auth);
     const { favoriteIds } = useSelector(state => state.recipes);
 
-    console.log('recipe', recipe);
-
     const handleAuthorClick = () => {
         if (isAuth) {
             // Use owner.id if available, otherwise use ownerId
@@ -39,12 +37,19 @@ const RecipeCard = ({ recipe }) => {
 
     // Get owner info with fallback values
     const ownerName = recipe.owner?.name;
-    const ownerAvatar = recipe.owner?.avatarURL
-        ? recipe.owner.avatarURL.startsWith('http')
-            ? recipe.owner.avatarURL
-            : API + recipe.owner.avatarURL
-        : '/desserts.jpg';
+    let ownerAvatar = '/desserts.jpg';
 
+    if (recipe.owner?.avatarURL) {
+        const url = recipe.owner.avatarURL;
+
+        if (url.startsWith('http')) {
+            ownerAvatar = url; // повний шлях
+        } else if (url.startsWith('/')) {
+            ownerAvatar = API + url; // локальний шлях
+        } else {
+            ownerAvatar = url;
+        }
+    }
     // Check if recipe is in favorites
     const isFavorite = favoriteIds.includes(recipe.id) || API + recipe.isFavorite;
 
