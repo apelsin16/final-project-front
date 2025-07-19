@@ -19,8 +19,6 @@ const RecipeList = ({ recipes, isLoading }) => {
         );
     }
 
-    console.log(recipes);
-
     return (
         <div className={styles.recipeList}>
             {recipes.map(recipe => (

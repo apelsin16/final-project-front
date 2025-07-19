@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -58,15 +58,11 @@ const AddRecipeForm = () => {
     const [ingredientAmount, setIngredientAmount] = useState('');
     const [previewUrl, setPreviewUrl] = useState(null);
 
-    const imageFile = watch('image');
-    const description = watch('description') || '';
-    const instruction = watch('instruction') || '';
-
     const dispatch = useDispatch();
     //   const loading = useSelector(selectLoading);
     //   const error = useSelector(selectError);
     const ingredientsOptions = useSelector(selectIngredients);
-    const { categories, isLoading, error } = useSelector(state => state.categories);
+    const { categories } = useSelector(state => state.categories);
 
     useEffect(() => {
         dispatch(fetchIngredients());
@@ -108,7 +104,7 @@ const AddRecipeForm = () => {
         }));
 
     const handleRemoveIngredient = id => {
-        setSelectedIngredients(prev => prev.filter(i => i.id !== id));
+        setSelectedIngredients(prev => prev.filter(i => i.ingredientId !== id));
     };
 
     const handleClear = () => {
@@ -132,7 +128,15 @@ const AddRecipeForm = () => {
         formData.append('categoryId', data.category);
         formData.append('time', data.cookTime);
         formData.append('instructions', data.instruction);
-        formData.append('ingredients', JSON.stringify(selectedIngredients));
+        formData.append(
+            'ingredients',
+            JSON.stringify(
+                selectedIngredients.map(({ ingredientId, measure }) => ({
+                    ingredientId,
+                    measure,
+                }))
+            )
+        );
 
         try {
             dispatch(createRecipe(formData));
@@ -245,17 +249,17 @@ const AddRecipeForm = () => {
                 {/* Список інгредієнтів */}
                 <ul className={styles.ingridientList}>
                     {selectedIngredients.map(ing => (
-                        <li key={ing.id} className={styles.ingridient}>
+                        <li key={ing.ingredientId} className={styles.ingridient}>
                             <div className={styles.imageWrapper}>
                                 <img src={ing.image} alt={ing.name} width="75" />
                             </div>
                             <div className={styles.info}>
                                 <span className={styles.ingridientName}>{ing.name}</span>
-                                <span className={styles.ingridientQn}>{ing.amount}</span>
+                                <span className={styles.ingridientQn}>{ing.measure}</span>
                             </div>
                             <IconButton
                                 icon="close"
-                                onClick={() => handleRemoveIngredient(ing.id)}
+                                onClick={() => handleRemoveIngredient(ing.ingredientId)}
                                 className={stylesIconButton.ingridientRemoveButton}
                             />
                         </li>

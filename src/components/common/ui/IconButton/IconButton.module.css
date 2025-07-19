@@ -152,13 +152,10 @@ a.social:visited {
     border-color: #e0e0e0;
 }
 
-
-@media (max-width: 767px) {
-    .ingridientRemoveButton {
-        width: 16px;
-        height: 16px;
-        border: none;
-        padding: 0;
-        align-self: flex-start;
-    }
+.ingridientRemoveButton {
+    width: 16px;
+    height: 16px;
+    border: none;
+    padding: 0;
+    align-self: flex-start;
 }

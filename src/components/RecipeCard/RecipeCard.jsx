@@ -11,7 +11,9 @@ const RecipeCard = ({ recipe }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { isAuth } = useSelector(state => state.auth);
-    const { favoriteIds, favoritesLoading } = useSelector(state => state.recipes);
+    const { favoriteIds } = useSelector(state => state.recipes);
+
+    console.log('recipe', recipe);
 
     const handleAuthorClick = () => {
         if (isAuth) {
@@ -35,10 +37,8 @@ const RecipeCard = ({ recipe }) => {
         navigate(`/recipe/${recipe.id}`);
     };
 
-    console.log(recipe);
-
     // Get owner info with fallback values
-    const ownerName = recipe.owner?.name || 'Unknown User';
+    const ownerName = recipe.owner?.name;
     const ownerAvatar = recipe.owner?.avatarURL
         ? recipe.owner.avatarURL.startsWith('http')
             ? recipe.owner.avatarURL
