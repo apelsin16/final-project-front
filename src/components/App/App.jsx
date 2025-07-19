@@ -1,55 +1,57 @@
-import './App.css';
+import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router';
 import SharedLayout from '../SharedLayout/SharedLayout.jsx';
-import HomePage from '../../pages/HomePage/HomePage.jsx';
-import RecipePage from '../../pages/RecipePage/RecipePage';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
-import AddRecipePage from '../../pages/AddRecipePage/AddRecipePage';
-import UserPage from '../../pages/UserPage/UserPage';
-import UIExamplesPage from '../UIExamplesPage/UIExamplesPage';
 import { useSelector } from 'react-redux';
+import './App.css';
+
+const HomePage = lazy(() => import('../../pages/HomePage/HomePage.jsx'));
+const RecipePage = lazy(() => import('../../pages/RecipePage/RecipePage'));
+const AddRecipePage = lazy(() => import('../../pages/AddRecipePage/AddRecipePage'));
+const UserPage = lazy(() => import('../../pages/UserPage/UserPage'));
 
 function App() {
     // Отримуємо статус авторизації з redux
     const isAuth = useSelector(state => state.auth.isAuth);
 
     return (
-        <Routes>
-            <Route path="/" element={<SharedLayout />}>
-                {/* Публічні сторінки */}
-                <Route index element={<HomePage />} />
-                <Route path="ui" element={<UIExamplesPage />} />
-                <Route
-                    path="recipe/:id"
-                    element={
-                        <PrivateRoute isAuth={isAuth}>
-                            <RecipePage />
-                        </PrivateRoute>
-                    }
-                />
+        <Suspense fallback={<div>Loading...</div>}>
+            <Routes>
+                <Route path="/" element={<SharedLayout />}>
+                    {/* Публічні сторінки */}
+                    <Route index element={<HomePage />} />
+                    <Route
+                        path="recipe/:id"
+                        element={
+                            <PrivateRoute isAuth={isAuth}>
+                                <RecipePage />
+                            </PrivateRoute>
+                        }
+                    />
 
-                {/* Приватні сторінки — доступні тільки для авторизованих */}
-                <Route
-                    path="recipe/add"
-                    element={
-                        <PrivateRoute isAuth={isAuth}>
-                            <AddRecipePage />
-                        </PrivateRoute>
-                    }
-                />
-                <Route
-                    path="user/:id"
-                    element={
-                        <PrivateRoute isAuth={isAuth}>
-                            <UserPage />
-                        </PrivateRoute>
-                    }
-                />
+                    {/* Приватні сторінки — доступні тільки для авторизованих */}
+                    <Route
+                        path="recipe/add"
+                        element={
+                            <PrivateRoute isAuth={isAuth}>
+                                <AddRecipePage />
+                            </PrivateRoute>
+                        }
+                    />
+                    <Route
+                        path="user/:id"
+                        element={
+                            <PrivateRoute isAuth={isAuth}>
+                                <UserPage />
+                            </PrivateRoute>
+                        }
+                    />
 
-                {/* TODO: Додати 404 сторінку */}
-                {/* <Route path="*" element={<NotFoundPage />} /> */}
-            </Route>
-        </Routes>
+                    {/* TODO: Додати 404 сторінку */}
+                    {/* <Route path="*" element={<NotFoundPage />} /> */}
+                </Route>
+            </Routes>
+        </Suspense>
     );
 }
 
