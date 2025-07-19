@@ -1,10 +1,10 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 64px;
-  padding-top: 126px;
-  padding-bottom: 64px;
-  max-width: 1280px; /* expanded to fit Figma frame */
+  /* gap: 64px; */
+  /* padding-top: 126px; */
+  /* padding-bottom: 64px; */
+  /* max-width: 1280px; */
   margin: 0 auto;
 }
 
@@ -54,22 +54,15 @@
 .rightCol {
   display: flex;
   flex-direction: column;
-  gap: 40px; /* per Figma gap-10 (40px) */
+  /* gap: 40px;  */
 }
 
-@media screen and (min-width: 768px) {
-  .container {
-    gap: 100px;
-    padding-top: 150px;
-    padding-bottom: 100px;
-  }
-}
 
 @media screen and (min-width: 1440px) {
   .container {
-    gap: 120px;
-    padding-top: 170px;
-    padding-bottom: 120px;
+    /* gap: 120px; */
+    /* padding-top: 170px; */
+    /* padding-bottom: 120px; */
   }
 }
 
