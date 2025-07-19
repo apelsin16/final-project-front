@@ -139,7 +139,7 @@ const AddRecipeForm = () => {
         );
 
         try {
-            dispatch(createRecipe(formData));
+            await dispatch(createRecipe(formData));
             navigate('/user/' + user.id);
         } catch (error) {
             alert('Сталася помилка: ' + error.message);
