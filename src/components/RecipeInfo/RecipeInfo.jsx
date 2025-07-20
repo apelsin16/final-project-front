@@ -48,15 +48,14 @@ const RecipeInfo = ({ id }) => {
         const data = await getRecipeById(id);
         console.log(JSON.stringify(data));
       } catch (error) {
-        const { message } = normalizeHttpError(error);
-        toast.error(message ?? DEFAULT_ERROR_MESSAGE);
+        const { message } = error;
+        toast.error(message ?? "Unknown error");
       } finally {
         setLoading(false);
       }
     };
 
     fetchRecipeTest();
-
     fetchRecipe();
   }, [id]);
 
@@ -67,7 +66,7 @@ const RecipeInfo = ({ id }) => {
     <>
       <RecipeMainInfo recipe={recipe} />
       <RecipeIngredients ingredients={recipe.ingredients} />
-      <RecipePreparation preparation={recipe.preparation} />
+      <RecipePreparation preparation={recipe.instructions} recipeId={recipe.id} />
     </>
   );
 };
