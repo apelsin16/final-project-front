@@ -53,7 +53,23 @@
 .no-recipes,
 .no-followers {
   text-align: center;
-  font-size: 1.1rem;
-  color: #888;
-  margin: 2rem 0;
+  font-size: var(--font-size-medium-m);
+  color: var(--color-dark);
+  margin-top: 80px;
+}
+
+@media screen and (min-width: 768px) {
+  .no-recipes,
+  .no-followers {
+    font-size: var(--font-size-medium);
+    margin-top: 100px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .no-recipes,
+  .no-followers {
+    font-size: var(--font-size-large);
+    margin-top: 140px;
+  }
 }

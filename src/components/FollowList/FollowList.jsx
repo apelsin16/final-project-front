@@ -14,8 +14,6 @@ import css from './FollowList.module.css';
 export const FollowList = ({
   connectionList,
   isCheckFollowing = false,
-  pagination,
-  setCurrentPage,
   isCurrentUser = false,
 }) => {
   const dispatch = useDispatch();
@@ -80,19 +78,6 @@ export const FollowList = ({
     [changeFollowStatus]
   );
 
-  const handlePageChange = useCallback(
-    page => {
-      if (pagination && page >= 1 && page <= pagination.totalPages) {
-        setCurrentPage(page);
-      }
-    },
-    [pagination, setCurrentPage]
-  );
-
-  const showPagination =
-    pagination &&
-    (pagination.totalFollowers > 9 || pagination.totalFollowing > 9);
-
   const renderEmptyMessage = () => {
     if (!isCurrentUser) {
       return `This user has no ${
@@ -108,7 +93,7 @@ export const FollowList = ({
   };
 
   return (
-    <div>
+    <>
       {!connectionList || connectionList.length === 0 ? (
         <p className={css['no-followers']}>{renderEmptyMessage()}</p>
       ) : (
@@ -139,28 +124,6 @@ export const FollowList = ({
           )}
         </ul>
       )}
-
-      {showPagination && (
-        <div className={css['pagination']}>
-          {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map(
-            page => (
-              <button
-                key={page}
-                onClick={() => handlePageChange(page)}
-                className={`${css['pagination-button']} ${
-                  pagination.currentPage === page ? css['active-page'] : ''
-                }`}
-                aria-current={
-                  pagination.currentPage === page ? 'page' : undefined
-                }
-                aria-label={`Go to page ${page}`}
-              >
-                {page}
-              </button>
-            )
-          )}
-        </div>
-      )}
-    </div>
+    </>
   );
 };
