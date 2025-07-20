@@ -35,23 +35,29 @@ body,
   border: none;
   box-sizing: border-box;
 }
+
 li {
   list-style: none;
 }
+
 a {
   color: inherit;
 }
+
 a:link,
 a:visited {
   text-decoration: none;
 }
+
 a:hover {
   text-decoration: none;
 }
+
 img {
   display: block;
   max-width: 100%;
 }
+
 h1,
 h2,
 h3,
@@ -61,12 +67,14 @@ h6 {
   font-weight: inherit;
   font-size: inherit;
 }
+
 input,
 button,
 textarea {
   font-family: inherit;
   font-size: inherit;
 }
+
 button {
   cursor: pointer;
   color: inherit;
@@ -110,13 +118,13 @@ h2 {
    - max-width: 1440px з 1440px
 */
 .container {
-    max-width: 375px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 16px;
-    padding-right: 16px;
-    padding-top: 24px;
-    box-sizing: border-box;
+  max-width: 375px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 24px;
+  box-sizing: border-box;
 }
 
 @media (min-width: 768px) {
@@ -124,7 +132,7 @@ h2 {
     max-width: 768px;
     padding-left: 16px;
     padding-right: 16px;
-        padding-top: 36px;
+    padding-top: 36px;
   }
 }
 

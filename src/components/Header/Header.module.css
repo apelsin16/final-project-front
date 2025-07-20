@@ -1,5 +1,5 @@
 .header {
-    padding: 20px 40px;
+    padding: 16px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,14 +9,20 @@
     border-top-right-radius: 24px;
 }
 
-.container {
-    max-width: 1240px;
-    margin: 0 auto;
-    padding: 0 16px;
-    width: 100%;
+.wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+}
+
+button.menu {
+    background: black;
+    border: none;
+}
+
+button.menu svg {
+    fill: white;
 }
 
 .logo {
@@ -30,8 +36,15 @@
 }
 
 .nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100vh;
     display: flex;
-    gap: 30px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .link {
@@ -58,8 +71,8 @@
 .userMenu {
     position: relative;
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
+    gap: 4px;
 }
 
 .avatarWrapper {
@@ -173,4 +186,12 @@
 .toggleBtn.active {
     background-color: black;
     color: white;
+}
+
+@media (min-width: 768px) {
+    .nav {
+        position: static;
+        flex-direction: row;
+        height: auto;
+    }
 }

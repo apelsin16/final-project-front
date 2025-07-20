@@ -1,41 +1,44 @@
 // SharedLayout.jsx
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import Hero from '../Hero/Hero';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import {
-  fetchCurrentUser,
-  setSessionLoading,
-} from '../../features/auth/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCurrentUser, setSessionLoading } from '../../features/auth/authSlice';
+import styles from './SharedLayout.module.css';
 
 export default function SharedLayout() {
-  const dispatch = useDispatch();
-  // При монтуванні layout пробуємо відновити користувача по токену
-  useEffect(() => {
-    dispatch(setSessionLoading(true));
-    dispatch(fetchCurrentUser()).finally(() => {
-      dispatch(setSessionLoading(false));
-    });
-  }, [dispatch]);
+    const dispatch = useDispatch();
 
-  return (
-    // Семантична структура layout
-    <>
-      {/* Хедер застосунку (логотип, навігація, авторизація) */}
-      <header>
-        <Header />
-      </header>
-      {/* Основний контент сторінки */}
-      <main>
-        {/* Контейнер для обмеження ширини і відступів (адаптивність — через CSS) */}
-        <div className="container">
-          <Outlet />
+    const location = useLocation();
+
+    const id = useSelector(state => state.auth.user?.id);
+    // При монтуванні layout пробуємо відновити користувача по токену
+    useEffect(() => {
+        dispatch(setSessionLoading(true));
+        dispatch(fetchCurrentUser()).finally(() => {
+            dispatch(setSessionLoading(false));
+        });
+    }, [dispatch]);
+
+    const isHomePage = location.pathname === '/';
+
+    return (
+        // Семантична структура layout
+        <div className={styles.body}>
+            {/* Хедер застосунку (логотип, навігація, авторизація) */}
+            <header>{isHomePage ? <Hero /> : <Header />}</header>
+            {/* Основний контент сторінки */}
+            <main className={styles.main}>
+                {/* Контейнер для обмеження ширини і відступів (адаптивність — через CSS) */}
+                <div className="container">
+                    <Outlet />
+                </div>
+            </main>
+            <footer>
+                <Footer />
+            </footer>
         </div>
-      </main>
-      <footer>
-        <Footer />
-      </footer>
-    </>
-  );
+    );
 }

@@ -19,6 +19,7 @@ const ICONS = {
     instagram: 'instagram',
     youtube: 'youtube',
     close: 'close',
+    menu: 'menu',
 };
 
 /**

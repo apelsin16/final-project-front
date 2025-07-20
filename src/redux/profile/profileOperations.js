@@ -1,22 +1,21 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-axios.defaults.baseURL =
-  import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000/api';
+axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000/api';
 
 const authRequest = async (method, url, getState, options = {}) => {
-  const token = getState().auth.token;
-  const headers = {
-    Authorization: `Bearer ${token}`,
-    ...options.headers,
-  };
+    const token = getState().auth.token;
+    const headers = {
+        Authorization: `Bearer ${token}`,
+        ...options.headers,
+    };
 
-  try {
-    const response = await axios({ method, url, headers, ...options });
-    return response.data;
-  } catch (error) {
-    throw error.response?.data || { message: error.message };
-  }
+    try {
+        const response = await axios({ method, url, headers, ...options });
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || { message: error.message };
+    }
 };
 
 export const fetchUserRecipes = createAsyncThunk(
@@ -29,7 +28,6 @@ export const fetchUserRecipes = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  }
 );
 
 export const fetchUserFavoritesRecipes = createAsyncThunk(
@@ -42,7 +40,6 @@ export const fetchUserFavoritesRecipes = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  }
 );
 
 export const fetchUserFollowers = createAsyncThunk(
@@ -55,7 +52,6 @@ export const fetchUserFollowers = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  }
 );
 
 export const fetchUserFollowing = createAsyncThunk(
@@ -68,7 +64,6 @@ export const fetchUserFollowing = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  }
 );
 
 export const fetchOtherUserRecipes = createAsyncThunk(
@@ -81,7 +76,6 @@ export const fetchOtherUserRecipes = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  }
 );
 
 export const fetchOtherUserFollowers = createAsyncThunk(
@@ -94,7 +88,6 @@ export const fetchOtherUserFollowers = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  }
 );
 
 export const deleteRecipe = createAsyncThunk(
@@ -105,7 +98,6 @@ export const deleteRecipe = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  }
 );
 
 export const removeFavoriteRecipe = createAsyncThunk(
@@ -121,7 +113,6 @@ export const removeFavoriteRecipe = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  }
 );
 
 export const followUser = createAsyncThunk(
@@ -139,7 +130,6 @@ export const followUser = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  }
 );
 
 export const unfollowUser = createAsyncThunk(
@@ -153,5 +143,4 @@ export const unfollowUser = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
-  }
 );

@@ -21,11 +21,8 @@ const RecipeList = ({ recipes, isLoading }) => {
 
     return (
         <div className={styles.recipeList}>
-            {recipes.map((recipe) => (
-                <RecipeCard
-                    key={recipe.id}
-                    recipe={recipe}
-                />
+            {recipes.map(recipe => (
+                <RecipeCard key={recipe.id} recipe={recipe} />
             ))}
         </div>
     );

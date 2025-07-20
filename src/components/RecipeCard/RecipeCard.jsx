@@ -5,11 +5,13 @@ import { toggleFavorite } from '../../features/recipes/recipesSlice';
 import IconButton from '../common/ui/IconButton/IconButton';
 import styles from './RecipeCard.module.css';
 
+const API = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000/api';
+
 const RecipeCard = ({ recipe }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { isAuth } = useSelector(state => state.auth);
-    const { favoriteIds, favoritesLoading } = useSelector(state => state.recipes);
+    const { favoriteIds } = useSelector(state => state.recipes);
 
     const handleAuthorClick = () => {
         if (isAuth) {
@@ -34,17 +36,27 @@ const RecipeCard = ({ recipe }) => {
     };
 
     // Get owner info with fallback values
-    const ownerName = recipe.owner?.name || 'Unknown User';
-    const ownerAvatar = recipe.owner?.avatarURL || '/src/assets/images/desserts.jpg';
+    const ownerName = recipe.owner?.name;
+    const ownerAvatar = recipe.owner?.avatarURL
+        ? recipe.owner.avatarURL.startsWith('http') || recipe.owner.avatarURL.startsWith('//')
+            ? recipe.owner.avatarURL
+            : API + recipe.owner.avatarURL
+        : '/desserts.jpg';
 
     // Check if recipe is in favorites
-    const isFavorite = favoriteIds.includes(recipe.id) || recipe.isFavorite;
+    const isFavorite = favoriteIds.includes(recipe.id) || API + recipe.isFavorite;
 
     return (
         <div className={styles.recipeCard}>
             <div className={styles.imageContainer}>
                 <img
-                    src={recipe.thumb || recipe.image || '/src/assets/images/desserts.jpg'}
+                    src={
+                        recipe.thumb?.startsWith('http')
+                            ? recipe.thumb
+                            : recipe.thumb
+                            ? `${API}${recipe.thumb}`
+                            : '/desserts.jpg'
+                    }
                     alt={recipe.title}
                     className={styles.recipeImage}
                 />

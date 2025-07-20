@@ -141,21 +141,21 @@
     color: #050505;
     outline: none;
     padding: 0;
+    padding-left: 10px;
 }
 
 .inputRecipe::placeholder {
-    color: #BFBEBE;
+    color: #bfbebe;
 }
 
 .quantity {
-        border-radius: 0;
-        border: none;
-        border-bottom: 1px solid #BFBEBE;
-        outline: none;
-    }
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid #bfbebe;
+    outline: none;
+}
 
 @media (max-width: 767px) {
-    
 }
 
 @media (min-width: 768px) {

@@ -33,7 +33,7 @@ const Footer = () => {
 
             <hr className={styles.divider} />
 
-            <p className={styles.copy}>&copy;2024, Foodies. All rights reserved</p>
+            <p className={styles.copy}>&copy;2025, Foodies. All rights reserved</p>
         </footer>
     );
 };

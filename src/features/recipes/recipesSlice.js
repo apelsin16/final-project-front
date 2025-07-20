@@ -118,7 +118,7 @@ export const toggleFavorite = createAsyncThunk(
             // Try multiple possible endpoints for toggle favorite
             let response;
             try {
-                response = await axios.patch(
+                response = await axios.post(
                     `${API_URL}/recipes/${recipeId}/favorite`,
                     {},
                     { headers: { Authorization: `Bearer ${token}` } }
@@ -126,7 +126,7 @@ export const toggleFavorite = createAsyncThunk(
             } catch (firstError) {
                 // Try alternative endpoint structure
                 try {
-                    response = await axios.patch(
+                    response = await axios.post(
                         `${API_URL}/recipes/favorite/${recipeId}`,
                         {},
                         { headers: { Authorization: `Bearer ${token}` } }
