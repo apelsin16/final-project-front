@@ -1,27 +1,8 @@
-import { useCallback } from 'react';
-
 import { ListItem } from '../ListItem/ListItem';
 
 import css from './ListItems.module.css';
 
-export const ListItems = ({
-  recipes,
-  isFavorite = false,
-  pagination,
-  setCurrentPage,
-  isCurrentUser,
-}) => {
-  const handlePageChange = useCallback(
-    page => {
-      if (page >= 1 && page <= (pagination?.totalPages || 1)) {
-        setCurrentPage(page);
-      } else {
-        console.log('RecipeList: Invalid page, not setting:', page);
-      }
-    },
-    [pagination?.totalPages, setCurrentPage]
-  );
-
+export const ListItems = ({ recipes, isFavorite = false, isCurrentUser }) => {
   const getEmptyMessage = () => {
     if (isFavorite) {
       return isCurrentUser
@@ -35,7 +16,7 @@ export const ListItems = ({
   };
 
   return (
-    <div>
+    <>
       {!recipes || recipes.length === 0 ? (
         <p className={css['no-recipes']}>{getEmptyMessage()}</p>
       ) : (
@@ -56,28 +37,6 @@ export const ListItems = ({
           )}
         </ul>
       )}
-
-      {pagination && pagination.totalRecipes > pagination.recipesPerPage && (
-        <div className={css['pagination']}>
-          {Array.from(
-            { length: pagination.totalPages || 1 },
-            (_, index) => index + 1
-          ).map(page => (
-            <button
-              key={page}
-              onClick={() => handlePageChange(page)}
-              className={`${css['pagination-button']} ${
-                pagination.currentPage === page ? css['active-page'] : ''
-              }`}
-              aria-current={
-                pagination.currentPage === page ? 'page' : undefined
-              }
-            >
-              {page}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
+    </>
   );
 };
