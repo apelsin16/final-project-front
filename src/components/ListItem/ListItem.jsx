@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import iziToast from 'izitoast';
 
 import {
   deleteRecipe,
@@ -25,13 +26,31 @@ export const ListItem = ({
   const handleRemove = async id => {
     if (isRemoving) return;
     setIsRemoving(true);
+
     try {
       if (isFavorite) {
         await dispatch(removeFavoriteRecipe(id)).unwrap();
+        iziToast.success({
+          title: 'Removed',
+          message: 'Recipe removed from favorites',
+          position: 'topRight',
+        });
       } else {
         await dispatch(deleteRecipe(id)).unwrap();
+        iziToast.success({
+          title: 'Deleted',
+          message: 'Your recipe was deleted',
+          position: 'topRight',
+        });
       }
     } catch (error) {
+      iziToast.error({
+        title: 'Error',
+        message: isFavorite
+          ? 'Failed to remove from favorites'
+          : 'Failed to delete recipe',
+        position: 'topRight',
+      });
       console.error('Failed to remove recipe:', error);
     } finally {
       setIsRemoving(false);
@@ -60,7 +79,7 @@ export const ListItem = ({
         {isCurrentUser && isAuth && (
           <IconButton
             icon="delete"
-            ariaLabel="Delete recipe"
+            ariaLabel={isFavorite ? 'Remove from favorites' : 'Delete recipe'}
             className={css['recipe-delete-button']}
             onClick={() => handleRemove(id)}
             disabled={isRemoving}

@@ -199,6 +199,7 @@ function UserPage({ isAuth: isAuthProp }) {
               recipes={favorites}
               isLoading={loading}
               isCurrentUser={isCurrentUser}
+              isFavorite={true}
             />
             <RecipePagination
               currentPage={favoritesPagination?.currentPage || 1}
