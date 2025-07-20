@@ -1,9 +1,8 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router';
 import SharedLayout from '../SharedLayout/SharedLayout.jsx';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchUserFavoritesRecipes } from '../../redux/profile/profileOperations';
+import { useSelector } from 'react-redux';
 import './App.css';
 
 const HomePage = lazy(() => import('../../pages/HomePage/HomePage.jsx'));
@@ -13,13 +12,7 @@ const UserPage = lazy(() => import('../../pages/UserPage/UserPage'));
 
 function App() {
     // Отримуємо статус авторизації з redux
-    const dispatch = useDispatch();
     const isAuth = useSelector(state => state.auth.isAuth);
-    useEffect(() => {
-        if (isAuth) {
-            dispatch(fetchUserFavoritesRecipes({ page: 1, limit: 100 }));
-        }
-    }, [isAuth, dispatch]);
 
     return (
         <Suspense fallback={<div>Loading...</div>}>

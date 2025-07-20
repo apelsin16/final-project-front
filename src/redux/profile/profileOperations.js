@@ -107,18 +107,6 @@ export const deleteRecipe = createAsyncThunk(
     }
 );
 
-export const addFavoriteRecipe = createAsyncThunk(
-    'profile/addFavoriteRecipe',
-    async (id, { getState, rejectWithValue }) => {
-        try {
-            const data = await authRequest('post', `/recipes/${id}/favorite`, getState);
-            return { id, ...data };
-        } catch (error) {
-            return rejectWithValue(error);
-        }
-    }
-);
-
 export const removeFavoriteRecipe = createAsyncThunk(
     'profile/removeFavoriteRecipe',
     async (id, { getState, rejectWithValue }) => {
