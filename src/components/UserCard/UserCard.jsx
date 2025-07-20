@@ -1,85 +1,160 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import clsx from 'clsx';
-import UserAvatar from '../common/ui/UserAvatar/UserAvatar';
-import { followUser, unfollowUser, fetchFollowers } from '../../redux/users/userSlice';
+import UserInfo from '../UserInfo/UserInfo';
+import TabsList from '../TabsList/TabsList';
+import Button from '../common/ui/Button/Button.jsx';
+import { followUser, unfollowUser, fetchFollowers } from '../../redux/profile/profileSlice.js';
 import css from './UserCard.module.css';
 
-const UserCard = ({ user, activeTab }) => {
+const UserProfile = ({
+    profileUser,
+    isOwnProfile,
+    followersCount,
+    followingCount,
+    recipesCount,
+    favoritesCount,
+    activeTab,
+    setActiveTab,
+    renderTabContent,
+    openModal,
+}) => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-
-    // Масив користувачів, за якими слідкує авторизований користувач
-    const currentUserFollowing = useSelector(state => state.user.following || []);
-
+    const { following } = useSelector(state => state.user);
     const [isFollowing, setIsFollowing] = useState(false);
+    const [isHovering, setIsHovering] = useState(false);
     const [isProcessing, setIsProcessing] = useState(false);
-    const [isVisible, setIsVisible] = useState(true);
-
-    const userId = user._id || user.id;
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
-        const alreadyFollowing = currentUserFollowing.some(u => (u._id || u.id) === userId);
-        setIsFollowing(alreadyFollowing);
-    }, [currentUserFollowing, userId]);
+        if (profileUser && following && !isOwnProfile) {
+            const userId = profileUser._id || profileUser.id;
 
-    const handleFollowToggle = async () => {
-        if (isProcessing) return;
+            const alreadyFollowing =
+                Array.isArray(following) &&
+                following.some(followedUser => {
+                    const followedId = followedUser._id || followedUser.id;
+                    return followedId === userId;
+                });
+
+            setIsFollowing(alreadyFollowing);
+        }
+    }, [following, profileUser, isOwnProfile]);
+
+    const handleFollowToggle = () => {
+        if (!profileUser || isProcessing) return;
+
+        setErrorMessage('');
+        const userId = profileUser._id || profileUser.id;
         setIsProcessing(true);
 
-        try {
-            if (isFollowing) {
-                await dispatch(unfollowUser(userId)).unwrap();
+        if (isFollowing) {
+            setIsFollowing(false);
 
-                dispatch(fetchFollowers());
+            dispatch(unfollowUser(userId))
+                .unwrap()
+                .then(() => {
+                    setIsFollowing(false);
+                    dispatch(fetchFollowers(userId));
+                })
+                .catch(error => {
+                    console.error('Failed to unfollow:', error);
+                    setIsFollowing(true);
+                    setErrorMessage('Не вдалося відписатися. Спробуйте ще раз.');
+                })
+                .finally(() => {
+                    setIsProcessing(false);
+                });
+        } else {
+            setIsFollowing(true);
 
-                setIsFollowing(false);
-
-                if (activeTab === 'following') {
-                    setIsVisible(false);
-                }
-            } else {
-                await dispatch(followUser(userId)).unwrap();
-
-                // Оновити список підписок
-                dispatch(fetchFollowers());
-
-                setIsFollowing(true);
-            }
-        } catch (error) {
-            console.error('Follow toggle error:', error);
-        } finally {
-            setIsProcessing(false);
+            dispatch(followUser(userId))
+                .unwrap()
+                .then(() => {
+                    setIsFollowing(true);
+                    dispatch(fetchFollowers(userId));
+                })
+                .catch(error => {
+                    console.error('Failed to follow:', error);
+                    setIsFollowing(false);
+                    setErrorMessage('Не вдалося підписатися. Спробуйте ще раз.');
+                })
+                .finally(() => {
+                    setIsProcessing(false);
+                });
         }
     };
 
-    if (!isVisible) return null; // не відмалювати картку, якщо схована
+    const handleMouseEnter = () => {
+        if (isFollowing) {
+            setIsHovering(true);
+        }
+    };
+
+    const handleMouseLeave = () => {
+        setIsHovering(false);
+    };
 
     return (
-        <div className={css.userCard}>
-            <div
-                className={css.userInfo}
-                onClick={() => navigate(`/users/${userId}`)}
-                role="button"
-                tabIndex={0}
-            >
-                <UserAvatar src={user.avatar} showUpload={false} className={css.avatar} />
-                <div className={css.infoText}>
-                    <p className={css.name}>{user.name}</p>
-                    <p className={css.recipesCount}>{user.recipesCount || 0} recipes</p>
-                </div>
+        <div className={css.wrapper}>
+            <div className={css.userCardWrapper}>
+                {profileUser ? (
+                    <UserInfo
+                        user={profileUser}
+                        isOwnProfile={isOwnProfile}
+                        followersCount={followersCount}
+                        followingCount={followingCount}
+                        recipesCount={recipesCount}
+                        favoritesCount={favoritesCount}
+                    />
+                ) : (
+                    <div>No user data available.</div>
+                )}
+
+                {errorMessage && (
+                    <div className={css.errorMessage} role="alert" aria-live="assertive">
+                        {errorMessage}
+                    </div>
+                )}
+
+                {isOwnProfile ? (
+                    <Button className={css.button} onClick={() => openModal('logout')}>
+                        Log Out
+                    </Button>
+                ) : (
+                    profileUser && (
+                        <Button
+                            onClick={handleFollowToggle}
+                            variant={isFollowing ? 'following' : 'follow'}
+                            onMouseEnter={handleMouseEnter}
+                            onMouseLeave={handleMouseLeave}
+                            className={isFollowing && isHovering ? css.unfollowHover : ''}
+                            style={{ cursor: isProcessing ? 'wait' : 'pointer' }}
+                            disabled={isProcessing}
+                            aria-pressed={isFollowing}
+                            aria-label={isFollowing ? 'Відписатися' : 'Підписатися'}
+                        >
+                            {isProcessing
+                                ? 'Processing...'
+                                : isFollowing
+                                ? isHovering
+                                    ? 'Unfollow'
+                                    : 'FOLLOWING'
+                                : 'FOLLOW'}
+                        </Button>
+                    )
+                )}
             </div>
-            <button
-                type="button"
-                className={clsx(css.followButton, isFollowing ? css.following : css.follow)}
-                onClick={handleFollowToggle}
-                disabled={isProcessing}
-            >
-                {isProcessing ? 'Processing...' : isFollowing ? 'Following' : 'Follow'}
-            </button>
+
+            <div className={css.tabsContentWrapper}>
+                <TabsList
+                    isOwnProfile={isOwnProfile}
+                    activeTab={activeTab}
+                    setActiveTab={setActiveTab}
+                />
+                <div className={css.tabContentContainer}>{renderTabContent()}</div>
+            </div>
         </div>
     );
 };
 
-export default UserCard;
+export default React.memo(UserProfile);
