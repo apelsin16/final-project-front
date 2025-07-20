@@ -1,4 +1,3 @@
-// features/recipes/recipeSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -37,8 +36,18 @@ const recipeSlice = createSlice({
         ingredients: [],
         status: null,
         error: null,
+        favoriteIds: [],
     },
-    reducers: {},
+    reducers: {
+        toggleFavorite: (state, action) => {
+            const recipeId = action.payload;
+            if (state.favoriteIds.includes(recipeId)) {
+                state.favoriteIds = state.favoriteIds.filter(id => id !== recipeId);
+            } else {
+                state.favoriteIds.push(recipeId);
+            }
+        },
+    },
     extraReducers: builder => {
         builder
             .addCase(fetchCategories.fulfilled, (state, action) => {
@@ -61,4 +70,5 @@ const recipeSlice = createSlice({
     },
 });
 
+export const { toggleFavorite } = recipeSlice.actions;
 export default recipeSlice.reducer;
