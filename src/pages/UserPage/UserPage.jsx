@@ -15,7 +15,7 @@ import {
 } from '../../redux/profile/profileOperations';
 
 import { TabsList } from '../../components/TabsList/TabsList';
-import RecipeList from '../../components/RecipeList/RecipeList';
+import { ListItems } from '../../components/ListItems/ListItems';
 import RecipePagination from '../../components/RecipePagination/RecipePagination';
 import { FollowList } from '../../components/FollowList/FollowList';
 import { ErrorMessage } from '../../components/ErrorMessage/ErrorMessage';
@@ -175,7 +175,7 @@ function UserPage({ isAuth: isAuthProp }) {
             case 'RECIPES':
                 return (
                     <div>
-                        <RecipeList recipes={resolvedRecipes} isLoading={loading} />
+                        <ListItems recipes={resolvedRecipes} isLoading={loading} />
                         <RecipePagination
                             currentPage={resolvedRecipesPagination?.currentPage || 1}
                             totalPages={resolvedRecipesPagination?.totalPages || 1}
@@ -186,7 +186,7 @@ function UserPage({ isAuth: isAuthProp }) {
             case 'MY FAVORITES':
                 return (
                     <div>
-                        <RecipeList recipes={favorites} isLoading={loading} />
+                        <ListItems recipes={favorites} isLoading={loading} />
                         <RecipePagination
                             currentPage={favoritesPagination?.currentPage || 1}
                             totalPages={favoritesPagination?.totalPages || 1}

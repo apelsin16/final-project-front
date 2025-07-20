@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom'; // виправлено імпорт
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -8,9 +8,9 @@ import {
 } from '../../redux/profile/profileOperations';
 import { IconButton } from '../common/ui';
 
-import css from './RecipeItem.module.css';
+import css from './ListItem.module.css';
 
-export const RecipeItem = ({
+export const ListItem = ({
   image,
   title,
   instructions,

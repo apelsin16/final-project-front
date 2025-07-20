@@ -18,12 +18,14 @@ export const FollowItem = ({
     onFollow,
     isLoading,
 }) => {
-    const avatarUrl =
-        avatar && typeof avatar === 'string' && avatar.startsWith('//www.gravatar')
-            ? avatar
-            : avatar && typeof avatar === 'string'
-            ? `${API_URL}/${avatar}`
-            : `${API_URL}/default-avatar.png`;
+  const baseUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+
+  const avatarUrl =
+    avatar && typeof avatar === 'string' && avatar.startsWith('//www.gravatar')
+      ? avatar
+      : avatar && typeof avatar === 'string'
+      ? `${baseUrl}/${avatar}`
+      : `${baseUrl}/default-avatar.png`;
 
     const width = useWindowWidth();
     const imagesToShow = width >= 1440 ? 4 : 3;
