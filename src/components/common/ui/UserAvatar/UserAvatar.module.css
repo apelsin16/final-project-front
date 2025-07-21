@@ -1,84 +1,89 @@
 .avatarContainer {
-  position: relative;
-  display: inline-block;
+    position: relative;
+    display: inline-block;
 }
 
 .avatarImageWrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  overflow: hidden;
-  position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
 }
 
 .avatarDefault {
-  width: 80px;
-  height: 80px;
+    width: 80px;
+    height: 80px;
 }
 
 .avatarFollower {
-  width: 60px;
-  height: 60px;
+    width: 60px;
+    height: 60px;
 }
 
 .avatarFollowing {
-  width: 60px;
-  height: 60px;
+    width: 60px;
+    height: 60px;
 }
 
 .avatarImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 .avatarFallback {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  color: var(--color-black);
-  width: 100%;
-  height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: var(--color-black);
+    width: 100%;
+    height: 100%;
 }
 
 .avatarFallback svg {
-  width: 50%;
-  height: 50%;
+    width: 50%;
+    height: 50%;
 }
 
 .avatarUploadLabel {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 50%);
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background-color: var(--color-black);
-  color: var(--color-white);
-  font-size: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 1;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: var(--color-black);
+    color: var(--color-white);
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1;
 }
 
 .avatarUploadInput {
-  display: none;
+    display: none;
 }
 
 @media (min-width: 768px) {
-  .avatarDefault {
-    width: 120px;
-    height: 120px;
-  }
+    .avatarDefault {
+        width: 120px;
+        height: 120px;
+    }
 
-  .avatarFollower,
-  .avatarFollowing {
-    width: 85px;
-    height: 85px;
-  }
+    .avatarFollower,
+    .avatarFollowing {
+        width: 85px;
+        height: 85px;
+    }
+}
+
+.avatarInputWrapper {
+    position: relative;
 }

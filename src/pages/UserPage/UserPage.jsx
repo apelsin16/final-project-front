@@ -293,7 +293,7 @@ function UserPage() {
                         : viewedStats.ownRecipesCount ?? 0
                 }
                 favoritesCount={
-                    isCurrentUser ? favoritesPagination?.total || favorites.length : 0 // або viewedStats.favoritesCount, якщо бекенд повертає
+                    isCurrentUser ? favoritesPagination?.total || favorites.length : 0 
                 }
             />
 
