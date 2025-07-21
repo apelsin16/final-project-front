@@ -12,7 +12,7 @@ const UserPage = lazy(() => import('../../pages/UserPage/UserPage'));
 
 function App() {
     // Отримуємо статус авторизації з redux
-    const isAuth = useSelector(state => state.auth.isAuth);
+    const isAuth = useSelector(state => state.auth.isAuth) || !!localStorage.getItem('token');
 
     return (
         <Suspense fallback={<div>Loading...</div>}>

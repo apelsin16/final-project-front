@@ -9,7 +9,7 @@ import LogoutModal from '../modals/LogoutModal';
 import { Button } from '../common/ui/index';
 
 function Header({ theme }) {
-    const isAuth = useSelector(state => state.auth.isAuth);
+    const isAuth = useSelector(state => state.auth.isAuth) || !!localStorage.getItem('token');
     const user = useSelector(state => state.auth.user);
 
     const modalType = useSelector(state => state.modal.modalType);

@@ -47,7 +47,7 @@ function UserPage({ isAuth: isAuthProp }) {
         if (!isCurrentUser && userId) {
             dispatch(fetchUserById(userId));
         }
-    }, [dispatch, userId, isCurrentUser]);
+    }, [dispatch, userId, isCurrentUser, viewed]);
 
     const {
         recipes,
@@ -250,8 +250,7 @@ function UserPage({ isAuth: isAuthProp }) {
         }
     };
 
-    if (!viewed) return <p>Loading...</p>;
-    console.log('User', userId, isCurrentUser, auth.user.id, viewed);
+    if (!viewed && !isCurrentUser) return <p>Loading...</p>;
 
     return (
         <div className={styles.wrapper}>
