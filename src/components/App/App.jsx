@@ -1,8 +1,9 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { Routes, Route } from 'react-router';
 import SharedLayout from '../SharedLayout/SharedLayout.jsx';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUserFavoritesRecipes } from '../../redux/profile/profileOperations';
 import './App.css';
 
 const HomePage = lazy(() => import('../../pages/HomePage/HomePage.jsx'));
@@ -12,7 +13,13 @@ const UserPage = lazy(() => import('../../pages/UserPage/UserPage'));
 
 function App() {
     // Отримуємо статус авторизації з redux
+    const dispatch = useDispatch();
     const isAuth = useSelector(state => state.auth.isAuth);
+    useEffect(() => {
+        if (isAuth) {
+            dispatch(fetchUserFavoritesRecipes({ page: 1, limit: 100 }));
+        }
+    }, [isAuth, dispatch]);
 
     return (
         <Suspense fallback={<div>Loading...</div>}>
@@ -20,14 +27,7 @@ function App() {
                 <Route path="/" element={<SharedLayout />}>
                     {/* Публічні сторінки */}
                     <Route index element={<HomePage />} />
-                    <Route
-                        path="recipe/:id"
-                        element={
-                            // <PrivateRoute isAuth={isAuth}>
-                            <RecipePage />
-                            // </PrivateRoute>
-                        }
-                    />
+                    <Route path="recipe/:id" element={<RecipePage />} />
 
                     {/* Приватні сторінки — доступні тільки для авторизованих */}
                     <Route

@@ -14,13 +14,15 @@ export default function SharedLayout() {
     const location = useLocation();
 
     const id = useSelector(state => state.auth.user?.id);
-    // При монтуванні layout пробуємо відновити користувача по токену
     useEffect(() => {
-        dispatch(setSessionLoading(true));
-        dispatch(fetchCurrentUser()).finally(() => {
-            dispatch(setSessionLoading(false));
-        });
-    }, [dispatch]);
+        const token = localStorage.getItem('token');
+        if (token && !id) {
+            dispatch(setSessionLoading(true));
+            dispatch(fetchCurrentUser()).finally(() => {
+                dispatch(setSessionLoading(false));
+            });
+        }
+    }, [dispatch, id]);
 
     const isHomePage = location.pathname === '/';
 
