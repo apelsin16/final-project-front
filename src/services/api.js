@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { tokenStorage } from '../utils/tokenStorage.js';
 
+axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000/api/';
 const api = axios.create({
     baseURL: BACKEND_URL,
