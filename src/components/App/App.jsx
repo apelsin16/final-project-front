@@ -23,9 +23,9 @@ function App() {
                     <Route
                         path="recipe/:id"
                         element={
-                            <PrivateRoute isAuth={isAuth}>
-                                <RecipePage />
-                            </PrivateRoute>
+                            // <PrivateRoute isAuth={isAuth}>
+                            <RecipePage />
+                            // </PrivateRoute>
                         }
                     />
 
