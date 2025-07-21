@@ -1,9 +1,10 @@
 import css from './UserInfo.module.css';
 import UserAvatar from '../common/ui/UserAvatar/UserAvatar';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '../common/ui';
 import { openModal } from '../../features/modal/modalSlice';
-import { followUser } from '../../features/user/userSlice';
+import { followUser, unfollowUser } from '../../features/user/userSlice';
+import { selectUserFollowing } from '../../redux/profile/profileSelectors';
 
 const UserInfo = ({
     user,
@@ -16,6 +17,9 @@ const UserInfo = ({
     const { name, email, avatarURL } = user || {};
 
     const dispatch = useDispatch();
+    const following = useSelector(selectUserFollowing);
+
+    const isFollowed = following.some(el => el.id === user.id);
 
     return (
         <div className={css.wrapper}>
@@ -56,8 +60,15 @@ const UserInfo = ({
                     Log out
                 </Button>
             ) : (
-                <Button variant="primary" onClick={() => dispatch(followUser(user.id))}>
-                    FOLLOW
+                <Button
+                    variant="primary"
+                    onClick={
+                        !isFollowed
+                            ? () => dispatch(followUser(user.id))
+                            : () => dispatch(unfollowUser(user.id))
+                    }
+                >
+                    {!isFollowed ? 'FOLLOW' : 'UNFOLLOW'}
                 </Button>
             )}
         </div>

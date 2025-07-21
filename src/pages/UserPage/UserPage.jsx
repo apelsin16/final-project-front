@@ -292,9 +292,7 @@ function UserPage() {
                         ? recipesPagination?.total || resolvedRecipes.length
                         : viewedStats.ownRecipesCount ?? 0
                 }
-                favoritesCount={
-                    isCurrentUser ? favoritesPagination?.total || favorites.length : 0 
-                }
+                favoritesCount={isCurrentUser ? favoritesPagination?.total || favorites.length : 0}
             />
 
             <TabsList tabs={tabs} activeTab={activeTab} onTabClick={setActiveTab} />
