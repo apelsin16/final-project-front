@@ -10,6 +10,7 @@ import {
   removeFavoriteRecipe,
   unfollowUser,
   fetchOtherUserRecipes,
+  addFavoriteRecipe,
   fetchOtherUserFollowers,
 } from './profileOperations';
 
@@ -52,6 +53,12 @@ const profileSlice = createSlice({
   initialState,
   extraReducers: builder =>
     builder
+      .addCase(addFavoriteRecipe.fulfilled, (state, { payload }) => {
+        if (!state.favorites.some(recipe => recipe.id === payload.id)) {
+          state.favorites.push(payload);
+          state.favoritesPagination.totalRecipes += 1;
+        }
+      })
       .addCase(fetchUserRecipes.fulfilled, (state, { payload }) => {
         state.recipes = payload.recipes;
         state.pagination = payload.pagination;

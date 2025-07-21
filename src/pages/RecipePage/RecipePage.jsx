@@ -48,7 +48,7 @@ const RecipePage = () => {
                 <div className={css.rightCol}>
                     <RecipeMainInfo recipe={recipe} hideImage />
                     <RecipeIngredients ingredients={recipe.ingredients} />
-                    <RecipePreparation preparation={recipe.instructions} />
+                    <RecipePreparation preparation={recipe.instructions} recipeId={recipe.id} />
                 </div>
             </div>
             <PopularRecipes />
