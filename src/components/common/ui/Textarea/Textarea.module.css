@@ -1,14 +1,14 @@
 .wrapper {
     display: flex;
     justify-content: space-between;
-    border-bottom: #BFBEBE 1px solid;
+    border-bottom: #bfbebe 1px solid;
     margin-top: 32px;
     margin-bottom: 32px;
 }
 
 .textarea {
     width: 270px;
-    color: #BFBEBE;
+    color: #050505;
     font-weight: 500;
     font-size: 14px;
     line-height: 1.42857;
@@ -28,7 +28,7 @@
     font-size: 14px;
     line-height: 1.42857;
     letter-spacing: -0.02em;
-    color: #BFBEBE;
+    color: #bfbebe;
 }
 
 .counter {
@@ -40,3 +40,5 @@
         width: 649px;
     }
 }
+
+
