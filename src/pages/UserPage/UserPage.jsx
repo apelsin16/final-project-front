@@ -176,8 +176,6 @@ function UserPage({ isAuth: isAuthProp }) {
         : otherFollowersPagination;
 
     const renderContent = () => {
-        if (loading) return <Spinner loading={loading} />;
-
         if (error) {
             return <ErrorMessage error={error} onRetry={onRetry} />;
         }
@@ -250,7 +248,7 @@ function UserPage({ isAuth: isAuthProp }) {
         }
     };
 
-    if (!viewed && !isCurrentUser) return <p>Loading...</p>;
+    if (!viewed && !isCurrentUser) return <Spinner />;
 
     return (
         <div className={styles.wrapper}>
