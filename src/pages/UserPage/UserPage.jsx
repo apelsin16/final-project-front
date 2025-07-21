@@ -30,25 +30,32 @@ const TABS_CONFIG = {
     otherUser: ['RECIPES', 'FOLLOWERS'],
 };
 
-function UserPage({ isAuth: isAuthProp }) {
+function UserPage() {
     const dispatch = useDispatch();
-    const { id: userId } = useParams();
+    const { id: userIdParam } = useParams();
 
     const auth = useSelector(state => state.auth);
     const viewed = useSelector(state => state.user.viewed);
 
     const currentUserId = auth.user?.id || null;
-    const isAuth = isAuthProp ?? auth.isAuth;
+    const isAuth = auth.isAuth || !!localStorage.getItem('token');
 
-    const isCurrentUser = !userId || userId === currentUserId;
-    const effectiveUserId = userId;
+    // якщо в URL нема id (наприклад /user замість /user/:id), показуємо свій профіль
+    const isCurrentUser = !userIdParam || userIdParam === currentUserId;
+    const effectiveUserId = userIdParam ?? currentUserId;
 
+    /* ---------------- load viewed user (інший профіль) ---------------- */
     useEffect(() => {
-        if (!isCurrentUser && userId) {
-            dispatch(fetchUserById(userId));
+        if (!isCurrentUser && effectiveUserId) {
+            // не фетчимо повторно, якщо вже є профіль з тим же id
+            if (!viewed || viewed.id !== effectiveUserId) {
+                dispatch(fetchUserById(effectiveUserId));
+            }
         }
-    }, [dispatch, userId, isCurrentUser, viewed]);
+        // важливо: БЕЗ viewed у залежностях, щоб уникнути циклу
+    }, [dispatch, effectiveUserId, isCurrentUser]);
 
+    /* ---------------- profile store selectors ---------------- */
     const {
         recipes,
         favorites,
@@ -81,6 +88,7 @@ function UserPage({ isAuth: isAuthProp }) {
         loading: useSelector(selectors.selectProfileLoading),
     };
 
+    /* ---------------- tabs state ---------------- */
     const [tabs, setTabs] = useState([]);
     const [activeTab, setActiveTab] = useState('');
     const [pages, setPages] = useState({
@@ -90,9 +98,10 @@ function UserPage({ isAuth: isAuthProp }) {
         following: 1,
     });
 
-    const getTabs = useCallback(() => {
-        return isCurrentUser ? TABS_CONFIG.authenticated : TABS_CONFIG.otherUser;
-    }, [isCurrentUser]);
+    const getTabs = useCallback(
+        () => (isCurrentUser ? TABS_CONFIG.authenticated : TABS_CONFIG.otherUser),
+        [isCurrentUser]
+    );
 
     const getActionForTab = useCallback(() => {
         const baseParams = { limit: 9 };
@@ -134,6 +143,7 @@ function UserPage({ isAuth: isAuthProp }) {
         effectiveUserId,
     ]);
 
+    /* ---------------- init tabs when profile changes (current vs other) ---------------- */
     useEffect(() => {
         const newTabs = getTabs();
         setTabs(newTabs);
@@ -141,12 +151,14 @@ function UserPage({ isAuth: isAuthProp }) {
         setPages({ recipes: 1, favorites: 1, followers: 1, following: 1 });
     }, [getTabs]);
 
+    /* ---------------- prefetch following relationships for current user ---------------- */
     useEffect(() => {
         if (isAuth && currentUserId) {
             dispatch(fetchUserFollowing({ page: 1, limit: 100 }));
         }
-    }, [isAuth, isCurrentUser, dispatch]);
+    }, [isAuth, currentUserId, dispatch]);
 
+    /* ---------------- load tab content when tab/page changes ---------------- */
     useEffect(() => {
         const action = getActionForTab();
         if (action) {
@@ -163,11 +175,13 @@ function UserPage({ isAuth: isAuthProp }) {
         }
     }, [activeTab, pages, getActionForTab, dispatch]);
 
+    /* ---------------- retry handler ---------------- */
     const onRetry = () => {
         const action = getActionForTab();
         if (action) dispatch(action);
     };
 
+    /* ---------------- derive data for render ---------------- */
     const resolvedRecipes = isCurrentUser ? recipes : otherRecipes;
     const resolvedFollowers = isCurrentUser ? followers : otherFollowers;
     const resolvedRecipesPagination = isCurrentUser ? recipesPagination : otherRecipesPagination;
@@ -175,6 +189,7 @@ function UserPage({ isAuth: isAuthProp }) {
         ? followersPagination
         : otherFollowersPagination;
 
+    /* ---------------- content renderer ---------------- */
     const renderContent = () => {
         if (error) {
             return <ErrorMessage error={error} onRetry={onRetry} />;
@@ -204,7 +219,7 @@ function UserPage({ isAuth: isAuthProp }) {
                             recipes={favorites}
                             isLoading={loading}
                             isCurrentUser={isCurrentUser}
-                            isFavorite={true}
+                            isFavorite
                         />
                         <RecipePagination
                             currentPage={favoritesPagination?.currentPage || 1}
@@ -224,7 +239,7 @@ function UserPage({ isAuth: isAuthProp }) {
                         <RecipePagination
                             currentPage={resolvedFollowersPagination?.currentPage || 1}
                             totalPages={resolvedFollowersPagination?.totalPages || 1}
-                            onPageChange={page => setPages(p => ({ ...p, favorites: page }))}
+                            onPageChange={page => setPages(p => ({ ...p, followers: page }))}
                         />
                     </>
                 );
@@ -239,7 +254,7 @@ function UserPage({ isAuth: isAuthProp }) {
                         <RecipePagination
                             currentPage={followingPagination?.currentPage || 1}
                             totalPages={followingPagination?.totalPages || 1}
-                            onPageChange={page => setPages(p => ({ ...p, favorites: page }))}
+                            onPageChange={page => setPages(p => ({ ...p, following: page }))}
                         />
                     </>
                 );
@@ -248,22 +263,40 @@ function UserPage({ isAuth: isAuthProp }) {
         }
     };
 
-    if (!viewed && !isCurrentUser) return <Spinner />;
+    /* ---------------- waiting for viewed profile when not current ---------------- */
+    if (!isCurrentUser && !viewed) {
+        return <Spinner />;
+    }
+
+    // нормалізуємо shape: бекенд може повернути {id,...} або {user:{},stats:{}}
+    const viewedUser = viewed?.user || viewed || null;
+    const viewedStats = viewed?.stats || {};
 
     return (
         <div className={styles.wrapper}>
             <UserInfo
-                user={isCurrentUser ? auth.user : viewed.user}
+                user={isCurrentUser ? auth.user : viewedUser}
                 isOwnProfile={isCurrentUser}
                 followersCount={
-                    isCurrentUser ? resolvedFollowers.length : viewed?.stats?.followersCount
+                    isCurrentUser
+                        ? resolvedFollowersPagination?.total || resolvedFollowers.length
+                        : viewedStats.followersCount ?? 0
                 }
-                followingCount={following.length}
+                followingCount={
+                    isCurrentUser
+                        ? followingPagination?.total || following.length
+                        : viewedStats.followingCount ?? 0
+                }
                 recipesCount={
-                    isCurrentUser ? resolvedRecipes.length : viewed?.stats?.ownRecipesCount
+                    isCurrentUser
+                        ? recipesPagination?.total || resolvedRecipes.length
+                        : viewedStats.ownRecipesCount ?? 0
                 }
-                favoritesCount={favorites.length}
+                favoritesCount={
+                    isCurrentUser ? favoritesPagination?.total || favorites.length : 0 // або viewedStats.favoritesCount, якщо бекенд повертає
+                }
             />
+
             <TabsList tabs={tabs} activeTab={activeTab} onTabClick={setActiveTab} />
             {renderContent()}
         </div>

@@ -17,8 +17,6 @@ const UserInfo = ({
 
     const dispatch = useDispatch();
 
-    console.log('USER UserInfo', user);
-
     return (
         <div className={css.wrapper}>
             <div className={css.container}>
