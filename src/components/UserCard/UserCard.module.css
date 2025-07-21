@@ -1,0 +1,51 @@
+.profilePageWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.profileCardContainer {
+    width: 100%;
+    max-width: 375px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 40px;
+    max-height: 408px;
+}
+
+.actionButton {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.tabPanelsWrapper {
+    width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+    .profileCardContainer {
+        max-width: 394px;
+        margin: 40px auto;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .profilePageWrapper {
+        display: flex;
+        flex-direction: row;
+        margin-top: 40px;
+    }
+
+    .profileCardContainer {
+        margin-top: 0;
+    }
+
+    .tabPanelsWrapper {
+        display: flex;
+        flex-direction: column;
+    }
+}
