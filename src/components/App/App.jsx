@@ -14,13 +14,13 @@ const UserPage = lazy(() => import('../../pages/UserPage/UserPage'));
 function App() {
     // Отримуємо статус авторизації з redux
     const dispatch = useDispatch();
-    const isAuth = useSelector(state => state.auth.isAuth);
+    const isAuth = useSelector(state => state.auth.isAuth) || !!localStorage.getItem('token');
     useEffect(() => {
         if (isAuth) {
             dispatch(fetchUserFavoritesRecipes({ page: 1, limit: 100 }));
         }
     }, [isAuth, dispatch]);
-
+ 
     return (
         <Suspense fallback={<div>Loading...</div>}>
             <Routes>

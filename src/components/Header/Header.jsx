@@ -9,7 +9,7 @@ import LogoutModal from '../modals/LogoutModal';
 import { Button } from '../common/ui/index';
 
 function Header({ theme }) {
-    const isAuth = useSelector(state => state.auth.isAuth);
+    const isAuth = useSelector(state => state.auth.isAuth) || !!localStorage.getItem('token');
     const user = useSelector(state => state.auth.user);
 
     const modalType = useSelector(state => state.modal.modalType);
@@ -239,10 +239,10 @@ function Header({ theme }) {
                                 (showNav ? (
                                     <svg width={28} height={28}>
                                         <path
-                                            stroke-linejoin="round"
-                                            stroke-linecap="round"
-                                            stroke-miterlimit="4"
-                                            stroke-width="2.6667"
+                                            strokeLinejoin="round"
+                                            strokeLinecap="round"
+                                            strokeMiterlimit="4"
+                                            strokeWidth="2.6667"
                                             stroke={theme === 'dark' ? 'white' : 'black'}
                                             d="M24 8l-16 16M8 8l16 16"
                                         ></path>
@@ -258,30 +258,30 @@ function Header({ theme }) {
                                         <path
                                             d="M24.5 11.6665H3.5"
                                             stroke={theme === 'dark' ? 'white' : 'black'}
-                                            stroke-width="2"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
                                         />
                                         <path
                                             d="M24.5 7H3.5"
                                             stroke={theme === 'dark' ? 'white' : 'black'}
-                                            stroke-width="2"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
                                         />
                                         <path
                                             d="M24.5 16.3335H3.5"
                                             stroke={theme === 'dark' ? 'white' : 'black'}
-                                            stroke-width="2"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
                                         />
                                         <path
                                             d="M24.5 21H3.5"
                                             stroke={theme === 'dark' ? 'white' : 'black'}
-                                            stroke-width="2"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
                                         />
                                     </svg>
                                 ))}
